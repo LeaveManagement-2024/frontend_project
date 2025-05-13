@@ -164,12 +164,12 @@ const Leave = () => {
                 <tbody className="text-center">
                   {currentItems.map((leave, index) => (
                     <tr key={index}>
-                      <th>{leave.lmanager?.lastNameAr} {leave.lmanager?.firstNameAr}</th>
+                      <th>{leave.lmanager?.lastName} {leave.lmanager?.firstName}</th>
                       <td scope="row">{leave?.leaveType?.name}</td>
                       <td><i className="ni ni-calendar-grid-58" /> {leave.startDate}</td>
                       <td><i className="ni ni-calendar-grid-58" /> {leave.endDate}</td>
                       <td>
-                        {leave.lmanager?.lastNameAr} {leave.lmanager?.firstNameAr}
+                        {leave.lmanager?.lastName} {leave.lmanager?.firstName}
                         <Badge color={leave.managerVisa === 'true' ? 'success' : leave.managerVisa === 'false' ? 'warning' : 'secondary'}>
                           {leave.managerVisa === 'true' ? (
                             <i className="fas fa-check fa-2x"></i>
@@ -181,7 +181,7 @@ const Leave = () => {
                         </Badge>
                       </td>
                       <td>
-                        {leave.responsible?.lastNameAr} {leave.responsible?.firstNameAr}
+                        {leave.responsible?.lastName} {leave.responsible?.firstName}
                         <Badge color={leave.responsibleVisa === 'true' ? 'success' : leave.responsibleVisa === 'false' ? 'warning' : 'secondary'}>
                           {leave.responsibleVisa === 'true' ? (
                             <i className="fas fa-check fa-2x "></i>
@@ -193,7 +193,7 @@ const Leave = () => {
                         </Badge>
                       </td>
                       <td>
-                        {leave.replacement?.lastNameAr} {leave.replacement?.firstNameAr}
+                        {leave.replacement?.lastName} {leave.replacement?.firstName}
                         <Badge color={leave.remplecementVisa === 'true' ? 'success' : leave.remplecementVisa === 'false' ? 'warning' : 'secondary'}>
                           {leave.remplecementVisa === 'true' ? (
                             <i className="fas fa-check fa-2x"></i>

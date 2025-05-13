@@ -219,7 +219,7 @@ const Profile = () => {
                             id="input-first-name"
                             placeholder="Prénom"
                             type="text"
-                            defaultValue={employee.firstNameAr}
+                            defaultValue={employee.firstName}
                             disabled
                           />
                         </FormGroup>
@@ -234,7 +234,7 @@ const Profile = () => {
                           </label>
                           <Input
                             className="form-control-alternative text-right"
-                            defaultValue={employee.lastNameAr}
+                            defaultValue={employee.lastName}
                             id="input-last-name"
                             placeholder="Nom de famille"
                             type="text"

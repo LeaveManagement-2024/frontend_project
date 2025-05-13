@@ -172,9 +172,9 @@ const AddEmployeeModal = (props) => {
   };
 
   const handleAddEmployee = async () => {
-    if (!validateForm()) {
-      return;
-    }
+    /* if (!validateForm()) {
+      // return;
+    } */
     try {
       const formData = new FormData();
       formData.append('firstNameFr', firstNameFr);

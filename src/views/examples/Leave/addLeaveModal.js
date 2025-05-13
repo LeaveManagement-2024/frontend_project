@@ -27,9 +27,9 @@ const AddLeavePersonModal = ({ onHide, onSuccess, ...props }) => {
   const [services, setServices] = useState([]);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(true);
-
+  const [filiere, setFiliere] = useState([]);
   // Form fields
-  const [annualLeaveId, setAnnualLeaveId] = useState('');
+  const [annualLeaveId, setAnnualLeaveId] = useState('1');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [leaveTypeId, setLeaveTypeId] = useState('');
@@ -101,7 +101,7 @@ const AddLeavePersonModal = ({ onHide, onSuccess, ...props }) => {
 
   // Submit
   const handleAddLeave = async () => {
-    if (!validate()) return;
+    // if (!validate()) return;
     try {
       const payload = { startDate, endDate, employeeId, annualLeaveId, leaveTypeId, replacementId, lmanagerId, responsible };
       await axios.post('http://localhost:8093/leave/save', payload);
@@ -109,7 +109,9 @@ const AddLeavePersonModal = ({ onHide, onSuccess, ...props }) => {
       onSuccess && onSuccess();
       onHide();
     } catch (error) {
+      const payload = { startDate, endDate, employeeId, annualLeaveId, leaveTypeId, replacementId, lmanagerId, responsible };
       console.error('Erreur lors de l\'ajout du congé :', error);
+      console.error('Erreur lors de l\'ajout du congé :', payload);
     }
   };
 
@@ -133,7 +135,7 @@ const AddLeavePersonModal = ({ onHide, onSuccess, ...props }) => {
                         <option value="">Sélectionner le responsable</option>
                         {services.map(s => (
                           <option key={s.respService.idE} value={s.respService.idE}>
-                            {s.respService.lastNameAr} {s.respService.firstNameAr}
+                            {s.respService.lastName} {s.respService.firstName}
                           </option>
                         ))}
                       </Input>
@@ -147,7 +149,7 @@ const AddLeavePersonModal = ({ onHide, onSuccess, ...props }) => {
                         <option value="">Sélectionner le manager</option>
                         {departements.map(d => (
                           <option key={d.respDepartement.idE} value={d.respDepartement.idE}>
-                            {d.respDepartement.lastNameAr} {d.respDepartement.firstNameAr}
+                            {d.respDepartement.lastName} {d.respDepartement.firstName}
                           </option>
                         ))}
                       </Input>
@@ -163,7 +165,7 @@ const AddLeavePersonModal = ({ onHide, onSuccess, ...props }) => {
                         <option value="">Sélectionner le remplaçant</option>
                         {employees.map(emp => (
                           <option key={emp.idE} value={emp.idE}>
-                            {emp.lastNameAr} {emp.firstNameAr}
+                            {emp.lastName} {emp.firstName}
                           </option>
                         ))}
                       </Input>
@@ -177,7 +179,7 @@ const AddLeavePersonModal = ({ onHide, onSuccess, ...props }) => {
                         <option value="">Sélectionner l'employé</option>
                         {employees.map(emp => (
                           <option key={emp.idE} value={emp.idE}>
-                            {emp.lastNameAr} {emp.firstNameAr}
+                            {emp.lastName} {emp.firstName}
                           </option>
                         ))}
                       </Input>
