@@ -77,17 +77,18 @@ const PublicHolidays = () => {
   return (
     <>
       <Header />
-      <Container className="mt--7" fluid style={{ direction: 'rtl' }}>
+      <Container className="mt--7" >
         <Row>
           <div className="col">
             <Card className="shadow">
               <CardHeader className="border-0">
                 <div className="d-flex justify-content-between align-items-center">
+                  <h3 className="mb-0">Liste des jours fériés nationaux et religieux</h3>
                   <Button color="primary" onClick={() => setModalShow(true)}>
-                    Ajouter un jour férié national ou religieux
+                    Ajouter un jour férié
                   </Button>
                   <AddPublicHolidayModal show={modalShow} onHide={() => setModalShow(false)} />
-                  <h3 className="mb-0">Liste des jours fériés nationaux et religieux</h3>
+                  
                 </div>
               </CardHeader>
               <Table className="align-items-center table-flush" responsive>
@@ -123,7 +124,7 @@ const PublicHolidays = () => {
                             <DropdownItem
                               onClick={() => handleGetPublicHolidayById(holiday.id)}
                             >
-                              Voir
+                              Afficher
                             </DropdownItem>
                             <DropdownItem
                               onClick={() => { setEditModalShow(true); setEditPublicHoliday(holiday); }}

@@ -148,10 +148,11 @@ const AddPublicHolidayModal = (props) => {
         </Card>
       </Modal.Body>
       <Modal.Footer className="d-flex justify-content-center">
-        <Button onClick={props.onHide}>Fermer</Button>
-        <Button color="primary" onClick={handleAddPublicHoliday}>
-          Enregistrer
+         <Button color="primary" onClick={handleAddPublicHoliday}>
+          Ajouter
         </Button>
+        <Button onClick={props.onHide}>Fermer</Button>
+       
       </Modal.Footer>
     </Modal>
   );

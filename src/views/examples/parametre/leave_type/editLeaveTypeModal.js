@@ -82,18 +82,18 @@ const EditLeaveTypeModal = (props) => {
           </CardHeader>
           <CardBody>
             <Form>
-              <h6 className="heading-small text-right mb-4" style={{ fontSize: '1.5em' }}>
+              <h6 className="heading-small mb-4" style={{ fontSize: '1em' }}>
                 Les informations  sur le type de congé
               </h6>
               <div className="pl-lg-4">
                 <Row>
                   <Col lg="12">
-                    <FormGroup className="text-right">
+                    <FormGroup className="">
                       <label className="form-control-label" htmlFor="leaveTypeNameAr">
                         Nom de type de congé  
                       </label>
                       <Input
-                        className="form-control-alternative text-right"
+                        className="form-control-alternative"
                         id="name"
                         placeholder="Nom de type de congé "
                         value={name}
@@ -110,10 +110,11 @@ const EditLeaveTypeModal = (props) => {
         </Card>
       </Modal.Body>
       <Modal.Footer className="d-flex justify-content-center">
-        <Button onClick={props.onHide}>Quitter</Button>
         <Button variant="primary" onClick={handleUpdateLeaveType}>
           Enregistrer
         </Button>
+        <Button onClick={props.onHide}>Fermer</Button>
+        
       </Modal.Footer>
     </Modal>
   );

@@ -152,6 +152,16 @@ const postLeavesToUnconfirmE = async (ide,idl) => {
   }
 };
 
+const getDepartmentByEmployee = async (id) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/getDepartment/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching employee Department:', error);
+    throw error;
+  }
+};
+
 
 export {
   loginEmployee,
@@ -170,4 +180,5 @@ export {
   getListesConfirmedLeaves,
   postLeavesToConfirmE,
   postLeavesToUnconfirmE,
+  getDepartmentByEmployee
 };

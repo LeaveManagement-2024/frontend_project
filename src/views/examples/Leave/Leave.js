@@ -115,7 +115,7 @@ const Leave = () => {
   return (
     <>
       <Header />
-      <Container className="mt--7" fluid style={{ direction: 'rtl' }}>
+      <Container className="mt--7" >
         <Row>
           <div className="col">
             <Card className="shadow">

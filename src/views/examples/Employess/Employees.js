@@ -99,24 +99,24 @@ const Employees = () => {
   return (
     <>
       <Header />
-      <Container className="mt--7" fluid style={{ direction: 'rtl' }}>
+      <Container className="mt--7" >
         <Row>
           <div className="col">
             <Card className="shadow">
               <CardHeader className="border-0">
                 <div className="d-flex justify-content-between align-items-center">
+                  <h3 className="mb-0">Tableau des employés</h3>
                   <Button color="primary" onClick={() => setModalShow(true)}>
                     Ajouter un employé
                   </Button>
                   <AddEmployeeModal show={modalShow} onHide={() => setModalShow(false)}></AddEmployeeModal>
-                  <h3 className="mb-0">Tableau des employés</h3>
+                  
                 </div>
               </CardHeader>
               <Table className="align-items-center table-flush" responsive>
                 <thead className="thead-light text-center">
                   <tr>
                     <th scope="col">Nom complet</th>
-                    <th scope="col">Grade</th>
                     <th scope="col">Numéro de carte d'identité</th>
                     <th scope="col">E-mail</th>
                     <th scope="col">Téléphone</th>
@@ -132,20 +132,20 @@ const Employees = () => {
                           <Media className="align-items-center">
                             <img className="avatar rounded-circle mr-3"
                               alt="..."
-                              src={emp.image}
+                              src={emp.image || 'https://www.w3schools.com/howto/img_avatar.png'}
                             />
                             <Media>
                               <span className="mb-0 text-sm mx-3">
-                                {emp.firstNameAr} {emp.lastNameAr}
+                                {emp.firstName} {emp.lastName}
                               </span>
                             </Media>
                           </Media>
                         </th>
-                        <td>{emp?.grade?.gradeNameAr}</td>
+                        
                         <td>{emp.cin}</td>
                         <td>{emp.email}</td>
                         <td>{emp.phone}</td>
-                        <td>{emp.addressAr}</td>
+                        <td>{emp.address}</td>
                         <td>
                           <UncontrolledDropdown>
                             <DropdownToggle
@@ -163,7 +163,7 @@ const Employees = () => {
                                 href="#pablo"
                                 onClick={() => handleGetEmployeeById(emp.idE)}
                               >
-                                Voir
+                                Afficher
                               </DropdownItem>
                               <DropdownItem
                                 onClick={() => { setEditModalShow(true); setEditemp(emp); }}

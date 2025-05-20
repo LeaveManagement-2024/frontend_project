@@ -26,23 +26,20 @@ import {
 import {getAllGrades} from '../parametre/grades/gradesApi'
 import {getAllPosts} from '../parametre/posts/postApi'
 import {getAllFilieres} from '../parametre/filiere/filiereApi'
+import { getAllDepartments } from '../parametre/departement/departementApi';
 import { useNavigate } from "react-router-dom";
 
 const AddEmployeeModal = (props) => {
-  const [firstNameFr, setFirstNameFr] = useState('');
-  const [firstNameAr, setFirstNameAr] = useState('');
-  const [lastNameFr, setLastNameFr] = useState('');
-  const [lastNameAr, setLastNameAr] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
   const [ppr, setPpr] = useState('');
   const [cin, setCin] = useState('');
-  const [addressFr, setAddressFr] = useState('');
-  const [addressAr, setAddressAr] = useState('');
+  const [address, setAddress] = useState('');
   const [hireDate, setHireDate] = useState('');
-  const [workLocationFr, setWorkLocationFr] = useState('');
-  const [workLocationAr, setWorkLocationAr] = useState('');
+  const [workLocation, setWorkLocation] = useState('');
   const [image, setImage] = useState(null);
   const [postId, setPostId] = useState('');
   const [gradeId, setGradeId] = useState('');
@@ -74,7 +71,7 @@ const AddEmployeeModal = (props) => {
     };
     const fetchFilieres = async () => {
       try {
-        const filieresData = await getAllFilieres();
+        const filieresData = await getAllDepartments();
         setFilieres(filieresData);
       } catch (error) {
         console.error('Erreur lors de la récupération des filières:', error);
@@ -101,17 +98,11 @@ const AddEmployeeModal = (props) => {
           if (id === 'profileId') setProfileId(numberValue);
           if (id === 'filiereId') setFiliereId(numberValue);
           break;
-        case 'firstNameFr':
-          setFirstNameFr(value);
+        case 'firstName':
+          setFirstName(value);
           break;
-        case 'firstNameAr':
-          setFirstNameAr(value);
-          break;
-        case 'lastNameFr':
-          setLastNameFr(value);
-          break;
-        case 'lastNameAr':
-          setLastNameAr(value);
+        case 'lastName':
+          setLastName(value);
           break;
         case 'email':
           setEmail(value);
@@ -128,20 +119,14 @@ const AddEmployeeModal = (props) => {
         case 'cin':
           setCin(value);
           break;
-        case 'addressFr':
-          setAddressFr(value);
-          break;
-        case 'addressAr':
-          setAddressAr(value);
+        case 'address':
+          setAddress(value);
           break;
         case 'hireDate':
           setHireDate(value);
           break;
-        case 'workLocationFr':
-          setWorkLocationFr(value);
-          break;
-        case 'workLocationAr':
-          setWorkLocationAr(value);
+        case 'workLocation':
+          setWorkLocation(value);
           break;
         default:
           break;
@@ -151,20 +136,16 @@ const AddEmployeeModal = (props) => {
 
   const validateForm = () => {
     const newErrors = {};
-    if (!firstNameFr) newErrors.firstNameFr = 'Le prénom est obligatoire';
-    if (!firstNameAr) newErrors.firstNameAr = 'Le prénom est obligatoire';
-    if (!lastNameFr) newErrors.lastNameFr = 'Le nom est obligatoire';
-    if (!lastNameAr) newErrors.lastNameAr = 'Le nom est obligatoire';
+    if (!firstName) newErrors.firstNameFr = 'Le prénom est obligatoire';
+    if (!lastName) newErrors.lastNameFr = 'Le nom est obligatoire';
     if (!email) newErrors.email = 'L\'email est obligatoire';
     if (!password) newErrors.password = 'Le mot de passe est obligatoire';
     if (!phone) newErrors.phone = 'Le numéro de téléphone est obligatoire';
     if (!ppr) newErrors.ppr = 'Le numéro de recrutement est obligatoire';
     if (!cin) newErrors.cin = 'Le numéro de la carte nationale est obligatoire';
-    if (!addressFr) newErrors.addressFr = 'L\'adresse est obligatoire';
-    if (!addressAr) newErrors.addressAr = 'L\'adresse est obligatoire';
+    if (!address) newErrors.address = 'L\'adresse est obligatoire';
     if (!hireDate) newErrors.hireDate = 'La date d\'embauche est obligatoire';
-    if (!workLocationFr) newErrors.workLocationFr = 'Le lieu de travail est obligatoire';
-    if (!workLocationAr) newErrors.workLocationAr = 'Le lieu de travail est obligatoire';
+    if (!workLocation) newErrors.workLocationFr = 'Le lieu de travail est obligatoire';
     if (!gradeId) newErrors.gradeId = 'Le grade est obligatoire';
     
     setErrors(newErrors);
@@ -177,24 +158,21 @@ const AddEmployeeModal = (props) => {
     } */
     try {
       const formData = new FormData();
-      formData.append('firstNameFr', firstNameFr);
-      formData.append('firstNameAr', firstNameAr);
-      formData.append('lastNameFr', lastNameFr);
-      formData.append('lastNameAr', lastNameAr);
+
+      formData.append('firstName', firstName);
+      formData.append('lastName', lastName);
       formData.append('email', email);
       formData.append('password', password);
       formData.append('phone', phone);
       formData.append('ppr', ppr);
       formData.append('cin', cin);
-      formData.append('addressFr', addressFr);
-      formData.append('addressAr', addressAr);
+      formData.append('address', address);
       formData.append('hireDate', hireDate);
-      formData.append('workLocationFr', workLocationFr);
-      formData.append('workLocationAr', workLocationAr);
+      formData.append('workLocation', workLocation);
       formData.append('postId', postId);
       formData.append('gradeId', gradeId); 
       formData.append('filiereId', filiereId);
-      formData.append('profileId', 1);
+   
 
       if (image !== null) {
         formData.append('image', image);
@@ -227,13 +205,13 @@ const AddEmployeeModal = (props) => {
           </CardHeader>
           <CardBody>
             <Form>
-              <h6 className="heading-small text-right mb-4" style={{ fontSize: '1.5em' }}>
+              <h6 className="heading-small mb-4" style={{ fontSize: '1em' }}>
                 Informations personnelles
               </h6>
               <div className="pl-lg-4">
                 <Row>
                   <Col lg="6">
-                    <FormGroup className="text-right">
+                    <FormGroup className="">
                       <label
                         className="form-control-label"
                         htmlFor="input-first-name"
@@ -241,20 +219,20 @@ const AddEmployeeModal = (props) => {
                         Nom
                       </label>
                       <Input
-                        className="form-control-alternative text-right"                           
-                        id="lastNameAr"
+                        className="form-control-alternative "                           
+                        id="lastName"
                         placeholder="Nom"
-                        value={lastNameAr}
+                        value={lastName}
                         onChange={handleChange}
                         type="text"
                       />
-                      {errors.lastNameAr && (
-                        <div className="text-danger">{errors.lastNameAr}</div>
+                      {errors.lastName && (
+                        <div className="text-danger">{errors.lastName}</div>
                       )}
                     </FormGroup>
                   </Col>
                   <Col lg="6">    
-                    <FormGroup className="text-right">
+                    <FormGroup className="">
                       <label
                         className="form-control-label"
                         htmlFor="input-last-name"
@@ -262,22 +240,22 @@ const AddEmployeeModal = (props) => {
                         Prénom
                       </label>
                       <Input
-                        className="form-control-alternative text-right"
-                        value={firstNameAr}
+                        className="form-control-alternative "
+                        value={firstName}
                         onChange={handleChange}
-                        id="firstNameAr"
+                        id="firstName"
                         placeholder="Prénom"
                         type="text"
                       /> 
-                      {errors.firstNameAr && (
-                        <div className="text-danger">{errors.firstNameAr}</div>
+                      {errors.firstName && (
+                        <div className="text-danger">{errors.firstName}</div>
                       )}
                     </FormGroup>
                   </Col>
                 </Row>
                 <Row>
                   <Col lg="6">
-                    <FormGroup className="text-right">
+                    <FormGroup className="">
                       <label
                         className="form-control-label"
                         htmlFor="input-username"
@@ -285,7 +263,7 @@ const AddEmployeeModal = (props) => {
                         Numéro de la carte nationale
                       </label>
                       <Input
-                        className="form-control-alternative text-right"
+                        className="form-control-alternative "
                         id="cin"
                         placeholder="E161616"
                         type="text"
@@ -298,7 +276,7 @@ const AddEmployeeModal = (props) => {
                     </FormGroup>
                   </Col>
                   <Col lg="6">
-                    <FormGroup className="text-right">
+                    <FormGroup className="">
                       <label
                         className="form-control-label text-left"
                         htmlFor="input-email"
@@ -306,7 +284,7 @@ const AddEmployeeModal = (props) => {
                         Email
                       </label>
                       <Input
-                        className="form-control-alternative text-right"
+                        className="form-control-alternative "
                         id="email"
                         placeholder="jesse@example.com"
                         type="email"
@@ -321,7 +299,7 @@ const AddEmployeeModal = (props) => {
                 </Row>
                 <Row>
                   <Col lg="6">
-                    <FormGroup className="text-right">
+                    <FormGroup className="">
                       <label
                         className="form-control-label"
                         htmlFor="input-first-name"
@@ -329,7 +307,7 @@ const AddEmployeeModal = (props) => {
                         Numéro de téléphone
                       </label>
                       <Input 
-                        className="form-control-alternative text-right"
+                        className="form-control-alternative "
                         id="phone"
                         placeholder="06 56 30 98 03"
                         type="tel"
@@ -343,7 +321,7 @@ const AddEmployeeModal = (props) => {
                     </FormGroup>
                   </Col>
                   <Col lg="6">
-                    <FormGroup className="text-right">
+                    <FormGroup className="">
                       <label
                         className="form-control-label"
                         htmlFor="input-last-name"
@@ -351,11 +329,11 @@ const AddEmployeeModal = (props) => {
                         Adresse
                       </label>
                       <Input
-                        className="form-control-alternative text-right"
-                        id="addressAr"
+                        className="form-control-alternative "
+                        id="address"
                         placeholder="Ville, quartier, numéro de maison"
                         type="text"
-                        value={addressAr}
+                        value={address}
                         onChange={handleChange}
                       />
                       {errors.addressAr && (
@@ -367,43 +345,14 @@ const AddEmployeeModal = (props) => {
               </div>
               
               <hr className="my-4" />
-              <h6 className="heading-small text-right mb-4" style={{ fontSize: '1.5em' }}>
+              <h6 className="heading-small  mb-4" style={{ fontSize: '1.5em' }}>
                 Informations professionnelles
               </h6>
               <div className="pl-lg-4">
-                <Row>
-                  <Col md="12">
-                    <FormGroup className="text-right">
-                      <label
-                        className="form-control-label"
-                        htmlFor="input-address"
-                      >
-                        Grade 
-                      </label>
-                      <Input
-                        className="form-control-alternative text-right"
-                        id="gradeId"
-                        placeholder="Grade"
-                        type="select"
-                        value={gradeId}
-                        onChange={handleChange}
-                      >
-                        <option value="">Choisir le grade</option>
-                        {grades.map((grade) => (
-                          <option key={grade.idGrade} value={grade.idGrade}>
-                            {grade.gradeNameAr} {/* Note: Peut-être utiliser gradeNameFr ici */}
-                          </option>
-                        ))}
-                      </Input>
-                      {errors.gradeId && (
-                        <div className="text-danger">{errors.gradeId}</div>
-                      )}
-                    </FormGroup>
-                  </Col>
-                </Row>
+                
                 <Row>
                   <Col lg="4">
-                    <FormGroup className="text-right">
+                    <FormGroup className="">
                       <label
                         className="form-control-label"
                         htmlFor="input-city"
@@ -411,7 +360,7 @@ const AddEmployeeModal = (props) => {
                         Numéro de recrutement
                       </label>
                       <Input
-                        className="form-control-alternative text-right"
+                        className="form-control-alternative "
                         id="ppr"
                         type="text"
                         value={ppr}
@@ -424,7 +373,7 @@ const AddEmployeeModal = (props) => {
                     </FormGroup>
                   </Col>
                   <Col lg="4">
-                    <FormGroup className="text-right">
+                    <FormGroup className="">
                       <label
                         className="form-control-label"
                         htmlFor="input-country"
@@ -432,7 +381,7 @@ const AddEmployeeModal = (props) => {
                         Date d'embauche
                       </label>
                       <Input
-                        className="form-control-alternative text-right"
+                        className="form-control-alternative "
                         id="hireDate"
                         value={hireDate}
                         onChange={handleChange}
@@ -444,7 +393,7 @@ const AddEmployeeModal = (props) => {
                     </FormGroup>
                   </Col>
                   <Col lg="4">
-                    <FormGroup className="text-right">
+                    <FormGroup className="">
                       <label
                         className="form-control-label"
                         htmlFor="input-postal-code"
@@ -452,11 +401,11 @@ const AddEmployeeModal = (props) => {
                         Lieu de travail
                       </label>
                       <Input
-                        className="form-control-alternative text-right"
-                        id="workLocationAr"
+                        className="form-control-alternative "
+                        id="workLocation"
                         placeholder="Lieu de travail"
                         type="text"
-                        value={workLocationAr}
+                        value={workLocation}
                         onChange={handleChange}
                       />
                       {errors.workLocationAr && (
@@ -467,7 +416,7 @@ const AddEmployeeModal = (props) => {
                 </Row>
                 <Row>
                   <Col lg="6">
-                    <FormGroup className="text-right">
+                    <FormGroup className="">
                       <label
                         className="form-control-label"
                         htmlFor="input-city"
@@ -475,7 +424,7 @@ const AddEmployeeModal = (props) => {
                         Poste
                       </label>
                       <Input
-                        className="form-control-alternative text-right"
+                        className="form-control-alternative "
                         id="postId"
                         placeholder="Poste"
                         type="select"
@@ -485,7 +434,7 @@ const AddEmployeeModal = (props) => {
                         <option value="">Choisir le poste</option>
                         {posts.map((post) => (
                           <option key={post.idPost} value={post.idPost}>
-                            {post.postNameAr} {/* Note: Peut-être utiliser postNameFr ici */}
+                            {post.postName} {/* Note: Peut-être utiliser postNameFr ici */}
                           </option>
                         ))}
                       </Input>
@@ -495,15 +444,15 @@ const AddEmployeeModal = (props) => {
                     </FormGroup>
                   </Col>
                   <Col lg="6">
-                    <FormGroup className="text-right">
+                    <FormGroup className="">
                       <label 
                         className="form-control-label"
                         htmlFor="input-country"
                       >
-                        Filière
+                        Departement
                       </label>
                       <Input 
-                        className="form-control-alternative text-right"
+                        className="form-control-alternative "
                         id="filiereId"
                         value={filiereId}
                         placeholder="Filière"
@@ -512,8 +461,8 @@ const AddEmployeeModal = (props) => {
                       >
                         <option value="">Choisir la filière</option>
                         {filieres.map((filiere) => (
-                          <option key={filiere.idFiliere} value={filiere.idFiliere}>
-                            {filiere.filiereNameAr} {/* Note: Peut-être utiliser filiereNameFr ici */}
+                          <option key={filiere.idDepartement} value={filiere.idDepartement}>
+                            {filiere.departementName} {/* Note: Peut-être utiliser filiereNameFr ici */}
                           </option>
                         ))}
                       </Input>
@@ -523,13 +472,13 @@ const AddEmployeeModal = (props) => {
               </div>
               
               <hr className="my-4" />
-              <h6 className="heading-small text-right mb-4" style={{ fontSize: '1.5em' }}>
+              <h6 className="heading-small  mb-4" style={{ fontSize: '1.5em' }}>
                 Saisie du mot de passe
               </h6>
               <div className="pl-lg-4">
                 <Row>
                   <Col md="12">
-                    <FormGroup className="text-right">
+                    <FormGroup className="">
                       <label
                         className="form-control-label"
                         htmlFor="input-address"
@@ -537,7 +486,7 @@ const AddEmployeeModal = (props) => {
                         Mot de passe
                       </label>
                       <Input
-                        className="form-control-alternative text-right"
+                        className="form-control-alternative "
                         onChange={handleChange}
                         id="password"
                         value={password}
@@ -552,11 +501,11 @@ const AddEmployeeModal = (props) => {
                 </Row>     
               </div>
               <hr className="my-4" />
-              <h6 className="heading-small text-right mb-4" style={{ fontSize: '1.5em' }}>
+              <h6 className="heading-small  mb-4" style={{ fontSize: '1.5em' }}>
                 Photo personnelle
               </h6>
               <div className="pl-lg-4">
-                <FormGroup className="text-right">                     
+                <FormGroup className="">                     
                   <div className="d-flex justify-content-center" style={{marginTop: '7px', marginBottom: '0px'}} >
                     <Input                                                       
                       size="sm" 

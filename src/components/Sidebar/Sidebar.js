@@ -72,7 +72,7 @@ const Sidebar = (props) => {
   const createLinks = (routes) => {
     return routes.map((prop, key) => {
       return (
-        <NavItem key={key} style={{ direction: 'rtl' }}> 
+        <NavItem key={key} > 
           <NavLink
             to={prop.layout + prop.path}
             tag={NavLinkRRD}
@@ -105,7 +105,7 @@ const Sidebar = (props) => {
 
   return (
     <Navbar
-      className="navbar-vertical fixed-right navbar-light bg-white"
+      className="navbar-vertical fixed-left navbar-light bg-white"
       expand="md"
       id="sidenav-main"
     >

@@ -62,7 +62,7 @@ const Posts = () => {
   const handleDeletePost = async (idP) => {
     try {
       await deletePost(idP);
-      setMessage('تم حذف المنشور بنجاح');
+      setMessage('Post deleted successfully');
       fetchAllPosts(); // Refresh the list
     } catch (error) {
       console.error('Error deleting post:', error);
@@ -77,32 +77,32 @@ const Posts = () => {
   return (
     <>
       <Header />
-      <Container className="mt--7" fluid style={{ direction: 'rtl' }}>
+      <Container className="mt--7" >
         <Row>
           <div className="col">
             <Card className="shadow">
               <CardHeader className="border-0">
                 <div className="d-flex justify-content-between align-items-center">
+                   <h3 className="mb-0"> Tableau de Poste</h3>
                   <Button color="primary" onClick={() => setModalShow(true)}>
-                    إضافة مهمة
+                     Ajouter un Poste 
                   </Button>
                   <AddPostModal show={modalShow} onHide={() => setModalShow(false)}></AddPostModal>
-                  <h3 className="mb-0">جدول المهام</h3>
+                 
                 </div>
               </CardHeader>
               <Table className="align-items-center table-flush" responsive>
                 <thead className="thead-light text-center">
                   <tr>
-                    <th scope="col"className='text-lg'> اسم المهمة</th>
-                    <th scope="col" className='text-lg'> Nom du post</th>
-                    <th scope="col" className='text-lg' > الإعدادات </th>
+                    <th scope="col" className=''> Nom du post</th>
+                    <th scope="col" className='' > Parametre </th>
                   </tr>
                 </thead>
                 <tbody className="text-center">
                   {currentItems.map((post) => (
                     <tr key={post.idPost}>
-                      <td>{post.postNameAr}</td>
-                      <td>{post.postNameFr}</td>
+                      
+                      <td>{post.postName}</td>
                       <td >
                         <UncontrolledDropdown>
                           <DropdownToggle
@@ -119,12 +119,12 @@ const Posts = () => {
                             <DropdownItem
                               onClick={() => handleGetPostById(post.idPost)}
                             >
-                              عرض
+                              afficher
                             </DropdownItem>
                             <DropdownItem
                               onClick={() => { setEditModalShow(true); setEditPost(post); }}
                             >
-                              تعديل
+                              Modifier
                             </DropdownItem>
                             <EditPostModal 
                               show={editModalShow}
@@ -134,7 +134,7 @@ const Posts = () => {
                             <DropdownItem
                               onClick={() => handleDeletePost(post.idPost)}
                             >
-                              حذف
+                              Supprimer
                             </DropdownItem>
                           </DropdownMenu>
                         </UncontrolledDropdown>

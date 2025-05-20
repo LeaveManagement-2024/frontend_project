@@ -95,12 +95,12 @@ const EditPublicHolidayModal = (props) => {
               <div className="pl-lg-4">
                 <Row>
                   <Col lg="12">
-                    <FormGroup className="text-right">
+                    <FormGroup >
                       <label className="form-control-label" htmlFor="name">
                         Nom du jour férié
                       </label>
                       <Input
-                        className="form-control-alternative text-right"
+                        className="form-control-alternative"
                         id="name"
                         placeholder="Nom du jour férié"
                         type="text"
@@ -112,12 +112,12 @@ const EditPublicHolidayModal = (props) => {
                 </Row>
                 <Row>
                   <Col lg="12">
-                    <FormGroup className="text-right">
+                    <FormGroup >
                       <label className="form-control-label" htmlFor="startDate">
                         Date de début
                       </label>
                       <Input
-                        className="form-control-alternative text-right"
+                        className="form-control-alternative"
                         id="startDate"
                         placeholder="AAAA-MM-JJ"
                         type="date"
@@ -129,12 +129,12 @@ const EditPublicHolidayModal = (props) => {
                 </Row>
                 <Row>
                   <Col lg="12">
-                    <FormGroup className="text-right">
+                    <FormGroup >
                       <label className="form-control-label" htmlFor="endDate">
                         Date de fin
                       </label>
                       <Input
-                        className="form-control-alternative text-right"
+                        className="form-control-alternative"
                         id="endDate"
                         placeholder="AAAA-MM-JJ"
                         type="date"
@@ -146,12 +146,12 @@ const EditPublicHolidayModal = (props) => {
                 </Row>
                 <Row>
                   <Col lg="12">
-                    <FormGroup className="text-right">
+                    <FormGroup>
                       <label className="form-control-label" htmlFor="description">
                         Description
                       </label>
                       <Input
-                        className="form-control-alternative text-right"
+                        className="form-control-alternative "
                         id="description"
                         placeholder="Description du jour férié"
                         type="textarea"
@@ -167,10 +167,11 @@ const EditPublicHolidayModal = (props) => {
         </Card>
       </Modal.Body>
       <Modal.Footer className="d-flex justify-content-center">
-        <Button onClick={props.onHide}>Fermer</Button>
         <Button variant="primary" onClick={handleUpdatePublicHoliday}>
           Enregistrer
         </Button>
+        <Button onClick={props.onHide}>Fermer</Button>
+        
       </Modal.Footer>
     </Modal>
   );

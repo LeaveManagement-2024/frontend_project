@@ -38,7 +38,7 @@ const AddLeavePersonModal = ({ onHide, onSuccess, ...props }) => {
   const [responsible, setResponsible] = useState('');
   const [employeeId, setEmployeeId] = useState('');
 
-  const userId = parseInt(localStorage.getItem('userId'), 10);
+  const userId = parseInt(localStorage.getItem('userId'));
 
   // Fetch all data in parallel
   useEffect(() => {
@@ -47,17 +47,15 @@ const AddLeavePersonModal = ({ onHide, onSuccess, ...props }) => {
       getAllLeaveTypes(),
       getAllEmployees(),
       getAllAnnualLeave(),
-      getFilirerByEmployee(userId),
       getAllDepartments(),
-      getAllServices(),
+   
     ])
-      .then(([lt, emps, al, fil, deps, servs]) => {
+      .then(([lt, emps, al,deps]) => {
         setLeaveType(lt);
         setEmployees(emps);
         setAnnualLeaves(al);
-        setFiliere(fil);
+
         setDepartements(deps);
-        setServices(servs);
       })
       .catch(err => console.error('Erreur chargement données :', err))
       .finally(() => setLoading(false));
@@ -128,28 +126,14 @@ const AddLeavePersonModal = ({ onHide, onSuccess, ...props }) => {
             ) : (
               <Form>
                 <Row>
-                  <Col lg="6">
-                    <FormGroup>
-                      <label>Nom du responsable</label>
-                      <Input id="responsible" type="select" value={responsible} onChange={e => setResponsible(e.target.value)}>
-                        <option value="">Sélectionner le responsable</option>
-                        {services.map(s => (
-                          <option key={s.respService.idE} value={s.respService.idE}>
-                            {s.respService.lastName} {s.respService.firstName}
-                          </option>
-                        ))}
-                      </Input>
-                      {errors.responsible && <div className="text-danger">{errors.responsible}</div>}
-                    </FormGroup>
-                  </Col>
-                  <Col lg="6">
+                  <Col lg="12">
                     <FormGroup>
                       <label>Nom du manager</label>
                       <Input id="lmanagerId" type="select" value={lmanagerId} onChange={e => setLmanagerId(e.target.value)}>
                         <option value="">Sélectionner le manager</option>
                         {departements.map(d => (
                           <option key={d.respDepartement.idE} value={d.respDepartement.idE}>
-                            {d.respDepartement.lastName} {d.respDepartement.firstName}
+                            {d?.respDepartement?.lastName} {d?.respDepartement?.firstName}
                           </option>
                         ))}
                       </Input>

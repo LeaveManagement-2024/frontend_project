@@ -77,25 +77,26 @@ const LeaveTypes = () => {
   return (
     <>
       <Header />
-      <Container className="mt--7" fluid style={{ direction: 'rtl' }}>
+      <Container className="mt--7" >
         <Row>
           <div className="col">
             <Card className="shadow">
               <CardHeader className="border-0">
                 <div className="d-flex justify-content-between align-items-center">
+                  <h3 className="mb-0">Tableau des types de congé  </h3>
                   <Button color="primary" onClick={() => setModalShow(true)}>
                     Ajouter un type de congé  
                   </Button>
                   <AddLeaveTypeModal show={modalShow} onHide={() => setModalShow(false)}></AddLeaveTypeModal>
-                  <h3 className="mb-0">Tableau des types de congé  </h3>
+                  
                 </div>
               </CardHeader>
               <Table className="align-items-center table-flush" responsive>
                 <thead className="thead-light text-center text-lg">
                   <tr className=''>
-                    <th scope="col" className='text-lg'>Le type de congé    </th>
+                    <th scope="col" >Le type de congé </th>
                 
-                    <th scope="col" className='text-lg'>Paramètres</th>
+                    <th scope="col" >Paramètres</th>
                   </tr>
                 </thead>
                 <tbody className="text-center">

@@ -16,17 +16,14 @@ import {
 
 const AddPostModal = (props) => {
 
-  const [postNameFr, setPostNameFr] = useState('');
-  const [postNameAr, setPostNameAr] = useState('');
+  const [postName, setPostName] = useState('');
+  
 
   const handleChange = (e) => {
     const { id, value } = e.target;
     switch (id) {
-      case 'postNameFr':
-        setPostNameFr(value);
-        break;
-      case 'postNameAr':
-        setPostNameAr(value);
+      case 'postName':
+        setPostName(value);
         break;
       default:
         break;
@@ -36,8 +33,8 @@ const AddPostModal = (props) => {
   const handleAddPost = async () => {
     try {
       const postData = {
-        postNameFr,
-        postNameAr,
+        postName,
+    
       };
 
       await axios.post('http://localhost:8093/posts/save', postData)
@@ -60,44 +57,29 @@ const AddPostModal = (props) => {
       <Modal.Body>
           <Card className="bg-secondary shadow">
             <CardHeader className="bg-white border-0">
-              <h4 className='text-center text-xl'>إضافة مهمة </h4>
+              <h4 className='text-center text-xl'> Ajouter Un poste </h4>
             </CardHeader>
             <CardBody>
               <Form>
-              <h6 className="heading-small text-right mb-4" style={{ fontSize: '1.5em' }}>
-              معلومات المهمة
+              <h6 className="heading-small mb-4" style={{ fontSize: '1em' }}>
+               Information Du poste
               </h6>
                 
                 <div className="pl-lg-4">
                   <Row>
-                    <Col lg="6">
+                    <Col lg="12">
                       <FormGroup className="text-left">
-                        <label className="form-control-label" htmlFor="postNameAr">
+                        <label className="form-control-label" htmlFor="postName">
                         Nom du poste 
                         </label>
                         <Input
                           className="form-control-alternative text-left"
-                          id="postNameFr"
+                          id="postName"
                           placeholder="Nom du poste "
                           type="text"
-                          value={postNameFr}
+                          value={postName}
                           onChange={handleChange}
                         />
-                      </FormGroup>
-                    </Col>
-                    <Col lg="6">    
-                      <FormGroup className="text-right">
-                        <label className="form-control-label" htmlFor="postNameFr">
-                        اسم المهمة
-                        </label>
-                        <Input
-                          className="form-control-alternative text-right"
-                          id="postNameAr"
-                          placeholder="   اسم المهمة"
-                          type="text"
-                          value={postNameAr}
-                          onChange={handleChange}
-                        /> 
                       </FormGroup>
                     </Col>
                   </Row>
@@ -108,10 +90,11 @@ const AddPostModal = (props) => {
           </Card>
       </Modal.Body>
       <Modal.Footer className="d-flex justify-content-center">
-        <Button onClick={props.onHide}>خروج</Button>
         <Button variant="primary" onClick={handleAddPost}>
-          حفظ
+          Ajouter
         </Button>
+        <Button onClick={props.onHide}>Fermer</Button>
+        
       </Modal.Footer>
     </Modal>
   );

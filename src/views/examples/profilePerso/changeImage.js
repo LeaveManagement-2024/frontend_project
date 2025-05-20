@@ -62,7 +62,7 @@ const ChangeImage = (props) => {
           </CardHeader>
           <CardBody>
             <Form>
-              <FormGroup className="text-right">
+              <FormGroup>
                 <label>Choisir votre photo</label>
                 <div className="d-flex justify-content-center" style={{ marginTop: '7px', marginBottom: '0px' }}>
                   <Input 

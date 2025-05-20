@@ -59,7 +59,7 @@ const Index = (props) => {
       try {
         const response = await axios.get("http://localhost:8093/leave/getAll");
         const leaveData = response.data.map(leave => ({
-          title: `Congé pour ${leave.employee.firstNameFr} ${leave.employee.lastNameFr}`,
+          title: `Congé pour ${leave.employee.firstName} ${leave.employee.lastName}`,
           start: new Date(leave.startDate),
           end: new Date(leave.endDate)
         }));

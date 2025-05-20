@@ -81,14 +81,14 @@ const AdminNavbar = (props) => {
               <DropdownToggle className="pr-0" nav>
                 <Media className="align-items-center">
                   <Media className="ml-2 d-none d-lg-block">
-                    <span className="mb-0 text-lg font-weight-bold" style={{marginRight:"10px"}}>
-                        {employee.lastNameAr}  {employee.firstNameAr}
+                    <span className="mb-0 font-weight-bold" style={{marginRight:"10px"}}>
+                        {employee.lastName}  {employee.firstName}
                     </span>
                   </Media>
                  
                     <img className="avatar avatar-md rounded-circle"  style={{height:'47px'}}
                       alt="..."
-                      src={employee.image}
+                      src={employee.image || 'https://www.w3schools.com/howto/img_avatar.png'}
                     />
                  
                   

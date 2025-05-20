@@ -12,11 +12,8 @@ import '../style.css';
 const Parametre = () => {
   // Tableau des détails des cartes avec les chemins de navigation
   const cardDetails = [
-    { title: "Cadres", body: "Grades", link: "/admin/grades" },
     { title: "Missions", body: "Missions", link: "/admin/posts" },
     { title: "Départements", body: "Départements", link: "/admin/departments" },
-    { title: "Filières", body: "Filières", link: "/admin/filieres" },
-    { title: "Services", body: "Services", link: "/admin/services" },
     { title: "Jours fériés nationaux et religieux", body: "Liste des jours fériés", link: "/admin/public-holiday" },
     { title: "Types de congés", body: "Types des Congés", link: "/admin/leaveType" },
     { title: "Profils", body: "Profils", link: "/admin/profiles" }

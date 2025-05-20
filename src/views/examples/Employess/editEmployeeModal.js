@@ -17,37 +17,33 @@ import { useNavigate } from "react-router-dom";
 import {
   getFilirerByEmployee,
   getEmployeeById,
+  getDepartmentByEmployee,
  
 } from './employeeApi'; 
 import {getAllGrades} from '../parametre/grades/gradesApi'
 import{getAllPosts} from'../parametre/posts/postApi'
 import{getAllFilieres} from '../parametre/filiere/filiereApi'
+import { getAllDepartments } from '../parametre/departement/departementApi';
 
 
 const EditEmployeeModal = (props) => {
 
-  const [firstNameFr, setFirstNameFr] = useState('');
-  const [firstNameAr, setFirstNameAr] = useState('');
-  const [lastNameFr, setLastNameFr] = useState('');
-  const [lastNameAr, setLastNameAr] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
   const [ppr, setPpr] = useState('');
   const [cin, setCin] = useState('');
-  const [addressFr, setAddressFr] = useState('');
-  const [addressAr, setAddressAr] = useState('');
+  const [address, setAddress] = useState('');
   const [hireDate, setHireDate] = useState('');
-  const [workLocationFr, setWorkLocationFr] = useState('');
-  const [workLocationAr, setWorkLocationAr] = useState('');
+  const [workLocation, setWorkLocation] = useState('');
   const [image, setImage] = useState(null);
   const [postId, setPostId] = useState('');
-  const [gradeId, setGradeId] = useState('');
   const [profileId, setProfileId] = useState('');
   const [managerId, setManagerId] = useState('');
   const [responsibleId, setResponsibleId] = useState('');
   const [filiereId, setFiliereId] = useState('');
-  const [grades, setGrades] = useState([]);
   const [posts, setPosts] = useState([]);
   const [filieres, setFilieres] = useState([]);
  
@@ -56,14 +52,6 @@ const EditEmployeeModal = (props) => {
 
 
   useEffect(() => {
-    const fetchGrades = async () => {
-      try {
-        const gradesData = await getAllGrades();
-        setGrades(gradesData);
-      } catch (error) {
-        console.error('Erreur lors de la récupération des grades:', error);
-      }
-    };
     
     const fetchPosts = async () => {
       try {
@@ -75,13 +63,12 @@ const EditEmployeeModal = (props) => {
     };
     const fetchFilieres = async () => {
       try {
-        const filieresData = await getAllFilieres();
+        const filieresData = await getAllDepartments();
         setFilieres(filieresData);
       } catch (error) {
         console.error('Erreur lors de la récupération des posts:', error);
       }
     };
-    fetchGrades();
     fetchPosts();
     fetchFilieres();
     if (props.empl && props.empl.idE) {
@@ -92,8 +79,8 @@ const EditEmployeeModal = (props) => {
 
   const fetchFilierEmployee = async (id) => {
     try {
-      const filiereEmData = await getFilirerByEmployee(id);
-     setFiliereId(filiereEmData.idFiliere);
+      const filiereEmData = await getDepartmentByEmployee(id);
+     setFiliereId(filiereEmData.departementName);
     } catch (error) {
       console.error('Erreur lors de la récupération des filier de lemployee', error);
     }
@@ -106,17 +93,11 @@ const EditEmployeeModal = (props) => {
       setImage(files[0]);
     } else {
       switch (id) {
-        case 'firstNameFr':
-          setFirstNameFr(value);
+        case 'firstName':
+          setFirstName(value);
           break;
-        case 'firstNameAr':
-          setFirstNameAr(value);
-          break;
-        case 'lastNameFr':
-          setLastNameFr(value);
-          break;
-        case 'lastNameAr':
-          setLastNameAr(value);
+        case 'lastName':
+          setLastName(value);
           break;
         case 'email':
           setEmail(value);
@@ -133,26 +114,17 @@ const EditEmployeeModal = (props) => {
         case 'cin':
           setCin(value);
           break;
-        case 'addressFr':
-          setAddressFr(value);
-          break;
-        case 'addressAr':
-          setAddressAr(value);
+        case 'address':
+          setAddress(value);
           break;
         case 'hireDate':
           setHireDate(value);
           break;
-        case 'workLocationFr':
-          setWorkLocationFr(value);
-          break;
-        case 'workLocationAr':
-          setWorkLocationAr(value);
+        case 'workLocation':
+          setWorkLocation(value);
           break;
         case 'postId':
           setPostId(value);
-          break;
-        case 'gradeId':
-          setGradeId(value);
           break;
         case 'profileId':
           setProfileId(value);
@@ -171,22 +143,17 @@ const EditEmployeeModal = (props) => {
   const handleAddEmployee = async () => {
     try {
       const formData = new FormData();
-      formData.append('firstNameFr', firstNameFr);
-      formData.append('firstNameAr', firstNameAr);
-      formData.append('lastNameFr', lastNameFr);
-      formData.append('lastNameAr', lastNameAr);
+      formData.append('firstName', firstName);
+      formData.append('lastName', lastName);
       formData.append('email', email);
       formData.append('password', password);
       formData.append('phone', phone);
       formData.append('ppr', ppr);
       formData.append('cin', cin);
-      formData.append('addressFr', addressFr);
-      formData.append('addressAr', addressAr);
+      formData.append('address', address);
       formData.append('hireDate', hireDate);
-      formData.append('workLocationFr', workLocationFr);
-      formData.append('workLocationAr', workLocationAr);
+      formData.append('workLocation', workLocation);
       formData.append('postId', postId);
-      formData.append('gradeId', gradeId); 
       formData.append('filiereId', filiereId);
       formData.append('profileId', 1);
 
@@ -209,28 +176,19 @@ const EditEmployeeModal = (props) => {
   };
 
   const [employee, setEmployee] = useState({});
-
-  
-  
   const fetchEmployee = async () => {
     try {
       const data = await getEmployeeById(props.empl.idE);
       setEmployee(data);
-      setFirstNameFr(data.firstNameFr)
-      setFirstNameAr(data.firstNameAr)
-      setLastNameFr(data.lastNameFr)
-      setLastNameAr(data.lastNameAr)
+      setFirstName(data.firstName)
+      setLastName(data.lastName)
       setEmail(data.email)
       setPhone(data.phone)
       setPpr(data.ppr)
       setCin(data.cin)
-      setAddressFr(data.addressFr)
-      setAddressAr(data.addressAr)
+      setAddress(data.address)
       setHireDate(data.hireDate)
-      setWorkLocationFr(data.workLocationFr)
-      setWorkLocationAr(data.workLocationAr)
-      setFiliereId(data?.filiere?.idFiliere)
-      setGradeId(data?.grade?.idGrade)
+      setWorkLocation(data.workLocation)
       setPostId(data?.post?.idPost)
       setImage("")
      
@@ -249,134 +207,10 @@ const EditEmployeeModal = (props) => {
         <Modal.Body>
             <Card className="bg-secondary shadow">
               <CardHeader className="bg-white border-0">
-              <h4 className='text-center text-xl'>تعديل بطاقة الموظف {props.empl.idE}</h4>
+              <h4 className='text-center text-xl'>  Modifier les informations de l'employee  {/*props.empl.idE*/}</h4>
               </CardHeader>
               <CardBody>
                 <Form>
-                  <h6 className="heading-small text-right mb-4 "style={{ fontSize: '1.5em' }}>
-                   المعلومات الشخصية                 </h6>
-                  <div className="pl-lg-4">
-                    <Row>
-                      <Col lg="6">
-                        <FormGroup className="text-right">
-                          <label
-                            className="form-control-label"
-                            htmlFor="input-first-name"
-                          >
-                            الاسم العائلي
-                          </label>
-                          <Input
-                            className="form-control-alternative text-right"                           
-                            id="lastNameAr"
-                            placeholder="الاسم العائلي"
-                            value={lastNameAr}
-                            onChange={handleChange}
-                            type="text"
-                          />
-                        </FormGroup>
-                      </Col>
-                      <Col lg="6">    
-                        <FormGroup className="text-right">
-                          <label
-                            className="form-control-label"
-                            htmlFor="input-last-name"
-                          >
-                            الاسم الشخصي
-                          </label>
-                          <Input
-                            className="form-control-alternative text-right"
-                            value={firstNameAr}
-                            onChange={handleChange}
-                            id="firstNameAr"
-                            placeholder="الاسم الشخصي"
-                            type="text"
-                          /> 
-                        </FormGroup>
-                      </Col>
-                     
-                     
-                    </Row>
-                    <Row>
-                      <Col lg="6">
-                        <FormGroup className="text-right">
-                          <label
-                            className="form-control-label"
-                            htmlFor="input-username"
-                          >
-                              رقم البطاقة الوطنية
-                          </label>
-                          <Input
-                            className="form-control-alternative text-right"
-                            id="cin"
-                            placeholder="E161616"
-                            type="text"
-                            value={cin}
-                            onChange={handleChange}
-                          />
-                        </FormGroup>
-                      </Col>
-                      <Col lg="6">
-                        <FormGroup className="text-right">
-                          <label
-                            className="form-control-label text-left"
-                            htmlFor="input-email"
-                          >
-                             البريد الإلكتروني
-                          </label>
-                          <Input
-                            className="form-control-alternative text-right"
-                            id="email"
-                            placeholder="jesse@example.com"
-                            type="email"
-                            value={email}
-                            onChange={handleChange}
-                          />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col lg="6">
-                        <FormGroup className="text-right">
-                          <label
-                            className="form-control-label"
-                            htmlFor="input-first-name"
-                          >
-                            رقم الهاتف
-                          </label>
-                          <Input 
-                            className="form-control-alternative text-right"
-                            id="phone"
-                            placeholder="06 56 30 98 03"
-                            type="tel"
-                            maxLength={10}
-                            value={phone}
-                            onChange={handleChange}
-
-                          />
-                        </FormGroup>
-                      </Col>
-                      <Col lg="6">
-                        <FormGroup className="text-right">
-                          <label
-                            className="form-control-label"
-                            htmlFor="input-last-name"
-                          >
-                            العنوان
-                          </label>
-                          <Input
-                            className="form-control-alternative text-right"
-                            id="addressAr"
-                            placeholder="المدينة،الحي،رقم المنزل"
-                            type="text"
-                            value={addressAr}
-                            onChange={handleChange}
-                          />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                    
-                  </div>
-                  <hr className="my-4" />
                   <h6 className=" text-left mb-4  "style={{ fontSize: '1.3em' }}>
                    Les informations personnels
                   </h6>
@@ -392,10 +226,10 @@ const EditEmployeeModal = (props) => {
                           </label>
                           <Input
                             className="form-control-alternative text-left"                           
-                            id="lastNameFr"
+                            id="lastName"
                             placeholder="Nom"
                             type="text"
-                            value={lastNameFr}
+                            value={lastName}
                             onChange={handleChange}
                           />
                         </FormGroup>
@@ -411,10 +245,10 @@ const EditEmployeeModal = (props) => {
                           <Input
                             className="form-control-alternative text-left"
                         
-                            id="firstNameFr"
+                            id="firstName"
                             placeholder="Prénom"
                             type="text"
-                            value={firstNameFr}
+                            value={firstName}
                             onChange={handleChange}
                           /> 
                         </FormGroup>
@@ -425,10 +259,67 @@ const EditEmployeeModal = (props) => {
                     <Row>
                       
                     </Row>
+                     <Row>
+                      <Col lg="6">
+                        <FormGroup className="">
+                          <label
+                            className="form-control-label"
+                            htmlFor="input-username"
+                          >
+                              Numéro de la carte d'identité
+                          </label>
+                          <Input
+                            className="form-control-alternative "
+                            id="cin"
+                            placeholder="E161616"
+                            type="text"
+                            value={cin}
+                            onChange={handleChange}
+                          />
+                        </FormGroup>
+                      </Col>
+                      <Col lg="6">
+                        <FormGroup className="">
+                          <label
+                            className="form-control-label text-left"
+                            htmlFor="input-email"
+                          >
+                           Adresse e-mail
+                          </label>
+                          <Input
+                            className="form-control-alternative "
+                            id="email"
+                            placeholder="jesse@example.com"
+                            type="email"
+                            value={email}
+                            onChange={handleChange}
+                          />
+                        </FormGroup>
+                      </Col>
+                    </Row>
                     <Row>
-                     
-                      <Col md="12">
-                        <FormGroup className="text-left">
+                      <Col lg="6">
+                        <FormGroup className="">
+                          <label
+                            className="form-control-label"
+                            htmlFor="input-first-name"
+                          >
+                            Numéro de téléphone
+                          </label>
+                          <Input 
+                            className="form-control-alternative "
+                            id="phone"
+                            placeholder="06 56 30 98 03"
+                            type="tel"
+                            maxLength={10}
+                            value={phone}
+                            onChange={handleChange}
+
+                          />
+                        </FormGroup>
+                      </Col>
+                      <Col lg="6">
+                        <FormGroup className="">
                           <label
                             className="form-control-label"
                             htmlFor="input-last-name"
@@ -436,14 +327,13 @@ const EditEmployeeModal = (props) => {
                             Adresse
                           </label>
                           <Input
-                            className="form-control-alternative text-left"
-                           
-                            id="addressFr"
-                            placeholder="Adresse"
+                            className="form-control-alternative "
+                            id="address"
+                            placeholder="ville, quartier, numéro de maison"
                             type="text"
-                            value={addressFr}
+                            value={address}
                             onChange={handleChange}
-                              />
+                          />
                         </FormGroup>
                       </Col>
                     </Row>
@@ -452,56 +342,27 @@ const EditEmployeeModal = (props) => {
                   <hr className="my-4" />
                   
                   {/* Address */}
-                  <h6 className="heading-small text-right mb-4 "style={{ fontSize: '1.5em' }}>
-                    معلومات العمل
+                  <h6 className="heading-small  mb-4 "style={{ fontSize: '1.5em' }}>
+                     Informations de travail
                   </h6>
                   <div className="pl-lg-4">
                     <Row>
-                      <Col md="12">
-                        <FormGroup className="text-right" >
-                          <label
-                            className="form-control-label"
-                            htmlFor="input-address"
-                          >
-                            الرتبة 
-                          </label>
-                          <Input
-                            className="form-control-alternative text-right"
-                           
-                            id="gradeId"
-                            placeholder="الرتبة"
-                            type="select"
-                            value={gradeId}
-                            onChange={handleChange}
-                        
-                          >
-                            
-                          <option value="">اختر الرتبة</option>
-                        {grades.map((grade) => (
-                          <option key={grade.idGrade} value={grade.idGrade}>
-                            {grade.gradeNameAr}
-                          </option>
-                        ))}</Input>
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                    <Row>
                       <Col lg="4">
-                        <FormGroup className="text-right">
+                        <FormGroup className="">
                           <label
                             className="form-control-label"
                             htmlFor="input-city"
                           >
-                            رقم التاجر
+                             Numéro de Employees
                           </label>
                           <Input
-                            className="form-control-alternative text-right"
+                            className="form-control-alternative "
                            
                             id="ppr"
                             type="text"
                             value={ppr}
                             onChange={handleChange}
-                            placeholder="رقم التاجير"
+                            placeholder=" Numéro de Employees"
                             
                         
                             
@@ -509,15 +370,15 @@ const EditEmployeeModal = (props) => {
                         </FormGroup>
                       </Col>
                       <Col lg="4">
-                        <FormGroup className="text-right">
+                        <FormGroup className="">
                           <label
                             className="form-control-label"
                             htmlFor="input-country"
                           >
-                            تاريخ التوظيف
+                             Date d'embauche
                           </label>
                           <Input
-                            className="form-control-alternative text-right"
+                            className="form-control-alternative "
                             
                             id="hireDate"
                             value={hireDate}
@@ -527,19 +388,19 @@ const EditEmployeeModal = (props) => {
                         </FormGroup>
                       </Col>
                       <Col lg="4">
-                        <FormGroup className="text-right">
+                        <FormGroup className="">
                           <label
                             className="form-control-label"
                             htmlFor="input-postal-code"
                           >
-                              مقر العمل
+                            Lieu de travail
                           </label>
                           <Input
-                            className="form-control-alternative text-right"
-                            id="workLocationAr"
-                            placeholder="مقر العمل"
+                            className="form-control-alternative "
+                            id="workLocation"
+                            placeholder=" lieu de travail"
                             type="text"
-                            value={workLocationAr}
+                            value={workLocation}
                             onChange={handleChange}
                           />
                         </FormGroup>
@@ -547,41 +408,41 @@ const EditEmployeeModal = (props) => {
                     </Row>
                     <Row>
                       <Col lg="6">
-                        <FormGroup className="text-right">
+                        <FormGroup className="">
                           <label
                             className="form-control-label"
                             htmlFor="input-city"
                           >
-                            المهمة
+                            Poste
                           </label>
                           <Input
-                            className="form-control-alternative text-right"
+                            className="form-control-alternative "
                            
                             id="postId"
-                            placeholder="المهمة"
+                            placeholder="Poste"
                             type="select"
                             value={postId}
                             onChange={handleChange}
 
                           >
-                          <option value="">اخترالمهمة</option>
+                          <option value="">Poste</option>
                             {posts.map((post) => (
                           <option key={post.idPost} value={post.idPost}>
-                            {post.postNameAr}
+                            {post.postName}
                           </option>
                         ))}</Input>
                         </FormGroup>
                       </Col>
                       <Col lg="6">
-                        <FormGroup className="text-right">
+                        <FormGroup className="">
                           <label 
                             className="form-control-label "
                             htmlFor="input-country"
                           >
-                            الشعبة
+                            Departement
                           </label>
                           <Input 
-                            className="form-control-alternative text-right"
+                            className="form-control-alternative "
                             
                             id="filiereId"
                             value={filiereId}
@@ -590,10 +451,10 @@ const EditEmployeeModal = (props) => {
                             
                             onChange={handleChange}
                           >
-                            <option value="">اخترالشعبة</option>
+                            <option value="">Departement</option>
                             {filieres.map((filiere) => (
                           <option key={filiere.idFiliere} value={filiere.idFiliere}>
-                            {filiere.filiereNameAr}
+                            {filiere.departementName}
                           </option>
                         ))}</Input>
                         </FormGroup>
@@ -618,8 +479,8 @@ const EditEmployeeModal = (props) => {
                           </label>
                           <Input
                             className="form-control-alternative text-left"
-                            id="workLocationFr"
-                            value={workLocationFr}
+                            id="workLocation"
+                            value={workLocation}
                             placeholder=" Votre lieu de travail "
                             type="text"
                             onChange={handleChange}
@@ -629,25 +490,25 @@ const EditEmployeeModal = (props) => {
                     </Row>
                   </div>
                   <hr className="my-4" />
-                  <h6 className="heading-small text-right mb-4 "style={{ fontSize: '1.5em' }}>
-                  إدخال كلمة المرور 
+                  <h6 className="heading-small  mb-4 "style={{ fontSize: '1.3em' }}>
+                   Mot de passe  
                   </h6>
                   <div className="pl-lg-4">
                     <Row>
                       <Col md="12">
-                        <FormGroup className="text-right" >
+                        <FormGroup className="" >
                           <label
                             className="form-control-label"
                             htmlFor="input-address"
                           >
-                            كلمة المرور  
+                             Mot de passe  
                           </label>
                           <Input
-                            className="form-control-alternative text-right"
+                            className="form-control-alternative "
                             onChange={handleChange}
                             id="password"
                             value={password}
-                            placeholder="كلمة المرور "
+                            placeholder=" Mot de passe"
                             type="password"
                           />
                         </FormGroup>
@@ -656,9 +517,9 @@ const EditEmployeeModal = (props) => {
                   </div>
                   <hr className="my-4" />
                   {/* Description */}
-                  <h6 className="heading-small text-right mb-4 "style={{ fontSize: '1.5em' }}> الصورة الشخصية </h6>
+                  <h6 className="heading-small  mb-4 "style={{ fontSize: '1.3em' }}>  photo personnelle </h6>
                   <div className="pl-lg-4">
-                    <FormGroup className="text-right">                     
+                    <FormGroup className="">                     
                       <div className="d-flex justify-content-center " style={{marginTop : '7px',marginBottom : '0px'}} >
                             <Input                                                       
                               size="sm" 
@@ -676,10 +537,11 @@ const EditEmployeeModal = (props) => {
           
         </Modal.Body>
         <Modal.Footer className="d-flex justify-content-center">
-          <Button onClick={props.onHide}>خروج</Button>
           <Button variant="primary" onClick={handleAddEmployee}>
-           حفظ
+           Enregistrer
           </Button>
+          <Button onClick={props.onHide}>Fermer</Button>
+          
         </Modal.Footer>
       </Modal>
     );

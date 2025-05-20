@@ -64,7 +64,7 @@ const Departments = () => {
   const handleDeleteDepartment = async (idD) => {
     try {
       await deleteDepartment(idD);
-      setMessage('تم حذف القسم بنجاح');
+      setMessage('Department deleted successfully');
       fetchAllDepartments(); // Refresh the list
     } catch (error) {
       console.error('Error deleting department:', error);
@@ -79,50 +79,50 @@ const Departments = () => {
   return (
     <>
       <Header />
-      <Container className="mt--7" fluid style={{ direction: 'rtl' }}>
+      <Container className="mt--7" fluid >
         <Row>
           <div className="col">
             <Card className="shadow">
               <CardHeader className="border-0">
                 <div className="d-flex justify-content-between align-items-center">
+                  <h3 className="mb-0"> Tableau de Departement</h3>
                   <Button color="primary" onClick={() => setModalShow(true)}>
-                    إضافة قسم
+                    Ajouter Departement 
                   </Button>
                   <AddDepartmentModal show={modalShow} onHide={() => setModalShow(false)}></AddDepartmentModal>
-                  <h3 className="mb-0">جدول الأقسام</h3>
+                  
                 </div>
               </CardHeader>
               <Table className="align-items-center table-flush" responsive>
                 <thead className="thead-light text-center">
                   <tr>
-                    <th scope="col">اسم القسم</th>
-                    <th scope="col"> المسؤول عن القسم</th>
-                    <th scope="col "> Nom de department</th>
-                    <th scope="col "> الإعدادات</th>
+                    <th scope="col"> Nom de Departement</th>
+                    <th scope="col"> Responsable de departement </th>
+                    <th scope="col "> plus de Parametre</th>
                   </tr>
                 </thead>
                 <tbody className="text-center">
                   {currentItems.map((dept) => (
                     <tr key={dept.idDepartement}>
-                      <td>{dept.departementNameAr}</td>
+                      <td>{dept.departementName}</td>
                       <td >
 
                       <Media className="align-items-center">
                         
                             <img    className="avatar avatar-sm rounded-circle" 
                               alt="..."
-                              src={dept?.respDepartement?.image}
+                              src={dept?.respDepartement?.image ||"https://fakeimg.pl/600x400?text=employe" }
                             />
                          
                           <Media>
                             <span className="mb-0 text-sm" style={{marginRight:'15px'}}>
-                              {dept.respDepartement?.firstNameAr} {dept.respDepartement?.lastNameAr}
+                              {dept.respDepartement?.firstName} {dept.respDepartement?.lastName}
                             </span>
                           </Media>
                         </Media>
                         
                       </td>
-                      <td>{dept.departementNameFr}</td>
+                      
                       <td >
                         <UncontrolledDropdown>
                           <DropdownToggle
@@ -139,12 +139,12 @@ const Departments = () => {
                             <DropdownItem
                               onClick={() => handleGetDepartmentById(dept.idDepartement)}
                             >
-                              عرض
+                              afficher
                             </DropdownItem>
                             <DropdownItem
                               onClick={() => { setEditModalShow(true); setEditDept(dept); }}
                             >
-                              تعديل
+                              Modifier
                             </DropdownItem>
                             <EditDepartmentModal 
                               show={editModalShow}
@@ -155,7 +155,7 @@ const Departments = () => {
                             <DropdownItem
                               onClick={() => handleDeleteDepartment(dept.idDepartement )}
                             >
-                              حذف
+                              Supprimer
                             </DropdownItem>
                           </DropdownMenu>
                         </UncontrolledDropdown>

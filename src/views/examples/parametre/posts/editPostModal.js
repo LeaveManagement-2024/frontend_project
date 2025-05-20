@@ -18,8 +18,8 @@ import { getPostById, updatePost } from './postApi'; // Assurez-vous d'avoir cr�
 
 const EditPostModal = (props) => {
 
-  const [postNameFr, setPostNameFr] = useState('');
-  const [postNameAr, setPostNameAr] = useState('');
+
+  const [postName, setPostName] = useState('');
 
   const navigate = useNavigate();
 
@@ -27,8 +27,7 @@ const EditPostModal = (props) => {
     const fetchPost = async () => {
       try {
         const data = await getPostById(props.post.idPost);
-        setPostNameFr(data.postNameFr);
-        setPostNameAr(data.postNameAr);
+        setPostName(data.postName);
       } catch (error) {
         console.error('Erreur lors de la récupération du poste:', error);
       }
@@ -39,11 +38,8 @@ const EditPostModal = (props) => {
   const handleChange = (e) => {
     const { id, value } = e.target;
     switch (id) {
-      case 'postNameFr':
-        setPostNameFr(value);
-        break;
-      case 'postNameAr':
-        setPostNameAr(value);
+      case 'postName':
+        setPostName(value);
         break;
       default:
         break;
@@ -53,8 +49,7 @@ const EditPostModal = (props) => {
   const handleUpdatePost = async () => {
     try {
       const updatedPost = {
-        postNameFr,
-        postNameAr,
+        postName,
       };
 
       await axios({
@@ -80,41 +75,27 @@ const EditPostModal = (props) => {
       <Modal.Body>
         <Card className="bg-secondary shadow">
           <CardHeader className="bg-white border-0">
-            <h4 className='text-center text-xl'>تعديل المهمة </h4>
+            <h4 className='text-center text-xl'> Modifier Poste </h4>
           </CardHeader>
           <CardBody>
             <Form>
-              <h6 className="heading-small text-right mb-4" style={{ fontSize: '1.5em' }}>
-              معلومات المهمة
+              <h6 className="heading-small mb-4" style={{ fontSize: '1em' }}>
+               Information sur le poste
               </h6>
               <div className="pl-lg-4">
                 <Row>
-                  <Col lg="6">
-                    <FormGroup className="text-right">
-                      <label className="form-control-label" htmlFor="postNameAr">
-                        اسم المهمة 
-                      </label>
-                      <Input
-                        className="form-control-alternative text-right"
-                        id="postNameAr"
-                        placeholder="اسم المهمة "
-                        type="text"
-                        value={postNameAr}
-                        onChange={handleChange}
-                      />
-                    </FormGroup>
-                  </Col>
-                  <Col lg="6">
-                    <FormGroup className="text-right">
+              
+                  <Col lg="12">
+                    <FormGroup >
                       <label className="form-control-label" htmlFor="postNameFr">
                         Nom du poste 
                       </label>
                       <Input
-                        className="form-control-alternative text-right"
-                        id="postNameFr"
+                        className="form-control-alternative"
+                        id="postName"
                         placeholder="Nom du poste en français"
                         type="text"
-                        value={postNameFr}
+                        value={postName}
                         onChange={handleChange}
                       />
                     </FormGroup>
@@ -126,10 +107,11 @@ const EditPostModal = (props) => {
         </Card>
       </Modal.Body>
       <Modal.Footer className="d-flex justify-content-center">
-        <Button onClick={props.onHide}>خروج</Button>
         <Button variant="primary" onClick={handleUpdatePost}>
-          حفظ
+          Sauvegarder
         </Button>
+        <Button onClick={props.onHide}>Fermer</Button>
+        
       </Modal.Footer>
     </Modal>
   );
