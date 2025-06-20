@@ -1,0 +1,278 @@
+/* Container principal */
+.settings-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Header */
+.settings-header {
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.header-content {
+  max-width: 1200px;
+
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-icon {
+  padding: 8px;
+  background: #f1f5f9;
+  border-radius: 8px;
+  /* font-size: 24px; */
+}
+
+.header-text h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.header-text p {
+  margin: 0px 0 0 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* Contenu principal */
+.settings-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px 10px;
+}
+
+/* Grid des cartes */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+/* Cartes */
+.settings-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  border: 1px solid #e2e8f0;
+  position: relative;
+  overflow: hidden;
+}
+
+.settings-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.settings-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--accent-color);
+}
+
+/* Couleurs des cartes */
+.settings-card.blue {
+  --accent-color: #3b82f6;
+  --icon-bg: #dbeafe;
+}
+
+.settings-card.green {
+  --accent-color: #10b981;
+  --icon-bg: #d1fae5;
+}
+
+.settings-card.purple {
+  --accent-color: #8b5cf6;
+  --icon-bg: #ede9fe;
+}
+
+.settings-card.orange {
+  --accent-color: #f59e0b;
+  --icon-bg: #fef3c7;
+}
+
+.settings-card.pink {
+  --accent-color: #ec4899;
+  --icon-bg: #fce7f3;
+}
+
+/* Header de carte */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.card-icon-container {
+  padding: 12px;
+  background: var(--icon-bg);
+  border-radius: 12px;
+  font-size: 24px;
+}
+
+.card-badge {
+  background: #f1f5f9;
+  color: #475569;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Contenu de carte */
+.card-content {
+  margin-bottom: 20px;
+}
+
+.card-title {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.card-description {
+  margin: 0;
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Footer de carte */
+.card-footer {
+  margin-top: auto;
+}
+
+.card-link {
+  text-decoration: none;
+}
+
+.card-buttonn {
+  width: 100%;
+  background: #1e293b;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.card-buttonn:hover {
+  background: #0f172a;
+  transform: translateY(-1px);
+}
+
+.arrow {
+  transition: transform 0.3s ease;
+}
+
+.card-buttonn:hover .arrow {
+  transform: translateX(4px);
+}
+
+/* Section d'aide */
+.help-section {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.help-content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.help-icon {
+  padding: 12px;
+  background: #e2e8f0;
+  border-radius: 50%;
+  font-size: 24px;
+}
+
+.help-text {
+  flex: 1;
+}
+
+.help-text h3 {
+  margin: 0 0 4px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.help-text p {
+  margin: 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.help-button {
+  background: white;
+  color: #475569;
+  border: 1px solid #d1d5db;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.help-button:hover {
+  background: #f9fafb;
+  border-color: #9ca3af;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .header-content {
+    padding: 16px;
+  }
+
+  .settings-content {
+    padding: 24px 16px;
+  }
+
+  .help-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .settings-card {
+    padding: 16px;
+  }
+
+  .header-text h1 {
+    font-size: 24px;
+  }
+}

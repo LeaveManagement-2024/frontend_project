@@ -70,22 +70,19 @@ const AdminNavbar = (props) => {
       <Navbar className="navbar-top navbar-dark  " expand="md" id="navbar-main">
         <Container fluid>
           <Link
-            className="h4 mb-0 text-white text-lg text-uppercase d-none d-lg-inline-block"
+            className="h4 mb-0 text-white d-none d-lg-inline-block"
             to="/admin/index"
           >
-            {props.brandText}
+          
           </Link>
           
-          <Nav className="align-items-center d-none d-md-flex" navbar>
+          <Nav className="align-items-end d-none d-md-flex" navbar>
             <UncontrolledDropdown nav>
               <DropdownToggle className="pr-0" nav>
-                <Media className="align-items-center">
-                  <Media className="ml-2 d-none d-lg-block">
-                    <span className="mb-0 font-weight-bold" style={{marginRight:"10px"}}>
+                <Media className="align-items-center"> 
+                    <span className="mb-0 " style={{marginRight:"10px"}}>
                         {employee.lastName}  {employee.firstName}
                     </span>
-                  </Media>
-                 
                     <img className="avatar avatar-md rounded-circle"  style={{height:'47px'}}
                       alt="..."
                       src={employee.image || 'https://www.w3schools.com/howto/img_avatar.png'}

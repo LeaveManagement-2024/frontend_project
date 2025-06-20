@@ -1,0 +1,598 @@
+/* Container principal */
+.modern-employees-container {
+  /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+  min-height: 100vh;
+  padding-bottom: 0.5rem; /* Ultra réduit de 2rem */
+}
+
+/* Carte principale */
+.modern-employees-card {
+  border: none !important;
+  border-radius: 12px !important; /* Ultra réduit de 20px */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08) !important; /* Ultra réduit */
+  overflow: hidden;
+  background: white;
+  animation: slideInUp 0.3s ease-out; /* Ultra réduit de 0.6s */
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px); /* Ultra réduit de 30px */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Header moderne */
+.modern-employees-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  border: none !important;
+  padding: 1rem !important; /* Ultra réduit de 2rem */
+  color: white;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem; /* Ultra réduit de 1rem */
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem; /* Ultra réduit de 1rem */
+}
+
+.header-icon {
+  font-size: 1.5rem; /* Ultra réduit de 2.5rem */
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.6rem; /* Ultra réduit de 1rem */
+  border-radius: 10px; /* Ultra réduit de 15px */
+  backdrop-filter: blur(6px); /* Réduit de 10px */
+}
+
+.header-text .header-title {
+  margin: 0;
+  font-size: 1.3rem; /* Ultra réduit de 1.8rem */
+  font-weight: 700;
+  color: white;
+}
+
+.header-text .header-subtitle {
+  margin: 0.3rem 0 0 0; /* Ultra réduit de 0.5rem */
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.8rem; /* Ultra réduit de 1rem */
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem; /* Ultra réduit de 1.5rem */
+}
+
+/* Statistiques résumées */
+.stats-summary {
+  display: flex;
+  gap: 0.6rem; /* Ultra réduit de 1rem */
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 0.5rem 0.7rem; /* Ultra réduit de 0.75rem 1rem */
+  border-radius: 8px; /* Ultra réduit de 12px */
+  backdrop-filter: blur(6px); /* Réduit de 10px */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.stat-number {
+  font-size: 1.1rem; /* Ultra réduit de 1.5rem */
+  font-weight: 700;
+  color: white;
+}
+
+.stat-label {
+  font-size: 0.7rem; /* Ultra réduit de 0.8rem */
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 0.3px; /* Ultra réduit de 0.5px */
+}
+
+/* Bouton d'ajout moderne */
+.modern-add-button {
+  background: white !important;
+  color: #667eea !important;
+  border: none !important;
+  padding: 0.5rem 1rem !important; /* Ultra réduit de 0.75rem 1.5rem */
+  border-radius: 8px !important; /* Ultra réduit de 12px */
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important; /* Ultra réduit */
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.3rem !important; /* Ultra réduit de 0.5rem */
+  font-size: 0.8rem !important; /* Ultra réduit */
+}
+
+.modern-add-button:hover {
+  background: #f8f9fa !important;
+  color: #5a67d8 !important;
+  transform: translateY(-1px) !important; /* Ultra réduit de -2px */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12) !important; /* Ultra réduit */
+}
+
+/* Container de table */
+.modern-table-container {
+  background: white;
+  overflow-x: auto;
+}
+
+/* Table moderne */
+.modern-employees-table {
+  margin: 0 !important;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.modern-table-header th {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+  color: #495057 !important;
+  font-weight: 700 !important;
+  padding: 0.8rem 0.6rem !important; /* Ultra réduit de 1.5rem 1rem */
+  border: none !important;
+  font-size: 0.75rem !important; /* Ultra réduit de 0.9rem */
+  text-transform: uppercase;
+  letter-spacing: 0.3px; /* Ultra réduit de 0.5px */
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.modern-table-row {
+  transition: all 0.3s ease;
+  border-bottom: 1px solid #f1f3f4;
+  animation: fadeInRow 0.3s ease-out both; /* Ultra réduit de 0.5s */
+}
+
+@keyframes fadeInRow {
+  from {
+    opacity: 0;
+    transform: translateX(-10px); /* Ultra réduit de -20px */
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.modern-table-row:hover {
+  background: #f8f9ff !important;
+  transform: scale(1.005); /* Ultra réduit de 1.01 */
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.08); /* Ultra réduit */
+}
+
+.modern-table-body td {
+  padding: 0.8rem 0.6rem !important; /* Ultra réduit de 1.5rem 1rem */
+  border: none !important;
+  vertical-align: middle !important;
+}
+
+/* Cellule d'informations employé */
+.employee-info-cell {
+  min-width: 180px; /* Ultra réduit de 250px */
+}
+
+.employee-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem; /* Ultra réduit de 1rem */
+}
+
+.avatar-container {
+  position: relative;
+}
+
+.employee-avatar {
+  width: 35px; /* Ultra réduit de 50px */
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e2e8f0; /* Ultra réduit de 3px */
+  transition: all 0.3s ease;
+}
+
+.modern-table-row:hover .employee-avatar {
+  border-color: #667eea;
+  transform: scale(1.05); /* Ultra réduit de 1.1 */
+}
+
+.avatar-status {
+  position: absolute;
+  bottom: 1px; /* Ultra réduit de 2px */
+  right: 1px;
+  width: 8px; /* Ultra réduit de 12px */
+  height: 8px;
+  background: #48bb78;
+  border: 1px solid white; /* Ultra réduit de 2px */
+  border-radius: 50%;
+}
+
+.employee-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.employee-name {
+  font-weight: 600;
+  color: #2d3748;
+  font-size: 0.8rem; /* Ultra réduit de 0.95rem */
+}
+
+.employee-id {
+  font-size: 0.7rem; /* Ultra réduit de 0.8rem */
+  color: #718096;
+  margin-top: 0.1rem; /* Ultra réduit de 0.2rem */
+}
+
+/* Cellules d'informations */
+.info-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.info-badge {
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  color: #1565c0;
+  padding: 0.25rem 0.5rem; /* Ultra réduit de 0.4rem 0.8rem */
+  border-radius: 12px; /* Ultra réduit de 20px */
+  font-weight: 600;
+  font-size: 0.7rem; /* Ultra réduit de 0.85rem */
+}
+
+.email-text {
+  color: #4a5568;
+  font-weight: 500;
+  font-size: 0.75rem; /* Ultra réduit de 0.9rem */
+}
+
+.phone-text {
+  color: #4a5568;
+  font-weight: 500;
+  font-size: 0.75rem; /* Ultra réduit de 0.9rem */
+  font-family: monospace;
+}
+
+.address-text {
+  color: #4a5568;
+  font-weight: 500;
+  font-size: 0.75rem; /* Ultra réduit de 0.9rem */
+  max-width: 120px; /* Ultra réduit de 200px */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Bouton d'actions */
+.modern-action-button {
+  background: #f8f9fa !important;
+  border: 1px solid #e9ecef !important; /* Ultra réduit de 2px */
+  color: #6c757d !important;
+  border-radius: 6px !important; /* Ultra réduit de 8px */
+  padding: 0.3rem !important; /* Ultra réduit de 0.5rem */
+  transition: all 0.3s ease !important;
+  width: 30px; /* Ultra réduit de 40px */
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem; /* Ultra réduit */
+}
+
+.modern-action-button:hover {
+  background: #667eea !important;
+  border-color: #667eea !important;
+  color: white !important;
+  transform: translateY(-1px); /* Ultra réduit de -2px */
+}
+
+/* Menu dropdown d'actions */
+.modern-dropdown-menu {
+  border: none !important;
+  border-radius: 8px !important; /* Ultra réduit de 12px */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12) !important; /* Ultra réduit */
+  padding: 0.3rem !important; /* Ultra réduit de 0.5rem */
+}
+
+.modern-dropdown-action {
+  padding: 0.5rem 0.7rem !important; /* Ultra réduit de 0.75rem 1rem */
+  border-radius: 6px !important; /* Ultra réduit de 8px */
+  margin: 0.1rem 0 !important; /* Ultra réduit de 0.2rem */
+  transition: all 0.3s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.3rem !important; /* Ultra réduit de 0.5rem */
+  font-size: 0.8rem !important; /* Ultra réduit */
+}
+
+.modern-dropdown-action:hover {
+  background: #f8f9ff !important;
+  color: #667eea !important;
+  transform: translateX(2px); /* Ultra réduit de 5px */
+}
+
+.modern-dropdown-action.delete:hover {
+  background: #fff5f5 !important;
+  color: #e53e3e !important;
+}
+
+/* Cellule de chargement */
+.loading-cell {
+  text-align: center;
+  padding: 2rem !important; /* Ultra réduit de 3rem */
+}
+
+.loading-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem; /* Ultra réduit de 1rem */
+  color: #6c757d;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+}
+
+.spinner-ring {
+  width: 30px; /* Ultra réduit de 40px */
+  height: 30px;
+  border: 3px solid rgba(102, 126, 234, 0.2); /* Ultra réduit de 4px */
+  border-top: 3px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Footer moderne */
+.modern-card-footer {
+  background: #f8f9fa !important;
+  border: none !important;
+  padding: 0.8rem 1rem !important; /* Ultra réduit de 1.5rem 2rem */
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  flex-wrap: wrap;
+  gap: 0.6rem; /* Ultra réduit de 1rem */
+}
+
+.pagination-info {
+  color: #6c757d;
+  font-size: 0.75rem; /* Ultra réduit de 0.9rem */
+  font-weight: 500;
+}
+
+/* Pagination moderne */
+.modern-pagination {
+  margin: 0 !important;
+}
+
+.modern-pagination-link {
+  border: 1px solid #e9ecef !important; /* Ultra réduit de 2px */
+  color: #6c757d !important;
+  padding: 0.3rem 0.5rem !important; /* Ultra réduit de 0.5rem 0.75rem */
+  margin: 0 0.1rem !important; /* Ultra réduit de 0.2rem */
+  border-radius: 6px !important; /* Ultra réduit de 8px */
+  transition: all 0.3s ease !important;
+  background: white !important;
+  font-size: 0.8rem !important; /* Ultra réduit */
+}
+
+.modern-pagination-link:hover {
+  background: #667eea !important;
+  border-color: #667eea !important;
+  color: white !important;
+  transform: translateY(-1px); /* Ultra réduit de -2px */
+}
+
+.modern-pagination .active .modern-pagination-link {
+  background: #667eea !important;
+  border-color: #667eea !important;
+  color: white !important;
+}
+
+.modern-pagination .disabled .modern-pagination-link {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .header-left {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .header-actions {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .modern-employees-header {
+    padding: 0.8rem !important; /* Ultra réduit de 1.5rem */
+  }
+
+  .modern-table-container {
+    overflow-x: auto;
+  }
+
+  .modern-card-footer {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .employee-profile {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.3rem; /* Ultra réduit de 0.5rem */
+  }
+
+  .employee-info-cell {
+    min-width: 140px; /* Ultra réduit de 200px */
+  }
+
+  .address-text {
+    max-width: 100px; /* Ultra réduit de 150px */
+  }
+}
+
+@media (max-width: 480px) {
+  .modern-table-header th,
+  .modern-table-body td {
+    padding: 0.6rem 0.3rem !important; /* Ultra réduit de 1rem 0.5rem */
+    font-size: 0.75rem !important; /* Ultra réduit de 0.85rem */
+  }
+
+  .header-icon {
+    font-size: 1.3rem; /* Ultra réduit de 2rem */
+    padding: 0.5rem; /* Ultra réduit de 0.75rem */
+  }
+
+  .header-text .header-title {
+    font-size: 1.1rem; /* Ultra réduit de 1.5rem */
+  }
+
+  .employee-avatar {
+    width: 30px; /* Ultra réduit de 40px */
+    height: 30px;
+  }
+
+  .stats-summary {
+    flex-direction: column;
+    gap: 0.3rem; /* Ultra réduit de 0.5rem */
+  }
+
+  .stat-item {
+    padding: 0.3rem 0.5rem; /* Ultra réduit de 0.5rem 0.75rem */
+  }
+
+  .modern-employees-header {
+    padding: 0.6rem !important; /* Ultra réduit */
+  }
+
+  .header-text .header-subtitle {
+    font-size: 0.75rem; /* Ultra réduit */
+  }
+
+  .modern-add-button {
+    padding: 0.4rem 0.8rem !important; /* Ultra réduit */
+    font-size: 0.75rem !important; /* Ultra réduit */
+  }
+
+  .info-badge {
+    padding: 0.2rem 0.4rem; /* Ultra réduit */
+    font-size: 0.65rem; /* Ultra réduit */
+  }
+
+  .email-text,
+  .phone-text,
+  .address-text {
+    font-size: 0.7rem; /* Ultra réduit */
+  }
+
+  .employee-name {
+    font-size: 0.75rem; /* Ultra réduit */
+  }
+
+  .employee-id {
+    font-size: 0.65rem; /* Ultra réduit */
+  }
+
+  .modern-action-button {
+    width: 26px; /* Ultra réduit */
+    height: 26px;
+    font-size: 0.75rem; /* Ultra réduit */
+  }
+}
+
+/* Optimisations ultra-compactes supplémentaires */
+@media (max-width: 360px) {
+  .modern-employees-header {
+    padding: 0.5rem !important;
+  }
+
+  .header-icon {
+    font-size: 1.1rem;
+    padding: 0.4rem;
+  }
+
+  .header-text .header-title {
+    font-size: 1rem;
+  }
+
+  .header-text .header-subtitle {
+    font-size: 0.7rem;
+  }
+
+  .modern-table-header th,
+  .modern-table-body td {
+    padding: 0.4rem 0.2rem !important;
+    font-size: 0.7rem !important;
+  }
+
+  .employee-avatar {
+    width: 26px;
+    height: 26px;
+  }
+
+  .employee-info-cell {
+    min-width: 120px;
+  }
+
+  .address-text {
+    max-width: 80px;
+  }
+
+  .modern-card-footer {
+    padding: 0.6rem !important;
+  }
+
+  .pagination-info {
+    font-size: 0.7rem;
+  }
+
+  .modern-pagination-link {
+    padding: 0.25rem 0.4rem !important;
+    font-size: 0.75rem !important;
+  }
+}
+
+/* Animations pour les nouvelles lignes - Ultra réduites */
+.modern-table-row:nth-child(even) {
+  animation-delay: 0.05s; /* Ultra réduit de 0.1s */
+}
+
+.modern-table-row:nth-child(odd) {
+  animation-delay: 0.02s; /* Ultra réduit de 0.05s */
+}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from "react"
 import {
   Badge,
   Card,
@@ -8,264 +8,418 @@ import {
   DropdownItem,
   UncontrolledDropdown,
   DropdownToggle,
-  Media,
   Pagination,
   PaginationItem,
   PaginationLink,
   Button,
-  Progress,
   Table,
   Container,
   Row,
-  UncontrolledTooltip,
-} from "reactstrap";
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
+} from "reactstrap"
+import Dropdown from "react-bootstrap/Dropdown"
+import DropdownButton from "react-bootstrap/DropdownButton"
 
-import Header from "components/Headers/Header.js";
-import AddLeaveModal from './addLeaveModal';
-
-import EditLeaveModal from './editLeaveModal ';
+import Header from "components/Headers/Header.js"
+import AddLeaveModal from "./addLeaveModal"
+import EditLeaveModal from "./editLeaveModal "
 import {
-  getAllLeavesByEmployee,
-  getConfirmedLeavesByEmployee,
-  getUnconfirmedLeavesByEmployee,
-  getLeavesToConfirmByManager,
-  getLeavesToConfirmByResponsible,
-  getLeavesToConfirmByRemplacement,
-} from '../Employess/employeeApi';
-import { 
-   deleteLeave,
-   getAllLeaves,
-   ConfermedLeave ,
-   UnconfermedLeave,
-   UnconfermedLeaveByManager,
-   UnconfermedLeaveByResponsible,
-   UnconfermedLeaveByRemplacment
-  } from './LeaveApi';
-import "../style.css"
-const Leave = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
-  const userId = localStorage.getItem('userId');
-  const [leaves, setLeaves] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [filterOption, setFilterOption] = useState('all');
-  const [editModalShow, setEditModalShow] = useState(false);
-  const [modalShow, setModalShow] = useState(false);
-  const [editLeave, setEditLeave] = useState([]);
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = leaves.slice(indexOfFirstItem, indexOfLastItem);
+  deleteLeave,
+  getAllLeaves,
+  ConfermedLeave,
+  UnconfermedLeave,
+  UnconfermedLeaveByManager,
+  UnconfermedLeaveByResponsible,
+  UnconfermedLeaveByRemplacment,
+} from "./LeaveApi"
+import "./modern-leave-styles.css"
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+const Leave = () => {
+  const [currentPage, setCurrentPage] = useState(1)
+  const itemsPerPage = 5
+  const userId = localStorage.getItem("userId")
+  const [leaves, setLeaves] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [filterOption, setFilterOption] = useState("all")
+  const [editModalShow, setEditModalShow] = useState(false)
+  const [modalShow, setModalShow] = useState(false)
+  const [editLeave, setEditLeave] = useState([])
+  const indexOfLastItem = currentPage * itemsPerPage
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage
+  const currentItems = leaves.slice(indexOfFirstItem, indexOfLastItem)
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
   useEffect(() => {
-    fetchLeaves();
-  }, [userId, filterOption]);
+    fetchLeaves()
+  }, [userId, filterOption])
 
   const fetchLeaves = async () => {
-    setLoading(true); 
+    setLoading(true)
     try {
-      let response;
+      let response
       switch (filterOption) {
-        case 'all':
-          response = await getAllLeaves();
-          break;
-        case 'confirmed':
-          response = await ConfermedLeave();
-          break;
-        case 'unconfirmed':
-          response = await UnconfermedLeave();
-          break;
-        case 'manager':
-          response = await UnconfermedLeaveByManager();
-          break;
-        case 'responsible':
-          response = await UnconfermedLeaveByResponsible();
-          break;
-        case 'replacement':
-          response = await UnconfermedLeaveByRemplacment();
-          break;
+        case "all":
+          response = await getAllLeaves()
+          break
+        case "confirmed":
+          response = await ConfermedLeave()
+          break
+        case "unconfirmed":
+          response = await UnconfermedLeave()
+          break
+        case "manager":
+          response = await UnconfermedLeaveByManager()
+          break
+        case "responsible":
+          response = await UnconfermedLeaveByResponsible()
+          break
+        case "replacement":
+          response = await UnconfermedLeaveByRemplacment()
+          break
         default:
-          response = await getAllLeaves();
-          break;
+          response = await getAllLeaves()
+          break
       }
-      setLeaves(response);
-      setLoading(false);
+      setLeaves(response)
+      setLoading(false)
     } catch (error) {
-      console.error("Erreur lors du chargement des congés :", error);
-      setLoading(false);
+      console.error("Erreur lors du chargement des congés :", error)
+      setLoading(false)
     }
-  };
+  }
 
   if (loading) {
-    return <div>Chargement...</div>; // Ou un composant spinner
+    return (
+      <div className="modern-loading-container">
+        <div className="modern-spinner">
+          <div className="spinner-ring"></div>
+          <p>Chargement des congés...</p>
+        </div>
+      </div>
+    )
   }
-  
+
   const handleDeleteLeave = async (id) => {
     try {
-      await deleteLeave(id);
-      fetchLeaves();
+      await deleteLeave(id)
+      fetchLeaves()
     } catch (error) {
-      console.error('Erreur lors de la suppression :', error);
+      console.error("Erreur lors de la suppression :", error)
     }
-  };
+  }
+
+  const getFilterTitle = () => {
+    switch (filterOption) {
+      case "all":
+        return "Tous les congés"
+      case "confirmed":
+        return "Congés confirmés"
+      case "unconfirmed":
+        return "Congés non confirmés"
+      case "manager":
+        return "En attente responsable"
+      case "responsible":
+        return "En attente service"
+      case "replacement":
+        return "En attente remplaçant"
+      default:
+        return "Filtrer les congés"
+    }
+  }
 
   return (
     <>
       <Header />
-      <Container className="mt--7" fluid >
-        <Row>
-          <div className="col">
-            <Card className="shadow">
-              <CardHeader className="border-0">
-                <div className="d-flex justify-content-between align-items-center">
-                  <DropdownButton id="dropdown-item-button" title="Autres options">
-                    <Dropdown.Item as="button" className='text-right text-lg' onClick={() => setFilterOption('all')}>
-                      Tous les congés
-                    </Dropdown.Item>
-                    <Dropdown.Item as="button" className='text-right text-lg' onClick={() => setFilterOption('confirmed')}>
-                      Congés confirmés
-                    </Dropdown.Item>
-                    <Dropdown.Item as="button" className='text-right text-lg' onClick={() => setFilterOption('unconfirmed')}>
-                      Congés non confirmés
-                    </Dropdown.Item>
-                    <Dropdown.Item as="button" className='text-right text-lg' onClick={() => setFilterOption('manager')}>
-                      Congés non confirmés par le responsable
-                    </Dropdown.Item>
-                    <Dropdown.Item as="button" className='text-right text-lg' onClick={() => setFilterOption('responsible')}>
-                      Congés non confirmés par le responsable de service
-                    </Dropdown.Item>
-                    <Dropdown.Item as="button" className='text-right text-lg' onClick={() => setFilterOption('replacement')}>
-                      Congés non confirmés par le remplaçant
-                    </Dropdown.Item>
-                  </DropdownButton>
-                  <Button color="primary" onClick={() => setModalShow(true)}>
-                     Demander un congé pour l'employé
-                  </Button>
-                  <AddLeaveModal show={modalShow} onHide={() => setModalShow(false)} />
-                  <h3 className="mb-0">Tableau des congés</h3>
+      <div className="modern-leave-container">
+        <Container className="mt-2" fluid>
+          <Row>
+            <div className="col">
+              <Card className="modern-leave-card">
+                <CardHeader className="modern-card-header">
+                  <div className="header-content">
+                    <div className="header-left">
+                      <div className="header-icon">🏖️</div>
+                      <div className="header-text">
+                        <h3 className="header-title">Gestion des Congés</h3>
+                        <p className="header-subtitle">Gérez et suivez tous les congés de l'équipe</p>
+                      </div>
+                    </div>
+                    <div className="header-actions">
+                      <div className="modern-dropdown-wrapper">
+                        <DropdownButton
+                          id="dropdown-item-button"
+                          title={getFilterTitle()}
+                          className="modern-filter-dropdown"
+                        >
+                          <Dropdown.Item
+                            as="button"
+                            className="modern-dropdown-item"
+                            onClick={() => setFilterOption("all")}
+                          >
+                            📋 Tous les congés
+                          </Dropdown.Item>
+                          <Dropdown.Item
+                            as="button"
+                            className="modern-dropdown-item"
+                            onClick={() => setFilterOption("confirmed")}
+                          >
+                            ✅ Congés confirmés
+                          </Dropdown.Item>
+                          <Dropdown.Item
+                            as="button"
+                            className="modern-dropdown-item"
+                            onClick={() => setFilterOption("unconfirmed")}
+                          >
+                            ⏳ Congés non confirmés
+                          </Dropdown.Item>
+                          <Dropdown.Item
+                            as="button"
+                            className="modern-dropdown-item"
+                            onClick={() => setFilterOption("manager")}
+                          >
+                            👔 En attente responsable
+                          </Dropdown.Item>
+                          <Dropdown.Item
+                            as="button"
+                            className="modern-dropdown-item"
+                            onClick={() => setFilterOption("responsible")}
+                          >
+                            🏢 En attente service
+                          </Dropdown.Item>
+                          <Dropdown.Item
+                            as="button"
+                            className="modern-dropdown-item"
+                            onClick={() => setFilterOption("replacement")}
+                          >
+                            🔄 En attente remplaçant
+                          </Dropdown.Item>
+                        </DropdownButton>
+                      </div>
+                      <Button className="modern-add-button" onClick={() => setModalShow(true)}>
+                        <i className="fas fa-plus"></i>
+                        Nouveau congé
+                      </Button>
+                    </div>
+                  </div>
+                </CardHeader>
+
+                <div className="modern-table-container">
+                  <Table className="modern-table" responsive>
+                    <thead className="modern-table-header">
+                      <tr>
+                        <th scope="col">👤 Employé</th>
+                        <th scope="col">📝 Type de congé</th>
+                        <th scope="col">📅 Date de départ</th>
+                        <th scope="col">📅 Date de retour</th>
+                        <th scope="col">👔 Responsable</th>
+                        <th scope="col">🔄 Remplaçant</th>
+                        <th scope="col">⚙️ Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody className="modern-table-body">
+                      {currentItems.map((leave, index) => (
+                        <tr key={index} className="modern-table-row">
+                          <td className="employee-cell">
+                            <div className="employee-info">
+                              <div className="employee-avatar">
+                                {leave.employee?.firstName?.charAt(0)}
+                                {leave.employee?.lastName?.charAt(0)}
+                              </div>
+                              <div className="employee-name">
+                                <strong>
+                                  {leave.employee?.lastName} {leave.employee?.firstName}
+                                </strong>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <span className="leave-type-badge">{leave?.leaveType?.name}</span>
+                          </td>
+                          <td>
+                            <div className="date-cell">
+                              <i className="fas fa-calendar-alt"></i>
+                              {leave.startDate}
+                            </div>
+                          </td>
+                          <td>
+                            <div className="date-cell">
+                              <i className="fas fa-calendar-check"></i>
+                              {leave.endDate}
+                            </div>
+                          </td>
+                          <td>
+                            <div className="approval-cell">
+                              <div className="approver-name">
+                                {leave.lmanager?.lastName} {leave.lmanager?.firstName}
+                              </div>
+                              <Badge
+                                className={`modern-status-badge ${
+                                  leave.managerVisa === "true"
+                                    ? "approved"
+                                    : leave.managerVisa === "false"
+                                      ? "pending"
+                                      : "unspecified"
+                                }`}
+                              >
+                                {leave.managerVisa === "true" ? (
+                                  <>
+                                    <i className="fas fa-check"></i> Approuvé
+                                  </>
+                                ) : leave.managerVisa === "false" ? (
+                                  <>
+                                    <i className="fas fa-clock"></i> En attente
+                                  </>
+                                ) : (
+                                  <>
+                                    <i className="fas fa-question"></i> Non spécifié
+                                  </>
+                                )}
+                              </Badge>
+                            </div>
+                          </td>
+                          <td>
+                            <div className="approval-cell">
+                              <div className="approver-name">
+                                {leave.replacement?.lastName} {leave.replacement?.firstName}
+                              </div>
+                              <Badge
+                                className={`modern-status-badge ${
+                                  leave.remplecementVisa === "true"
+                                    ? "approved"
+                                    : leave.remplecementVisa === "false"
+                                      ? "pending"
+                                      : "unspecified"
+                                }`}
+                              >
+                                {leave.remplecementVisa === "true" ? (
+                                  <>
+                                    <i className="fas fa-check"></i> Approuvé
+                                  </>
+                                ) : leave.remplecementVisa === "false" ? (
+                                  <>
+                                    <i className="fas fa-clock"></i> En attente
+                                  </>
+                                ) : (
+                                  <>
+                                    <i className="fas fa-question"></i> Non spécifié
+                                  </>
+                                )}
+                              </Badge>
+                            </div>
+                          </td>
+                          <td>
+                            <UncontrolledDropdown>
+                              <DropdownToggle
+                                className="modern-action-button"
+                                href="#pablo"
+                                role="button"
+                                size="sm"
+                                color=""
+                                onClick={(e) => e.preventDefault()}
+                                disabled={leave.managerVisa === "true"}
+                              >
+                                <i className="fas fa-ellipsis-v" />
+                              </DropdownToggle>
+                              <DropdownMenu className="modern-dropdown-menu" right>
+                                <DropdownItem
+                                  className="modern-dropdown-action"
+                                  href="#pablo"
+                                  onClick={(e) => e.preventDefault()}
+                                >
+                                  <i className="fas fa-eye"></i> Voir
+                                </DropdownItem>
+                                <DropdownItem
+                                  className="modern-dropdown-action"
+                                  href="#pablo"
+                                  onClick={() => {
+                                    setEditModalShow(true)
+                                    setEditLeave(leave)
+                                  }}
+                                >
+                                  <i className="fas fa-edit"></i> Modifier
+                                </DropdownItem>
+                                <DropdownItem
+                                  className="modern-dropdown-action delete"
+                                  href="#pablo"
+                                  onClick={() => handleDeleteLeave(leave.leaveId)}
+                                >
+                                  <i className="fas fa-trash"></i> Supprimer
+                                </DropdownItem>
+                              </DropdownMenu>
+                            </UncontrolledDropdown>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </Table>
                 </div>
-              </CardHeader>
-              <Table className="align-items-center table-flush" responsive>
-                <thead className="thead-light text-center">
-                  <tr>
-                    <th scope="col" >Nom de l'employé</th>
-                    <th scope="col">Type de congé</th>
-                    <th scope="col">Date de départ</th>
-                    <th scope="col">Date de retour</th>
-                    <th scope="col">Responsable du département</th>                   
-                    <th scope="col">Responsable de service</th>
-                    <th scope="col">Nom du remplaçant</th>
-                    <th scope="col">Paramètres</th>
-                  </tr>
-                </thead>
-                <tbody className="text-center">
-                  {currentItems.map((leave, index) => (
-                    <tr key={index}>
-                      <th>{leave.lmanager?.lastName} {leave.lmanager?.firstName}</th>
-                      <td scope="row">{leave?.leaveType?.name}</td>
-                      <td><i className="ni ni-calendar-grid-58" /> {leave.startDate}</td>
-                      <td><i className="ni ni-calendar-grid-58" /> {leave.endDate}</td>
-                      <td>
-                        {leave.lmanager?.lastName} {leave.lmanager?.firstName}
-                        <Badge color={leave.managerVisa === 'true' ? 'success' : leave.managerVisa === 'false' ? 'warning' : 'secondary'}>
-                          {leave.managerVisa === 'true' ? (
-                            <i className="fas fa-check fa-2x"></i>
-                          ) : leave.managerVisa === 'false' ? (
-                            <i className="fas fa-exclamation fa-2x"></i>
-                          ) : (
-                            'Non spécifié'
-                          )}
-                        </Badge>
-                      </td>
-                      <td>
-                        {leave.responsible?.lastName} {leave.responsible?.firstName}
-                        <Badge color={leave.responsibleVisa === 'true' ? 'success' : leave.responsibleVisa === 'false' ? 'warning' : 'secondary'}>
-                          {leave.responsibleVisa === 'true' ? (
-                            <i className="fas fa-check fa-2x "></i>
-                          ) : leave.responsibleVisa === 'false' ? (
-                            <i className="fas fa-exclamation fa-2x"></i>
-                          ) : (
-                            'Non spécifié'
-                          )}
-                        </Badge>
-                      </td>
-                      <td>
-                        {leave.replacement?.lastName} {leave.replacement?.firstName}
-                        <Badge color={leave.remplecementVisa === 'true' ? 'success' : leave.remplecementVisa === 'false' ? 'warning' : 'secondary'}>
-                          {leave.remplecementVisa === 'true' ? (
-                            <i className="fas fa-check fa-2x"></i>
-                          ) : leave.remplecementVisa === 'false' ? (
-                            <i className="fas fa-exclamation fa-2x"></i>
-                          ) : (
-                            'Non spécifié'
-                          )}
-                        </Badge> 
-                      </td>
-                      <td>
-                        <UncontrolledDropdown>
-                          <DropdownToggle className="btn-icon-only text-light" href="#pablo" role="button" size="sm" color="" onClick={(e) => e.preventDefault()}
-                            disabled={leave.managerVisa === 'true'}>
-                            <i className="fas fa-ellipsis-v" />
-                          </DropdownToggle>
-                          <DropdownMenu className="dropdown-menu-arrow" right>
-                            <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
-                              Voir
-                            </DropdownItem>
-                            <DropdownItem href="#pablo" onClick={() => {
-                              setEditModalShow(true);
-                              setEditLeave(leave);
-                            }}>
-                              Modifier
-                            </DropdownItem>
-                            <EditLeaveModal
-                              show={editModalShow}
-                              leave={editLeave}
-                              onHide={() => { setEditModalShow(false); }}
-                            />
-                            <DropdownItem href="#pablo" onClick={() => handleDeleteLeave(leave.leaveId)}>
-                              Supprimer
-                            </DropdownItem>
-                          </DropdownMenu>
-                        </UncontrolledDropdown>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
-              <CardFooter className="py-4">
-                <nav aria-label="...">
-                  <Pagination className="pagination justify-content-end mb-0" listClassName="justify-content-end mb-0">
-                    <PaginationItem className={currentPage === 1 ? 'disabled' : ''}>
-                      <PaginationLink href="#pablo" onClick={(e) => { e.preventDefault(); paginate(currentPage - 1); }}>
-                        <i className="fas fa-angle-left" />
-                        <span className="sr-only">Précédent</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                    {Array.from({ length: Math.ceil(leaves.length / itemsPerPage) }, (_, i) => (
-                      <PaginationItem key={i + 1} className={currentPage === i + 1 ? 'active' : ''}>
-                        <PaginationLink href="#pablo" onClick={(e) => { e.preventDefault(); paginate(i + 1); }}>
-                          {i + 1}
+
+                <CardFooter className="modern-card-footer">
+                  <div className="pagination-info">
+                    Affichage de {indexOfFirstItem + 1} à {Math.min(indexOfLastItem, leaves.length)} sur {leaves.length}{" "}
+                    congés
+                  </div>
+                  <nav aria-label="...">
+                    <Pagination className="modern-pagination">
+                      <PaginationItem className={currentPage === 1 ? "disabled" : ""}>
+                        <PaginationLink
+                          className="modern-pagination-link"
+                          href="#pablo"
+                          onClick={(e) => {
+                            e.preventDefault()
+                            paginate(currentPage - 1)
+                          }}
+                        >
+                          <i className="fas fa-chevron-left" />
                         </PaginationLink>
                       </PaginationItem>
-                    ))}
-                    <PaginationItem className={currentPage === Math.ceil(leaves.length / itemsPerPage) ? 'disabled' : ''}>
-                      <PaginationLink href="#pablo" onClick={(e) => { e.preventDefault(); paginate(currentPage + 1); }}>
-                        <i className="fas fa-angle-right" />
-                        <span className="sr-only">Suivant</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                  </Pagination>
-                </nav>
-              </CardFooter>
-            </Card>
-          </div>
-        </Row>
-      </Container>
-    </>
-  );
-};
+                      {Array.from({ length: Math.ceil(leaves.length / itemsPerPage) }, (_, i) => (
+                        <PaginationItem key={i + 1} className={currentPage === i + 1 ? "active" : ""}>
+                          <PaginationLink
+                            className="modern-pagination-link"
+                            href="#pablo"
+                            onClick={(e) => {
+                              e.preventDefault()
+                              paginate(i + 1)
+                            }}
+                          >
+                            {i + 1}
+                          </PaginationLink>
+                        </PaginationItem>
+                      ))}
+                      <PaginationItem
+                        className={currentPage === Math.ceil(leaves.length / itemsPerPage) ? "disabled" : ""}
+                      >
+                        <PaginationLink
+                          className="modern-pagination-link"
+                          href="#pablo"
+                          onClick={(e) => {
+                            e.preventDefault()
+                            paginate(currentPage + 1)
+                          }}
+                        >
+                          <i className="fas fa-chevron-right" />
+                        </PaginationLink>
+                      </PaginationItem>
+                    </Pagination>
+                  </nav>
+                </CardFooter>
+              </Card>
+            </div>
+          </Row>
+        </Container>
 
-export default Leave;
+        <AddLeaveModal show={modalShow} onHide={() => setModalShow(false)} />
+        <EditLeaveModal
+          show={editModalShow}
+          leave={editLeave}
+          onHide={() => {
+            setEditModalShow(false)
+          }}
+        />
+      </div>
+    </>
+  )
+}
+
+export default Leave

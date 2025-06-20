@@ -432,85 +432,15 @@ Input[type=file] {
 
 
 
-/* Style global pour le calendrier */
-.rbc-calendar {
-  background-color: #f8f9fe;
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
 
-/* Titre des mois et jours */
-.rbc-toolbar-label {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #333;
-}
 
-.rbc-btn-group button {
-  background-color: #5e72e4;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  margin-right: 5px;
-}
 
-.rbc-btn-group button:hover {
-  background-color: #324cdd;
-}
 
-/* En-têtes des jours de la semaine */
-.rbc-header {
-  background-color: #e9ecef;
-  font-weight: bold;
-  padding: 10px;
-  text-align: center;
-  color: #5e72e4;
-  border-bottom: 1px solid #dee2e6;
-}
 
-/* Styles des cellules de jours */
-.rbc-day-bg {
-  background-color: #fff;
-  border: 1px solid #e9ecef;
-  transition: background-color 0.3s;
-}
 
-.rbc-day-bg:hover {
-  background-color: #f1f3f5;
-}
 
-/* Style des événements dans le calendrier */
-.rbc-event {
-  background-color: #5e72e4;
-  color: white;
-  border-radius: 4px;
-  padding: 2px 5px;
-  font-size: 0.9rem;
-}
 
-.rbc-event:hover {
-  background-color: #324cdd;
-}
 
-/* Style pour le jour en cours */
-.rbc-today {
-  background-color: rgba(94, 114, 228, 0.1);
-  border: 2px solid #5e72e4;
-}
 
-/* Style pour les en-têtes de date */
-.rbc-date-cell {
-  font-size: 1.1rem;
-  font-weight: bold;
-  padding: 5px;
-}
 
-/* Style pour les heures sur les côtés du calendrier */
-.rbc-time-gutter-cell {
-  background-color: #f8f9fe;
-  color: #5e72e4;
-  font-weight: bold;
-  padding-left: 5px;
-  border-right: 1px solid #dee2e6;
-}
+

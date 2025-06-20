@@ -16,8 +16,8 @@
     // Container
     .container-fluid {
         @include media-breakpoint-up(md) {
-            padding-left: ($main-content-padding-x + calc($grid-gutter-width / 2)) !important;
-            padding-right: ($main-content-padding-x + calc($grid-gutter-width / 2)) !important;
+            // padding-left: ($main-content-padding-x + calc($grid-gutter-width / 2)) !important;
+            // padding-right: ($main-content-padding-x + calc($grid-gutter-width / 2)) !important;
         }
     }
 }
@@ -36,7 +36,8 @@
 
                 // Left
                 &.fixed-left + .main-content {
-                    margin-left: $navbar-vertical-width;
+                    // margin-left: $navbar-vertical-width;
+                    margin-left: 300px;
                 } // Right
                 &.fixed-right + .main-content {
                     margin-right: $navbar-vertical-width;

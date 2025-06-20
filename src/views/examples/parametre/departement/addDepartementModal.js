@@ -80,7 +80,7 @@ const AddDepartmentModal = (props) => {
       <Modal.Body>
         <Card className="bg-secondary shadow">
           <CardHeader className="bg-white border-0">
-            <h4 className='text-center text-xl'> إضافة قسم</h4>
+            <h4 className='text-center text-xl'>  Ajouter departement</h4>
           </CardHeader>
           <CardBody>
             <Form>

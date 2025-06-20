@@ -166,7 +166,8 @@
                     top: 0;
                     bottom: 0;
                     width: 100%;
-                    max-width: $navbar-vertical-width;
+                    // max-width: $navbar-vertical-width;
+                    max-width: 300px;
                     padding-left: $navbar-vertical-padding-x;
                     padding-right: $navbar-vertical-padding-x;
 

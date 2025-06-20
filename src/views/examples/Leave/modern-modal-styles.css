@@ -1,0 +1,520 @@
+/* Modal overlay */
+.modern-leave-modal .modal-dialog {
+  max-width: 700px; /* Réduit de 900px */
+  margin: 1rem auto; /* Réduit de 1.75rem */
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-15px); /* Ultra réduit */
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Modal body */
+.modern-modal-body {
+  padding: 0 !important;
+  background: transparent;
+}
+
+/* Card principale */
+.modern-modal-card {
+  border: none !important;
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12) !important; /* Ultra réduit */
+  background: white;
+
+}
+
+/* Header moderne */
+.modern-modal-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  border: none !important;
+  padding: 1rem !important; /* Ultra réduit de 2rem */
+  color: white;
+  position: relative;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem; /* Ultra réduit de 1rem */
+  position: relative;
+}
+
+.header-icon {
+  width: 40px; /* Ultra réduit de 60px */
+  height: 40px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px; /* Ultra réduit de 16px */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem; /* Ultra réduit de 1.8rem */
+  backdrop-filter: blur(6px); /* Réduit de 10px */
+}
+
+.header-text {
+  flex: 1;
+}
+
+.modal-title {
+  margin: 0;
+  font-size: 1.1rem; /* Ultra réduit de 1.5rem */
+  font-weight: 700;
+  color: white;
+}
+
+.modal-subtitle {
+  margin: 0.3rem 0 0 0; /* Réduit de 0.5rem */
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.8rem; /* Ultra réduit de 0.95rem */
+}
+
+.close-button {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  width: 30px; /* Ultra réduit de 40px */
+  height: 30px;
+  border-radius: 6px; /* Ultra réduit de 10px */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(6px); /* Réduit de 10px */
+  font-size: 0.9rem; /* Ultra réduit */
+}
+
+.close-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05); /* Ultra réduit de 1.1 */
+}
+
+/* Contenu du modal */
+.modern-modal-content {
+  padding: 1rem !important; /* Ultra réduit de 2rem */
+  background: #fafbfc;
+  max-height: 60vh; /* Limiter la hauteur */
+  overflow-y: auto;
+}
+
+/* Loading */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem; /* Ultra réduit de 3rem */
+}
+
+.loading-spinner {
+  text-align: center;
+  color: #667eea;
+}
+
+.spinner-ring {
+  width: 35px; /* Ultra réduit de 50px */
+  height: 35px;
+  border: 3px solid rgba(102, 126, 234, 0.2); /* Réduit de 4px */
+  border-top: 3px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 0.6rem; /* Réduit de 1rem */
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Formulaire moderne */
+.modern-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* Ultra réduit de 2rem */
+}
+
+/* Sections du formulaire */
+.form-section {
+  background: white;
+  border-radius: 10px; /* Ultra réduit de 16px */
+  padding: 0.8rem; /* Ultra réduit de 1.5rem */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04); /* Ultra réduit */
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.form-section:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Ultra réduit */
+  transform: translateY(-1px); /* Ultra réduit de -2px */
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Ultra réduit de 0.75rem */
+  margin-bottom: 0.8rem; /* Ultra réduit de 1.5rem */
+  padding-bottom: 0.5rem; /* Ultra réduit de 0.75rem */
+  border-bottom: 1px solid #f1f5f9; /* Réduit de 2px */
+}
+
+.section-icon {
+  width: 30px; /* Ultra réduit de 40px */
+  height: 30px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 6px; /* Ultra réduit de 10px */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem; /* Ultra réduit de 1.2rem */
+  color: white;
+}
+
+.section-title {
+  margin: 0;
+  font-size: 0.9rem; /* Ultra réduit de 1.1rem */
+  font-weight: 600;
+  color: #2d3748;
+}
+
+/* Groupes de formulaire */
+.modern-form-group {
+  margin-bottom: 0.8rem; /* Ultra réduit de 1.5rem */
+}
+
+.modern-label {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem; /* Ultra réduit de 0.5rem */
+  margin-bottom: 0.4rem; /* Ultra réduit de 0.75rem */
+  font-weight: 600;
+  color: #4a5568;
+  font-size: 0.8rem; /* Ultra réduit de 0.9rem */
+}
+
+.label-text {
+  flex: 1;
+}
+
+.required-indicator {
+  color: #e53e3e;
+  font-weight: 700;
+}
+
+/* Wrapper d'input */
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  right: 0.6rem; /* Ultra réduit de 1rem */
+  color: #a0aec0;
+  pointer-events: none;
+  z-index: 2;
+  font-size: 0.8rem; /* Ultra réduit */
+}
+
+/* Inputs modernes */
+.modern-input,
+.modern-select {
+  width: 100% !important;
+  padding: 0.6rem 2.2rem 0.6rem 0.8rem !important; /* Ultra réduit */
+  border: 1px solid #e2e8f0 !important; /* Réduit de 2px */
+  border-radius: 8px !important; /* Ultra réduit de 12px */
+  font-size: 0.8rem !important; /* Ultra réduit de 0.95rem */
+  transition: all 0.3s ease !important;
+  background: white !important;
+  color: #2d3748 !important;
+}
+
+.modern-input:focus,
+.modern-select:focus {
+  border-color: #667eea !important;
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.08) !important; /* Ultra réduit */
+  outline: none !important;
+}
+
+.modern-input.error,
+.modern-select.error {
+  border-color: #e53e3e !important;
+  box-shadow: 0 0 0 2px rgba(229, 62, 62, 0.08) !important; /* Ultra réduit */
+}
+
+/* Messages d'erreur */
+.error-message {
+  color: #e53e3e;
+  font-size: 0.75rem; /* Ultra réduit de 0.85rem */
+  margin-top: 0.3rem; /* Ultra réduit de 0.5rem */
+  display: flex;
+  align-items: center;
+  gap: 0.3rem; /* Ultra réduit de 0.5rem */
+}
+
+.error-message::before {
+  content: "⚠️";
+  font-size: 0.7rem; /* Ultra réduit de 0.8rem */
+}
+
+/* Footer moderne */
+.modern-modal-footer {
+  background: #fafbfc !important;
+  border: none !important;
+  padding: 0.8rem 1rem !important; /* Ultra réduit de 1.5rem 2rem */
+}
+
+.footer-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem; /* Ultra réduit de 1rem */
+  width: 100%;
+}
+
+/* Boutons modernes */
+.cancel-button {
+  background: #f7fafc !important;
+  border: 1px solid #e2e8f0 !important; /* Réduit de 2px */
+  color: #4a5568 !important;
+  padding: 0.5rem 1rem !important; /* Ultra réduit de 0.75rem 1.5rem */
+  border-radius: 8px !important; /* Ultra réduit de 12px */
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.3rem !important; /* Ultra réduit de 0.5rem */
+  font-size: 0.8rem !important; /* Ultra réduit */
+}
+
+.cancel-button:hover {
+  background: #edf2f7 !important;
+  border-color: #cbd5e0 !important;
+  color: #2d3748 !important;
+  transform: translateY(-1px) !important; /* Ultra réduit de -2px */
+}
+
+.submit-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  border: none !important;
+  color: white !important;
+  padding: 0.5rem 1rem !important; /* Ultra réduit de 0.75rem 1.5rem */
+  border-radius: 8px !important; /* Ultra réduit de 12px */
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.3rem !important; /* Ultra réduit de 0.5rem */
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.25) !important; /* Ultra réduit */
+  font-size: 0.8rem !important; /* Ultra réduit */
+}
+
+.submit-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%) !important;
+  transform: translateY(-1px) !important; /* Ultra réduit de -2px */
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3) !important; /* Ultra réduit */
+}
+
+.submit-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .modern-leave-modal .modal-dialog {
+    margin: 0.5rem; /* Ultra réduit de 1rem */
+    max-width: calc(100% - 1rem); /* Ultra réduit de 2rem */
+  }
+
+  .modern-modal-header {
+    padding: 0.8rem !important; /* Ultra réduit de 1.5rem */
+  }
+
+  .header-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem; /* Ultra réduit de 0.75rem */
+  }
+
+  .close-button {
+    position: absolute;
+    top: 0.6rem; /* Ultra réduit de 1rem */
+    right: 0.6rem;
+  }
+
+  .modern-modal-content {
+    padding: 0.8rem !important; /* Ultra réduit de 1.5rem */
+  }
+
+  .form-section {
+    padding: 0.6rem; /* Ultra réduit de 1rem */
+  }
+
+  .section-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.3rem; /* Ultra réduit de 0.5rem */
+  }
+
+  .footer-actions {
+    flex-direction: column;
+  }
+
+  .cancel-button,
+  .submit-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-title {
+    font-size: 1rem; /* Ultra réduit de 1.3rem */
+  }
+
+  .modal-subtitle {
+    font-size: 0.75rem; /* Ultra réduit de 0.9rem */
+  }
+
+  .modern-input,
+  .modern-select {
+    padding: 0.5rem 2rem 0.5rem 0.6rem !important; /* Ultra réduit */
+    font-size: 0.75rem !important; /* Ultra réduit de 0.9rem */
+  }
+
+  .section-title {
+    font-size: 0.8rem; /* Ultra réduit de 1rem */
+  }
+
+  .modern-label {
+    font-size: 0.75rem; /* Ultra réduit de 0.85rem */
+  }
+
+  .modern-modal-header {
+    padding: 0.6rem !important; /* Ultra réduit */
+  }
+
+  .modern-modal-content {
+    padding: 0.6rem !important; /* Ultra réduit */
+  }
+
+  .form-section {
+    padding: 0.5rem; /* Ultra réduit */
+  }
+
+  .section-header {
+    margin-bottom: 0.6rem; /* Ultra réduit */
+    padding-bottom: 0.3rem; /* Ultra réduit */
+  }
+
+  .modern-form-group {
+    margin-bottom: 0.6rem; /* Ultra réduit */
+  }
+
+  .header-icon {
+    width: 35px; /* Ultra réduit */
+    height: 35px;
+    font-size: 1.1rem; /* Ultra réduit */
+  }
+
+  .section-icon {
+    width: 26px; /* Ultra réduit */
+    height: 26px;
+    font-size: 0.9rem; /* Ultra réduit */
+  }
+}
+
+/* Animations d'entrée pour les sections - Ultra réduites */
+.form-section {
+  animation: sectionSlideIn 0.2s ease-out both; /* Ultra réduit de 0.4s */
+}
+
+.form-section:nth-child(1) {
+  animation-delay: 0.05s; /* Ultra réduit */
+}
+.form-section:nth-child(2) {
+  animation-delay: 0.1s; /* Ultra réduit */
+}
+.form-section:nth-child(3) {
+  animation-delay: 0.15s; /* Ultra réduit */
+}
+.form-section:nth-child(4) {
+  animation-delay: 0.2s; /* Ultra réduit */
+}
+
+@keyframes sectionSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px); /* Ultra réduit de 20px */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Optimisations ultra-compactes supplémentaires */
+@media (max-width: 360px) {
+  .modern-leave-modal .modal-dialog {
+    margin: 0.3rem;
+    max-width: calc(100% - 0.6rem);
+  }
+
+  .modal-title {
+    font-size: 0.9rem;
+  }
+
+  .modal-subtitle {
+    font-size: 0.7rem;
+  }
+
+  .modern-modal-header {
+    padding: 0.5rem !important;
+  }
+
+  .modern-modal-content {
+    padding: 0.5rem !important;
+    max-height: 50vh;
+  }
+
+  .modern-modal-footer {
+    padding: 0.6rem !important;
+  }
+
+  .form-section {
+    padding: 0.4rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .section-header {
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.25rem;
+  }
+
+  .modern-form-group {
+    margin-bottom: 0.5rem;
+  }
+
+  .modern-input,
+  .modern-select {
+    padding: 0.4rem 1.8rem 0.4rem 0.5rem !important;
+    font-size: 0.7rem !important;
+  }
+
+  .cancel-button,
+  .submit-button {
+    padding: 0.4rem 0.8rem !important;
+    font-size: 0.75rem !important;
+  }
+}

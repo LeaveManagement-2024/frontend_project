@@ -23,7 +23,7 @@ const ChangePass = (props) => {
 
   const handleSubmit = async () => {
     if (newPassword !== confirmPassword) {
-      alert("كلمة مرور جديدة وكلمة سر تأكيد لا تتطابق!");
+      alert("Les mots de passe ne correspondent pas");
       return;
     }
 
@@ -57,10 +57,10 @@ const ChangePass = (props) => {
               <div className="pl-lg-4">
                 <Row>
                   <Col md="12">
-                    <FormGroup className="text-right">
+                    <FormGroup >
                       <label className="form-control-label" htmlFor="old-password"> ancien mot de passe</label>
                       <Input
-                        className="form-control-alternative text-right"
+                        className="form-control-alternative "
                         id="old-password"
                         placeholder=" ancien mot de passe "
                         type="password"
@@ -70,10 +70,10 @@ const ChangePass = (props) => {
                     </FormGroup>
                   </Col>
                   <Col md="12">
-                    <FormGroup className="text-right">
+                    <FormGroup >
                       <label className="form-control-label" htmlFor="new-password">Le nouveau mot de passe  </label>
                       <Input
-                        className="form-control-alternative text-right"
+                        className="form-control-alternative "
                         id="new-password"
                         placeholder="  Le nouveau mot de passe"
                         type="password"
@@ -83,10 +83,10 @@ const ChangePass = (props) => {
                     </FormGroup>
                   </Col>
                   <Col md="12">
-                    <FormGroup className="text-right">
+                    <FormGroup >
                       <label className="form-control-label" htmlFor="confirm-password">Confirmer le mot de passe   </label>
                       <Input
-                        className="form-control-alternative text-right"
+                        className="form-control-alternative "
                         id="confirm-password"
                         placeholder="confirmer le mot de passe "
                         type="password"

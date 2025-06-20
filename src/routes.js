@@ -15,8 +15,8 @@
 import React from 'react';
 import Index from "views/Index.js";
 import Profile from "views/examples/profilePerso/Profile";
-import Register from "views/examples/Register.js";
-import Login from "views/examples/Login.js";
+import Register from "views/examples/Authe/Register.js";
+import Login from "views/examples/Authe/Login.js";
 import Leave from "views/examples/Leave/Leave";
 import Employees from "views/examples/Employess/Employees";
 

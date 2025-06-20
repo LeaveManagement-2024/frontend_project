@@ -1,0 +1,565 @@
+/* Container principal */
+.modern-login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+  padding: 0.5rem; /* Ultra réduit */
+}
+
+/* Correction pour Bootstrap/Reactstrap Col */
+.modern-login-container .login-column {
+  flex: 0 0 auto !important; /* Annule les styles de Bootstrap Col */
+  max-width: 9000px !important; /* Force la largeur max */
+  min-width: 650px !important; /* Largeur minimum */
+  
+ 
+}
+
+/* Arrière-plan animé */
+.login-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.background-shapes {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.shape {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  animation: float 6s ease-in-out infinite;
+}
+
+.shape-1 {
+  width: 120px; /* Ultra réduit de 200px */
+  height: 120px;
+  top: 10%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.shape-2 {
+  width: 90px; /* Ultra réduit de 150px */
+  height: 90px;
+  top: 60%;
+  right: 10%;
+  animation-delay: 2s;
+}
+
+.shape-3 {
+  width: 60px; /* Ultra réduit de 100px */
+  height: 60px;
+  bottom: 20%;
+  left: 60%;
+  animation-delay: 4s;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(-15px) rotate(180deg); /* Ultra réduit de -20px */
+    opacity: 1;
+  }
+}
+
+/* Colonne de connexion */
+.login-column {
+  position: relative;
+  z-index: 2;
+  max-width: 350px; /* Ultra réduit de 450px */
+  width: 100%;
+  margin: 0 auto;
+  flex: none !important; /* Empêche la colonne de s'étendre */
+}
+
+/* Carte de connexion moderne */
+.modern-login-card {
+  border: none !important;
+  border-radius: 16px !important; /* Ultra réduit de 24px */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12) !important; /* Ultra réduit */
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(12px) !important; /* Ultra réduit de 20px */
+  overflow: hidden;
+  animation: slideInUp 0.4s ease-out; /* Ultra réduit de 0.8s */
+  max-width: 100% !important; /* Limite la largeur */
+  width: 100% !important; /* Assure que la carte prend la largeur de son parent */
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95); /* Ultra réduit de 50px */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Header moderne */
+.modern-login-header {
+  background: transparent !important;
+  border: none !important;
+  padding: 1.5rem 1.5rem 0.8rem 1.5rem !important; /* Ultra réduit */
+  text-align: center;
+}
+
+.header-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem; /* Ultra réduit de 1rem */
+}
+
+.login-icon {
+  margin-bottom: 0.6rem; /* Ultra réduit de 1rem */
+}
+
+.icon-circle {
+  width: 50px; /* Ultra réduit de 80px */
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.3rem; /* Ultra réduit de 2rem */
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.25); /* Ultra réduit */
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.25);
+  }
+  50% {
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.35); /* Ultra réduit */
+  }
+  100% {
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.25);
+  }
+}
+
+.header-text {
+  text-align: center;
+}
+
+.login-title {
+  margin: 0;
+  font-size: 1.4rem; /* Ultra réduit de 2rem */
+  font-weight: 700;
+  color: #2d3748;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.login-subtitle {
+  margin: 0.3rem 0 0 0; /* Ultra réduit de 0.5rem */
+  color: #718096;
+  font-size: 0.8rem; /* Ultra réduit de 1rem */
+  font-weight: 500;
+}
+
+/* Corps de la carte */
+.modern-login-body {
+  padding: 0.8rem 1.5rem 1.5rem 1.5rem !important; /* Ultra réduit */
+}
+
+.modern-login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* Ultra réduit de 1.5rem */
+}
+
+/* Groupes de formulaire */
+.modern-form-group {
+  margin-bottom: 0 !important;
+}
+
+.modern-label {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem; /* Ultra réduit de 0.5rem */
+  margin-bottom: 0.5rem; /* Ultra réduit de 0.75rem */
+  font-weight: 600;
+  color: #4a5568;
+  font-size: 0.8rem; /* Ultra réduit de 0.9rem */
+}
+
+.label-text {
+  flex: 1;
+}
+
+.required-indicator {
+  color: #e53e3e;
+  font-weight: 700;
+}
+
+/* Groupes d'input modernes */
+.modern-input-group {
+  border-radius: 12px !important; /* Ultra réduit de 16px */
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04) !important; /* Ultra réduit */
+  transition: all 0.3s ease !important;
+}
+
+.modern-input-group:focus-within {
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.12) !important; /* Ultra réduit */
+  transform: translateY(-1px); /* Ultra réduit de -2px */
+}
+
+.modern-input-addon {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+  border: none !important;
+  color: #6c757d !important;
+  padding: 0.7rem !important; /* Ultra réduit de 1rem */
+  border-radius: 0 !important;
+}
+
+.modern-input {
+  border: none !important;
+  padding: 0.7rem 1rem !important; /* Ultra réduit de 1rem 1.5rem */
+  font-size: 0.85rem !important; /* Ultra réduit de 1rem */
+  background: white !important;
+  color: #2d3748 !important;
+  border-radius: 0 !important;
+}
+
+.modern-input:focus {
+  box-shadow: none !important;
+  background: white !important;
+}
+
+.modern-input::placeholder {
+  color: #a0aec0;
+  font-weight: 400;
+  font-size: 0.8rem; /* Ultra réduit */
+}
+
+/* Message d'erreur */
+.error-message {
+  background: linear-gradient(135deg, #fed7d7 0%, #feb2b2 100%);
+  color: #c53030;
+  padding: 0.7rem; /* Ultra réduit de 1rem */
+  border-radius: 8px; /* Ultra réduit de 12px */
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Ultra réduit de 0.75rem */
+  font-weight: 500;
+  border: 1px solid #fbb6ce;
+  animation: shake 0.3s ease-in-out; /* Ultra réduit de 0.5s */
+  font-size: 0.8rem; /* Ultra réduit */
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-3px); /* Ultra réduit de -5px */
+  }
+  75% {
+    transform: translateX(3px); /* Ultra réduit de 5px */
+  }
+}
+
+/* Actions de connexion */
+.login-actions {
+  margin-top: 0.6rem; /* Ultra réduit de 1rem */
+}
+
+.modern-login-button {
+  width: 100% !important;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  border: none !important;
+  padding: 0.7rem 1.5rem !important; /* Ultra réduit de 1rem 2rem */
+  border-radius: 12px !important; /* Ultra réduit de 16px */
+  font-weight: 600 !important;
+  font-size: 0.9rem !important; /* Ultra réduit de 1.1rem */
+  color: white !important;
+  transition: all 0.3s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.5rem !important; /* Ultra réduit de 0.75rem */
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.25) !important; /* Ultra réduit */
+}
+
+.modern-login-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%) !important;
+  transform: translateY(-2px) !important; /* Ultra réduit de -3px */
+  box-shadow: 0 6px 18px rgba(102, 126, 234, 0.3) !important; /* Ultra réduit */
+}
+
+.modern-login-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.button-icon {
+  font-size: 1rem; /* Ultra réduit de 1.3rem */
+}
+
+.button-spinner {
+  width: 16px; /* Ultra réduit de 20px */
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Footer de connexion */
+.login-footer {
+  margin-top: 1.2rem; /* Ultra réduit de 2rem */
+  padding: 0 0.8rem; /* Ultra réduit de 0 1rem */
+}
+
+.footer-link {
+  color: rgba(255, 255, 255, 0.9) !important;
+  text-decoration: none !important;
+  font-weight: 500;
+  font-size: 0.75rem !important; /* Ultra réduit de 0.9rem */
+  display: flex;
+  align-items: center;
+  gap: 0.3rem; /* Ultra réduit de 0.5rem */
+  transition: all 0.3s ease;
+  padding: 0.4rem; /* Ultra réduit de 0.5rem */
+  border-radius: 6px; /* Ultra réduit de 8px */
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(6px); /* Ultra réduit de 10px */
+}
+
+.footer-link:hover {
+  color: white !important;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px); /* Ultra réduit de -2px */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .modern-login-container {
+    padding: 0.8rem; /* Ultra réduit de 1rem */
+  }
+
+  .login-column {
+    max-width: 100%;
+  }
+
+  .modern-login-header {
+    padding: 1.2rem 1rem 0.6rem 1rem !important; /* Ultra réduit */
+  }
+
+  .modern-login-body {
+    padding: 0.6rem 1rem 1.2rem 1rem !important; /* Ultra réduit */
+  }
+
+  .login-title {
+    font-size: 1.2rem; /* Ultra réduit de 1.8rem */
+  }
+
+  .icon-circle {
+    width: 45px; /* Ultra réduit de 70px */
+    height: 45px;
+    font-size: 1.1rem; /* Ultra réduit de 1.8rem */
+  }
+
+  .shape {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .modern-login-header {
+    padding: 1rem 0.8rem 0.4rem 0.8rem !important; /* Ultra réduit */
+  }
+
+  .modern-login-body {
+    padding: 0.5rem 0.8rem 1rem 0.8rem !important; /* Ultra réduit */
+  }
+
+  .login-title {
+    font-size: 1.1rem; /* Ultra réduit de 1.6rem */
+  }
+
+  .login-subtitle {
+    font-size: 0.75rem; /* Ultra réduit de 0.9rem */
+  }
+
+  .modern-input-addon,
+  .modern-input {
+    padding: 0.6rem 0.8rem !important; /* Ultra réduit */
+  }
+
+  .modern-login-button {
+    padding: 0.6rem 1.2rem !important; /* Ultra réduit */
+    font-size: 0.85rem !important; /* Ultra réduit de 1rem */
+  }
+
+  .footer-link {
+    font-size: 0.7rem; /* Ultra réduit de 0.8rem */
+    flex-direction: column;
+    gap: 0.2rem; /* Ultra réduit de 0.25rem */
+    text-align: center;
+    padding: 0.3rem; /* Ultra réduit */
+  }
+
+  .login-column {
+    max-width: 320px; /* Ultra réduit */
+  }
+
+  .icon-circle {
+    width: 40px; /* Ultra réduit */
+    height: 40px;
+    font-size: 1rem; /* Ultra réduit */
+  }
+
+  .login-icon {
+    margin-bottom: 0.4rem; /* Ultra réduit */
+  }
+
+  .header-content {
+    gap: 0.4rem; /* Ultra réduit */
+  }
+
+  .modern-login-form {
+    gap: 0.8rem; /* Ultra réduit */
+  }
+
+  .modern-label {
+    margin-bottom: 0.4rem; /* Ultra réduit */
+    font-size: 0.75rem; /* Ultra réduit */
+  }
+
+  .login-actions {
+    margin-top: 0.5rem; /* Ultra réduit */
+  }
+
+  .login-footer {
+    margin-top: 1rem; /* Ultra réduit */
+    padding: 0 0.6rem; /* Ultra réduit */
+  }
+}
+
+/* Optimisations ultra-compactes supplémentaires */
+@media (max-width: 360px) {
+  .modern-login-container {
+    padding: 0.5rem;
+  }
+
+  .login-column {
+    max-width: 280px;
+  }
+
+  .modern-login-header {
+    padding: 0.8rem 0.6rem 0.3rem 0.6rem !important;
+  }
+
+  .modern-login-body {
+    padding: 0.4rem 0.6rem 0.8rem 0.6rem !important;
+  }
+
+  .login-title {
+    font-size: 1rem;
+  }
+
+  .login-subtitle {
+    font-size: 0.7rem;
+  }
+
+  .icon-circle {
+    width: 35px;
+    height: 35px;
+    font-size: 0.9rem;
+  }
+
+  .modern-input-addon,
+  .modern-input {
+    padding: 0.5rem 0.7rem !important;
+  }
+
+  .modern-login-button {
+    padding: 0.5rem 1rem !important;
+    font-size: 0.8rem !important;
+  }
+
+  .login-footer {
+    margin-top: 0.8rem;
+    padding: 0 0.4rem;
+  }
+
+  .footer-link {
+    font-size: 0.65rem;
+    padding: 0.25rem;
+  }
+}
+
+/* Effets de focus améliorés */
+.modern-input:focus {
+  outline: none;
+}
+
+.modern-input-group:focus-within .modern-input-addon {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: white !important;
+}
+
+/* Animation d'apparition des éléments - Ultra réduites */
+.modern-form-group {
+  animation: fadeInUp 0.3s ease-out both; /* Ultra réduit de 0.6s */
+}
+
+.modern-form-group:nth-child(1) {
+  animation-delay: 0.1s; /* Ultra réduit de 0.2s */
+}
+
+.modern-form-group:nth-child(2) {
+  animation-delay: 0.2s; /* Ultra réduit de 0.4s */
+}
+
+.login-actions {
+  animation: fadeInUp 0.3s ease-out both; /* Ultra réduit de 0.6s */
+  animation-delay: 0.3s; /* Ultra réduit de 0.6s */
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px); /* Ultra réduit de 20px */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

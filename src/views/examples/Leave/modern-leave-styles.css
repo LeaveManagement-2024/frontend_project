@@ -1,0 +1,579 @@
+/* Container principal */
+.modern-leave-container {
+  padding-bottom: 0.1rem; /* Ultra réduit */
+}
+
+/* Loading moderne */
+.modern-loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.modern-spinner {
+  text-align: center;
+  color: white;
+}
+
+.spinner-ring {
+  width: 20px; /* Ultra compact */
+  height: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Border plus fin */
+  border-top: 1px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 0.1rem; /* Ultra réduit */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Carte principale */
+.modern-leave-card,
+.modern-personal-card,
+.modern-approval-card {
+  border: none !important;
+  border-radius: 12px !important;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+  overflow: hidden;
+  background: white;
+  animation: slideInUp 0.4s ease-out;
+}
+
+.modern-approval-card {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15) !important;
+  background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+  animation-duration: 0.6s;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Header moderne */
+.modern-card-header,
+.modern-personal-header,
+.modern-approval-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  border: none !important;
+  padding: 0.4rem !important; /* Ultra réduit */
+  color: white;
+}
+
+.modern-approval-header {
+  background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%) !important;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.2rem; /* Ultra réduit */
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem; /* Ultra réduit */
+}
+
+.header-icon {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.3rem; /* Ultra réduit */
+  border-radius: 6px; /* Plus petit */
+  backdrop-filter: blur(6px);
+}
+
+.header-text .header-title {
+  margin: 0;
+  font-size: 1rem; /* Ultra réduit */
+  font-weight: 700;
+  color: white;
+}
+
+.header-text .header-subtitle {
+  margin: 0.1rem 0 0 0; /* Ultra réduit */
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.65rem; /* Ultra réduit */
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem; /* Ultra réduit */
+}
+
+/* Dropdown moderne */
+.modern-dropdown-wrapper .dropdown-toggle {
+  background: rgba(255, 255, 255, 0.2) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  color: white !important;
+  padding: 0.4rem 0.8rem !important; /* Réduit de 0.5rem 1rem */
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  font-size: 0.8rem !important; /* Réduit de 0.85rem */
+  backdrop-filter: blur(6px);
+  transition: all 0.3s ease !important;
+}
+
+.modern-dropdown-wrapper .dropdown-toggle:hover {
+  background: rgba(255, 255, 255, 0.3) !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  transform: translateY(-1px);
+}
+
+.modern-dropdown-item {
+  padding: 0.4rem 0.8rem !important; /* Réduit de 0.5rem 1rem */
+  font-weight: 500 !important;
+  font-size: 0.8rem !important; /* Réduit de 0.85rem */
+  transition: all 0.3s ease !important;
+  border: none !important;
+  background: transparent !important;
+}
+
+.modern-dropdown-item:hover {
+  background: #f8f9fa !important;
+  color: #667eea !important;
+  transform: translateX(2px);
+}
+
+/* Bouton d'ajout moderne */
+.modern-add-button {
+  background: white !important;
+  color: #667eea !important;
+  border: none !important;
+  padding: 0.4rem 0.8rem !important; /* Réduit de 0.5rem 1rem */
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  font-size: 0.8rem !important; /* Réduit de 0.85rem */
+  transition: all 0.3s ease !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+.modern-add-button:hover {
+  background: #f8f9fa !important;
+  color: #5a67d8 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15) !important;
+}
+
+.modern-add-button i {
+  margin-right: 0.25rem; /* Réduit de 0.3rem */
+}
+
+/* Container de table */
+.modern-table-container {
+  background: white;
+  overflow-x: auto;
+}
+
+.modern-table-container.approval {
+  background: #2d3748;
+}
+
+/* Table moderne */
+.modern-table {
+  margin: 0 !important;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.modern-table-header th {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+  color: #495057 !important;
+  font-weight: 700 !important;
+  border: none !important;
+  font-size: 0.75rem; /* Réduit de 0.8rem */
+  text-transform: uppercase;
+  letter-spacing: 0.2px; /* Réduit de 0.3px */
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 0.6rem 0.5rem !important; /* Ajouté pour réduire */
+}
+
+.modern-table-header.approval th {
+  background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%) !important;
+  color: white !important;
+}
+
+.modern-table-header th:first-child {
+  border-top-left-radius: 0;
+}
+
+.modern-table-header th:last-child {
+  border-top-right-radius: 0;
+}
+
+.modern-table-row {
+  transition: all 0.3s ease;
+  border-bottom: 1px solid #f1f3f4;
+}
+
+.modern-table-row:hover {
+  background: #edeff9 !important;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+}
+
+.modern-table-row.approval {
+  border-bottom: 1px solid #4a5568;
+}
+
+.modern-table-row.approval:hover {
+  background: #4a5568 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modern-table-body td {
+  border: none !important;
+  vertical-align: middle !important;
+  font-size: 0.8rem; /* Réduit de 0.85rem */
+  padding: 0.5rem !important; /* Ajouté pour réduire */
+}
+
+/* Cellule employé */
+.employee-cell {
+  min-width: 70px; /* Ultra réduit */
+}
+
+.employee-info {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem; /* Ultra réduit */
+}
+
+.employee-avatar {
+  width: 20px; /* Ultra réduit */
+  height: 20px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.6rem; /* Ultra réduit */
+}
+
+.employee-name {
+  color: #2d3748;
+  font-size: 0.7rem; /* Ultra réduit */
+}
+
+.modern-table-body.approval .employee-name {
+  color: white;
+}
+
+/* Badge type de congé */
+.leave-type-badge {
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  color: #1565c0;
+  padding: 0.15rem 0.3rem; /* Ultra réduit */
+  border-radius: 6px; /* Plus petit */
+  font-weight: 600;
+  font-size: 0.65rem; /* Ultra réduit */
+  display: inline-block;
+}
+
+/* Cellules de date */
+.date-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem; /* Ultra réduit */
+  color: #4a5568;
+  font-weight: 500;
+  font-size: 0.7rem; /* Ultra réduit */
+}
+
+.modern-table-body.approval .date-cell {
+  color: #e2e8f0;
+}
+
+.date-cell i {
+  color: #667eea;
+}
+
+.modern-table-body.approval .date-cell i {
+  color: #e53e3e;
+}
+
+/* Cellules d'approbation */
+.approval-cell {
+  text-align: center;
+}
+
+.approver-name {
+  color: #4a5568;
+  margin-bottom: 0.25rem; /* Réduit de 0.3rem */
+  font-weight: 500;
+  font-size: 0.8rem; /* Réduit de 0.85rem */
+}
+
+.modern-table-body.approval .approver-name {
+  color: #e2e8f0;
+}
+
+/* Badge de statut */
+.modern-status-badge {
+  border-radius: 12px !important;
+  padding: 0.2rem 0.5rem !important; /* Réduit de 0.25rem 0.6rem */
+  font-weight: 600 !important;
+  font-size: 0.75rem !important; /* Réduit de 0.8rem */
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.1rem !important; /* Réduit de 0.15rem */
+}
+
+.modern-status-badge.approved {
+  background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%) !important;
+  color: #155724 !important;
+  border: 1px solid #c3e6cb !important;
+}
+
+.modern-status-badge.pending {
+  background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%) !important;
+  color: #856404 !important;
+  border: 1px solid #ffeaa7 !important;
+}
+
+.modern-status-badge.unspecified {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+  color: #6c757d !important;
+  border: 1px solid #dee2e6 !important;
+}
+
+/* Bouton d'actions */
+.modern-action-button {
+  background: #f8f9fa !important;
+  border: 1px solid #e9ecef !important;
+  color: #6c757d !important;
+  border-radius: 3px !important; /* Plus petit */
+  padding: 0.2rem !important; /* Ultra réduit */
+  transition: all 0.3s ease !important;
+}
+
+.modern-action-button:hover {
+  background: #667eea !important;
+  border-color: #667eea !important;
+  color: white !important;
+  transform: translateY(-1px);
+}
+
+.modern-action-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Menu dropdown d'actions */
+.modern-dropdown-menu {
+  border: none !important;
+  border-radius: 8px !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15) !important;
+  padding: 0.25rem !important; /* Réduit de 0.3rem */
+}
+
+.modern-dropdown-action {
+  padding: 0.4rem 0.6rem !important; /* Réduit de 0.5rem 0.7rem */
+  border-radius: 5px !important;
+  margin: 0.05rem 0 !important; /* Réduit de 0.1rem */
+  transition: all 0.3s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.25rem !important; /* Réduit de 0.3rem */
+}
+
+.modern-dropdown-action:hover {
+  background: #f8f9ff !important;
+  color: #667eea !important;
+  transform: translateX(2px);
+}
+
+.modern-dropdown-action.delete:hover {
+  background: #fff5f5 !important;
+  color: #e53e3e !important;
+}
+
+/* Boutons d'approbation */
+.action-buttons {
+  display: flex;
+  gap: 0.25rem; /* Réduit de 0.3rem */
+  justify-content: center;
+}
+
+.modern-approve-button {
+  background: linear-gradient(135deg, #38a169 0%, #2f855a 100%) !important;
+  border: none !important;
+  color: white !important;
+  padding: 0.25rem 0.6rem !important; /* Réduit de 0.3rem 0.7rem */
+  border-radius: 5px !important;
+  font-weight: 600 !important;
+  font-size: 0.8rem !important; /* Ajouté */
+  transition: all 0.3s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.1rem !important; /* Réduit de 0.15rem */
+}
+
+.modern-approve-button:hover {
+  background: linear-gradient(135deg, #2f855a 0%, #276749 100%) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 2px 8px rgba(56, 161, 105, 0.3) !important;
+}
+
+.modern-reject-button {
+  background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%) !important;
+  border: none !important;
+  color: white !important;
+  padding: 0.25rem 0.6rem !important; /* Réduit de 0.3rem 0.7rem */
+  border-radius: 5px !important;
+  font-weight: 600 !important;
+  font-size: 0.8rem !important; /* Ajouté */
+  transition: all 0.3s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.1rem !important; /* Réduit de 0.15rem */
+}
+
+.modern-reject-button:hover {
+  background: linear-gradient(135deg, #c53030 0%, #9c2626 100%) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 2px 8px rgba(229, 62, 62, 0.3) !important;
+}
+
+/* Footer moderne */
+.modern-card-footer {
+  background: #f8f9fa !important;
+  border: none !important;
+  padding: 0.6rem 1rem !important; /* Réduit de 0.8rem 1.2rem */
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  flex-wrap: wrap;
+  gap: 0.4rem; /* Réduit de 0.5rem */
+}
+
+.modern-card-footer.approval {
+  background: #1a202c !important;
+  color: white;
+}
+
+.pagination-info {
+  color: #6c757d;
+  font-weight: 500;
+  font-size: 0.85rem; /* Ajouté */
+}
+
+.modern-card-footer.approval .pagination-info {
+  color: #e2e8f0;
+}
+
+/* Pagination moderne */
+.modern-pagination {
+  margin: 0 !important;
+}
+
+.modern-pagination-link {
+  border: 1px solid #e9ecef !important;
+  color: #6c757d !important;
+  padding: 0.25rem 0.4rem !important; /* Réduit de 0.3rem 0.5rem */
+  margin: 0 0.05rem !important; /* Réduit de 0.1rem */
+  border-radius: 5px !important;
+  transition: all 0.3s ease !important;
+  background: white !important;
+}
+
+.modern-pagination-link:hover {
+  background: #667eea !important;
+  border-color: #667eea !important;
+  color: white !important;
+  transform: translateY(-1px);
+}
+
+.modern-pagination .active .modern-pagination-link {
+  background: #667eea !important;
+  border-color: #667eea !important;
+  color: white !important;
+}
+
+.modern-pagination .disabled .modern-pagination-link {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .header-left {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .header-actions {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .modern-card-header,
+  .modern-personal-header,
+  .modern-approval-header {
+    padding: 0.6rem !important; /* Réduit de 0.8rem */
+  }
+
+  .modern-table-container {
+    overflow-x: auto;
+  }
+
+  .modern-card-footer {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .employee-info {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .approval-cell {
+    min-width: 100px; /* Réduit de 120px */
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .modern-table-header th,
+  .modern-table-body td {
+    padding: 0.2rem 0.1rem !important; /* Ultra réduit */
+  }
+
+  .header-icon {
+    padding: 0.25rem; /* Ultra réduit */
+  }
+
+  .header-text .header-title {
+    font-size: 0.9rem; /* Ultra réduit */
+  }
+
+  .modern-approve-button,
+  .modern-reject-button {
+    padding: 0.1rem 0.3rem !important; /* Ultra réduit */
+    font-size: 0.65rem !important; /* Ultra réduit */
+  }
+}

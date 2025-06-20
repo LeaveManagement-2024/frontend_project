@@ -1,0 +1,556 @@
+/* Container principal */
+.modern-annual-leave-container {
+  /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+  min-height: 100vh;
+  padding-bottom: 2rem;
+}
+
+/* Carte principale */
+.modern-annual-leave-card {
+  border: none !important;
+  border-radius: 20px !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1) !important;
+  overflow: hidden;
+  background: white;
+  animation: slideInUp 0.6s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Header moderne */
+.modern-annual-leave-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  border: none !important;
+  padding: 2rem !important;
+  color: white;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header-icon {
+  font-size: 2.5rem;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 1rem;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+}
+
+.header-text .header-title {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: white;
+}
+
+.header-text .header-subtitle {
+  margin: 0.5rem 0 0 0;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* Statistiques résumées */
+.stats-summary {
+  display: flex;
+  gap: 1rem;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.stat-number {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Bouton d'ajout moderne */
+.modern-add-button {
+  background: white !important;
+  color: #667eea !important;
+  border: none !important;
+  padding: 0.75rem 1.5rem !important;
+  border-radius: 12px !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+}
+
+.modern-add-button:hover {
+  background: #f8f9fa !important;
+  color: #5a67d8 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Container des cartes */
+.modern-cards-container {
+  padding: 2rem;
+  background: #fafbfc;
+}
+
+.annual-leave-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Liens de cartes */
+.card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.card-link:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Cartes modernes */
+.modern-annual-card {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  animation: fadeInCard 0.6s ease-out both;
+}
+
+@keyframes fadeInCard {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modern-annual-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Header de carte */
+.card-header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.card-icon {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.3rem;
+}
+
+/* Badge de statut */
+.modern-status-badge {
+  border-radius: 20px !important;
+  padding: 0.5rem 1rem !important;
+  font-weight: 600 !important;
+  font-size: 0.8rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.4rem !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.modern-status-badge.active {
+  background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%) !important;
+  color: #155724 !important;
+  border: 1px solid #c3e6cb !important;
+}
+
+.modern-status-badge.inactive {
+  background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%) !important;
+  color: #721c24 !important;
+  border: 1px solid #f5c6cb !important;
+}
+
+/* Contenu de carte */
+.card-content {
+  margin-bottom: 2rem;
+}
+
+.card-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* Informations de date */
+.date-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.date-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.date-icon {
+  width: 35px;
+  height: 35px;
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1565c0;
+  font-size: 0.9rem;
+}
+
+.date-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.date-label {
+  font-size: 0.8rem;
+  color: #718096;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.date-value {
+  font-size: 1rem;
+  color: #2d3748;
+  font-weight: 600;
+  margin-top: 0.2rem;
+}
+
+/* Séparateur de dates */
+.date-separator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 1rem;
+}
+
+.separator-line {
+  width: 2px;
+  height: 20px;
+  background: linear-gradient(to bottom, #667eea, #764ba2);
+  border-radius: 1px;
+}
+
+.separator-dot {
+  width: 8px;
+  height: 8px;
+  background: #667eea;
+  border-radius: 50%;
+}
+
+/* Footer de carte */
+.card-footer-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.action-hint {
+  font-size: 0.85rem;
+  color: #a0aec0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modern-annual-card:hover .action-hint {
+  opacity: 1;
+}
+
+.card-arrow {
+  width: 35px;
+  height: 35px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.modern-annual-card:hover .card-arrow {
+  transform: translateX(5px);
+}
+
+/* Effet de brillance */
+.card-shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+  pointer-events: none;
+}
+
+.modern-annual-card:hover .card-shine {
+  left: 100%;
+}
+
+/* Carte d'ajout */
+.add-card {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+  border: 2px dashed #cbd5e0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 250px;
+  position: relative;
+  overflow: hidden;
+}
+
+.add-card:hover {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  border-color: transparent !important;
+}
+
+.add-card-content {
+  text-align: center;
+  z-index: 2;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.add-card:hover .add-card-content {
+  color: white;
+}
+
+.add-icon {
+  width: 60px;
+  height: 60px;
+  background: #e2e8f0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  font-size: 1.5rem;
+  color: #667eea;
+  transition: all 0.3s ease;
+}
+
+.add-card:hover .add-icon {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  transform: scale(1.1);
+}
+
+.add-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #4a5568;
+  margin-bottom: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.add-subtitle {
+  font-size: 0.9rem;
+  color: #718096;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+.add-card:hover .add-title,
+.add-card:hover .add-subtitle {
+  color: white;
+}
+
+.add-card-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  transition: all 0.5s ease;
+  transform: translate(-50%, -50%);
+}
+
+.add-card:hover .add-card-bg {
+  width: 300px;
+  height: 300px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .header-left {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .header-actions {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .modern-annual-leave-header {
+    padding: 1.5rem !important;
+  }
+
+  .modern-cards-container {
+    padding: 1.5rem;
+  }
+
+  .annual-leave-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .modern-annual-card {
+    padding: 1.5rem;
+  }
+
+  .date-info {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .date-separator {
+    transform: rotate(90deg);
+    margin: 0;
+  }
+
+  .separator-line {
+    width: 20px;
+    height: 2px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-icon {
+    font-size: 2rem;
+    padding: 0.75rem;
+  }
+
+  .header-text .header-title {
+    font-size: 1.5rem;
+  }
+
+  .modern-annual-card {
+    padding: 1.25rem;
+  }
+
+  .card-title {
+    font-size: 1.1rem;
+  }
+
+  .stats-summary {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .stat-item {
+    padding: 0.5rem 0.75rem;
+  }
+}
+
+/* Animation d'entrée échelonnée */
+.modern-annual-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.modern-annual-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.modern-annual-card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.modern-annual-card:nth-child(4) {
+  animation-delay: 0.4s;
+}
+.modern-annual-card:nth-child(5) {
+  animation-delay: 0.5s;
+}
+.modern-annual-card:nth-child(6) {
+  animation-delay: 0.6s;
+}
+
+/* États de focus pour l'accessibilité */
+.modern-annual-card:focus {
+  outline: 3px solid rgba(102, 126, 234, 0.5);
+  outline-offset: 2px;
+}
+
+.add-card:focus {
+  outline: 3px solid rgba(102, 126, 234, 0.5);
+  outline-offset: 2px;
+}

@@ -1,120 +1,171 @@
-import React, { useState, useEffect } from 'react';
-import {
-  Badge,
-  Card,
-  CardHeader,
-  CardFooter,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  Media,
-  Pagination,
-  PaginationItem,
-  PaginationLink,
-  Button,
-  Progress,
-  Table,
-  Container,
-  Row,
-  UncontrolledTooltip,
-} from "reactstrap";
+import { useState, useEffect } from "react"
+import { Badge, Card, CardHeader, Button, Container, Row } from "reactstrap"
 // Composants principaux
-import Header from "components/Headers/Header.js";
-import '../style.css'
-import { Link } from 'react-router-dom';
-import { getAllAnnualLeave } from './annualLeaveAPI';
-import AddAnnualLeaveModal from "./addAnnualLeave";
+import Header from "components/Headers/Header.js"
+import { Link } from "react-router-dom"
+import { getAllAnnualLeave } from "./annualLeaveAPI"
+import AddAnnualLeaveModal from "./addAnnualLeave"
+import "./modern-annual-leave-styles.css"
 
 const AnnualLeave = () => {
-  const [annualLeaves, setAnnualLeaves] = useState([]);
-  const [modalShow, setModalShow] = useState(false);
+  const [annualLeaves, setAnnualLeaves] = useState([])
+  const [modalShow, setModalShow] = useState(false)
 
   useEffect(() => {
-    fetchAllAnnualLeaves();
-  }, []);
-  
+    fetchAllAnnualLeaves()
+  }, [])
+
   const fetchAllAnnualLeaves = async () => {
     try {
-      const data = await getAllAnnualLeave();
-      setAnnualLeaves(data);
+      const data = await getAllAnnualLeave()
+      setAnnualLeaves(data)
     } catch (error) {
-      console.error("Erreur lors de la récupération des congés annuels :", error);
+      console.error("Erreur lors de la récupération des congés annuels :", error)
     }
-  };
+  }
 
   const handleCloseModal = () => {
-    console.log("Fermeture du modal");
-    setModalShow(false);
-  };
+    console.log("Fermeture du modal")
+    setModalShow(false)
+  }
 
   return (
     <>
       <Header />
-      <Container className="mt--7" fluid style={{ direction: 'rtl' }}>
-        <Row>
-          <div className="col">
-            <Card className="shadow">
-              <CardHeader className="border-0">
-                <div className="d-flex justify-content-between align-items-center">
-                  <h3 className="mb-0 text-lg text-center">Congés annuels</h3>
-                  <Button color="primary" onClick={() => setModalShow(true)}>
-                    Ajouter un congé annuel
-                  </Button>
-                  <AddAnnualLeaveModal show={modalShow} onHide={handleCloseModal} />
-                </div>
-              </CardHeader>
-              
-              <div className="row side-row divstu">
-                {annualLeaves.map((anl) => (
-                  <Link to={`/admin/annualLeaveDetial/${anl.annualLeaveId}`} key={anl.annualLeaveId}>
-                    <div className="card78">
-                      <h3 
-                        className="card__title text-center" 
-                        style={{margin: '10px'}}
-                      >
-                        Congé annuel {anl.label}
-                      </h3>
-                      
-                      <p 
-                        className="card__content text-center" 
-                        style={{ color: anl.status === 'enabled' ? 'green' : 'red', marginLeft: '10px', fontSize: "1.5em" }}
-                      >
-                        Statut : {anl.status === 'enabled' ? 'Activé' : 'Désactivé'}
-                      </p>
-                      <div className='d-flex justify-content-between align-items-center'>
-                        <i className="ni ni-calendar-grid-58" />
-                        <div className="text-right">
-                          Début du congé annuel :
-                        </div>
-                        <div className='text-left'>
-                          {anl.startDate}
-                        </div>
-                      </div>
-                      <div className='d-flex justify-content-between align-items-center' style={{marginBottom: '20px'}}>
-                        <i className="ni ni-calendar-grid-58" />
-                        <div className="text-right">
-                          Fin du congé annuel :
-                        </div>
-                        <div className='text-left'>
-                          {anl.endDate}
-                        </div>
-                      </div>
-                      <div className="card__arrow">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="15" width="15">
-                          <path fill="#fff" d="M13.4697 17.9697C13.1768 18.2626 13.1768 18.7374 13.4697 19.0303C13.7626 19.3232 14.2374 19.3232 14.5303 19.0303L20.3232 13.2374C21.0066 12.554 21.0066 11.446 20.3232 10.7626L14.5303 4.96967C14.2374 4.67678 13.7626 4.67678 13.4697 4.96967C13.1768 5.26256 13.1768 5.73744 13.4697 6.03033L18.6893 11.25H4C3.58579 11.25 3.25 11.5858 3.25 12C3.25 12.4142 3.58579 12.75 4 12.75H18.6893L13.4697 17.9697Z"></path>
-                        </svg>
+      <div className="modern-annual-leave-container">
+        <Container className="mt-2" fluid>
+          <Row>
+            <div className="col">
+              <Card className="modern-annual-leave-card">
+                <CardHeader className="modern-annual-leave-header">
+                  <div className="header-content">
+                    <div className="header-left">
+                      <div className="header-icon">📅</div>
+                      <div className="header-text">
+                        <h3 className="header-title">Congés Annuels</h3>
+                        <p className="header-subtitle">Gérez les périodes de congés annuels</p>
                       </div>
                     </div>
-                  </Link>
-                ))}
-              </div>
-            </Card>
-          </div>
-        </Row>
-      </Container>
-    </>
-  );
-};
+                    <div className="header-actions">
+                      <div className="stats-summary">
+                        <div className="stat-item">
+                          <span className="stat-number">{annualLeaves.length}</span>
+                          <span className="stat-label">Périodes</span>
+                        </div>
+                        <div className="stat-item">
+                          <span className="stat-number">
+                            {annualLeaves.filter((anl) => anl.status === "enabled").length}
+                          </span>
+                          <span className="stat-label">Actives</span>
+                        </div>
+                      </div>
+                      <Button className="modern-add-button" onClick={() => setModalShow(true)}>
+                        <i className="fas fa-plus"></i>
+                        Ajouter un congé annuel
+                      </Button>
+                    </div>
+                  </div>
+                </CardHeader>
 
-export default AnnualLeave;
+                <div className="modern-cards-container">
+                  <div className="annual-leave-grid">
+                    {annualLeaves.map((anl, index) => (
+                      <Link
+                        to={`/admin/annualLeaveDetial/${anl.annualLeaveId}`}
+                        key={anl.annualLeaveId}
+                        className="card-link"
+                      >
+                        <div className="modern-annual-card" style={{ animationDelay: `${index * 0.1}s` }}>
+                          <div className="card-header-section">
+                            <div className="card-icon">
+                              <i className="fas fa-calendar-alt"></i>
+                            </div>
+                            <div className="status-badge">
+                              <Badge
+                                className={`modern-status-badge ${anl.status === "enabled" ? "active" : "inactive"}`}
+                              >
+                                {anl.status === "enabled" ? (
+                                  <>
+                                    <i className="fas fa-check-circle"></i>
+                                    Activé
+                                  </>
+                                ) : (
+                                  <>
+                                    <i className="fas fa-pause-circle"></i>
+                                    Désactivé
+                                  </>
+                                )}
+                              </Badge>
+                            </div>
+                          </div>
+
+                          <div className="card-content">
+                            <h4 className="card-title">Congé annuel {anl.label}</h4>
+
+                            <div className="date-info">
+                              <div className="date-item">
+                                <div className="date-icon">
+                                  <i className="fas fa-play"></i>
+                                </div>
+                                <div className="date-details">
+                                  <span className="date-label">Début</span>
+                                  <span className="date-value">{anl.startDate}</span>
+                                </div>
+                              </div>
+
+                              <div className="date-separator">
+                                <div className="separator-line"></div>
+                                <div className="separator-dot"></div>
+                              </div>
+
+                              <div className="date-item">
+                                <div className="date-icon">
+                                  <i className="fas fa-stop"></i>
+                                </div>
+                                <div className="date-details">
+                                  <span className="date-label">Fin</span>
+                                  <span className="date-value">{anl.endDate}</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="card-footer-section">
+                            <div className="action-hint">
+                              <span>Cliquez pour voir les détails</span>
+                            </div>
+                            <div className="card-arrow">
+                              <i className="fas fa-arrow-right"></i>
+                            </div>
+                          </div>
+
+                          <div className="card-shine"></div>
+                        </div>
+                      </Link>
+                    ))}
+
+                    {/* Carte d'ajout rapide */}
+                    <div className="modern-annual-card add-card" onClick={() => setModalShow(true)}>
+                      <div className="add-card-content">
+                        <div className="add-icon">
+                          <i className="fas fa-plus"></i>
+                        </div>
+                        <h4 className="add-title">Ajouter une période</h4>
+                        <p className="add-subtitle">Créer un nouveau congé annuel</p>
+                      </div>
+                      <div className="add-card-bg"></div>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </div>
+          </Row>
+        </Container>
+
+        <AddAnnualLeaveModal show={modalShow} onHide={handleCloseModal} />
+      </div>
+    </>
+  )
+}
+
+export default AnnualLeave

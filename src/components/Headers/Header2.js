@@ -53,11 +53,7 @@ const Header2 = () => {
 
   return (
     <div className="header bg-gradient-success pb-8 pt-5 pt-md-8">
-      <Container fluid style={{ direction: 'rtl' }}>
-        <div className="header-body">
-         
-        </div>
-      </Container>
+      
     </div>
   );
 };
