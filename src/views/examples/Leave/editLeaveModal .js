@@ -170,14 +170,15 @@ const ModifierCongeModal = (props) => {
           annualLeaveId: anneeId,
           leaveTypeId: typeCongeId,
           replacementId: remplacantId,
-          lmanagerId: filiere?.service?.departement?.respDepartement?.idE,
-          responsible: filiere?.service?.respService?.idE,
+          lmanagerId: filiere?.respDepartement?.idE,
+          
         };
 
         await axios.put(`http://localhost:8093/leave/update/${props.leave.leaveId}`, congeData);
         window.location.reload();
       } catch (error) {
         console.error('Erreur lors de la modification du congé :', error);
+        console.error('Détails de l\'erreur:', error.response ? error.response.data : error.message);
       }
     }
   };
@@ -205,7 +206,7 @@ const ModifierCongeModal = (props) => {
                         <option value="">Sélectionner un remplaçant</option>
                         {employes.map(emp => (
                           <option key={emp.idE} value={emp.idE}>
-                            {emp.lastNameAr} {emp.firstNameAr}
+                            {emp.lastName} {emp.firstName}
                           </option>
                         ))}
                       </Input>

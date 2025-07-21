@@ -46,7 +46,9 @@ const AnnualLeave = () => {
                         <p className="header-subtitle">Gérez les périodes de congés annuels</p>
                       </div>
                     </div>
-                    <div className="header-actions">
+                    
+                  </div>
+                  <div className="header-actions">
                       <div className="stats-summary">
                         <div className="stat-item">
                           <span className="stat-number">{annualLeaves.length}</span>
@@ -59,12 +61,12 @@ const AnnualLeave = () => {
                           <span className="stat-label">Actives</span>
                         </div>
                       </div>
-                      <Button className="modern-add-button" onClick={() => setModalShow(true)}>
+                      
+                    </div>
+                      <Button className="modern-add-button text-right" onClick={() => setModalShow(true)}>
                         <i className="fas fa-plus"></i>
                         Ajouter un congé annuel
                       </Button>
-                    </div>
-                  </div>
                 </CardHeader>
 
                 <div className="modern-cards-container">

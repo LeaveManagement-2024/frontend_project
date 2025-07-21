@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import {
   Card,
   CardHeader,
@@ -16,11 +16,20 @@ import {
   Container,
   Row,
   Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Progress,
+  Alert,
+  Badge,
+  ListGroup,
+  ListGroupItem
 } from "reactstrap"
 import AddEmployeeModal from "./addEmployeeModal"
 import EditEmployeeModal from "./editEmployeeModal"
 import Header from "components/Headers/Header.js"
-import { loginEmployee, getAllEmployees, getEmployeeById, deleteEmployee } from "./employeeApi"
+import { loginEmployee, getAllEmployees, getEmployeeById, deleteEmployee, importEmployeesFromCSV } from "./employeeApi"
 import "./modern-employees-styles.css"
 
 const Employees = () => {
@@ -34,6 +43,14 @@ const Employees = () => {
   const [modalShow, setModalShow] = useState(false)
   const [editModalShow, setEditModalShow] = useState(false)
   const [editemp, setEditemp] = useState([])
+
+  // États pour l'import CSV
+  const [importModalShow, setImportModalShow] = useState(false)
+  const [csvFile, setCsvFile] = useState(null)
+  const [importLoading, setImportLoading] = useState(false)
+  const [importResult, setImportResult] = useState(null)
+  const [showImportResult, setShowImportResult] = useState(false)
+  const fileInputRef = useRef(null)
 
   useEffect(() => {
     fetchAllEmployees()
@@ -74,10 +91,86 @@ const Employees = () => {
     try {
       await deleteEmployee(idE)
       setMessage("L'employé a été supprimé avec succès")
-      fetchAllEmployees() // Actualiser la liste
+      fetchAllEmployees()
     } catch (error) {
       console.error("Erreur lors de la suppression de l'employé:", error)
     }
+  }
+
+  // Fonctions pour l'import CSV
+  const handleFileChange = (e) => {
+    const file = e.target.files[0]
+    if (file) {
+      if (file.type !== 'text/csv' && !file.name.endsWith('.csv')) {
+        alert('Veuillez sélectionner un fichier CSV valide')
+        return
+      }
+      setCsvFile(file)
+    }
+  }
+
+  const handleImportCSV = async () => {
+    if (!csvFile) {
+      alert('Veuillez sélectionner un fichier CSV')
+      return
+    }
+
+    setImportLoading(true)
+    setImportResult(null)
+
+    try {
+      const result = await importEmployeesFromCSV(csvFile)
+      setImportResult(result)
+      setShowImportResult(true)
+      
+      // Si l'import est réussi, actualiser la liste des employés
+      if (result.successCount > 0) {
+        await fetchAllEmployees()
+      }
+    } catch (error) {
+      console.error('Erreur lors de l\'import:', error)
+      setImportResult({
+        totalRecords: 0,
+        successCount: 0,
+        errorCount: 1,
+        errors: ['Erreur lors de l\'import du fichier: ' + error.message]
+      })
+      setShowImportResult(true)
+    } finally {
+      setImportLoading(false)
+    }
+  }
+
+  const resetImport = () => {
+    setCsvFile(null)
+    setImportResult(null)
+    setShowImportResult(false)
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''
+    }
+  }
+
+  const closeImportModal = () => {
+    setImportModalShow(false)
+    resetImport()
+  }
+
+  const downloadCSVTemplate = () => {
+    const csvContent = `firstName,lastName,email,password,phone,ppr,cin,address,hireDate,workLocation,profileName,departmentName,postName
+Ahmed,Benali,ahmed.benali@company.com,password123,0612345678,PPR001,CIN001,123 Rue Mohammed V Casablanca,2024-01-15,Bureau Casablanca,Manager,IT,Chef de Projet
+Fatima,El Amrani,fatima.elamrani@company.com,password456,0623456789,PPR002,CIN002,456 Avenue Hassan II Rabat,2024-02-01,Bureau Rabat,Employee,RH,Analyste RH`
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })
+    const link = document.createElement('a')
+    const url = URL.createObjectURL(blob)
+    
+    link.setAttribute('href', url)
+    link.setAttribute('download', 'template_employees.csv')
+    link.style.visibility = 'hidden'
+    
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
   }
 
   const indexOfLastItem = currentPage * itemsPerPage
@@ -102,19 +195,31 @@ const Employees = () => {
                         <p className="header-subtitle">Gérez votre équipe et les informations des employés</p>
                       </div>
                     </div>
-                    <div className="header-actions">
-                      <div className="stats-summary">
-                        <div className="stat-item">
-                          <span className="stat-number">{employees.length}</span>
-                          <span className="stat-label">Employés</span>
-                        </div>
+                  </div> 
+                  <div className="header-actions">
+                    <div className="stats-summary">
+                      <div className="stat-item">
+                        <span className="stat-number">{employees.length}</span>
+                        <span className="stat-label">Employés</span>
                       </div>
-                      <Button className="modern-add-button" onClick={() => setModalShow(true)}>
-                        <i className="fas fa-user-plus"></i>
-                        Nouvel employé
-                      </Button>
                     </div>
                   </div>
+                  <div className="button-group">
+                    
+                    <Button className="modern-add-button" onClick={() => setModalShow(true)}>
+                      <i className="fas fa-user-plus"></i>
+                      Nouvel employé
+                    </Button>
+                  </div>
+                  <Button 
+                      className="modern-import-button" 
+                      color="info"
+                      onClick={() => setImportModalShow(true)}
+                      style={{ marginRight: '10px' }}
+                    >
+                      <i className="fas fa-file-upload"></i>
+                      Importer CSV
+                    </Button>
                 </CardHeader>
 
                 <div className="modern-table-container">
@@ -283,6 +388,160 @@ const Employees = () => {
               </Card>
             </div>
           </Row>
+
+          {/* Modal d'import CSV */}
+          <Modal isOpen={importModalShow} toggle={closeImportModal} size="lg">
+            <ModalHeader toggle={closeImportModal}>
+              <i className="fas fa-file-upload mr-2"></i>
+              Importer des employés depuis un fichier CSV
+            </ModalHeader>
+            <ModalBody>
+              {!showImportResult ? (
+                <div>
+                  <Alert color="info">
+                    <strong>📋 Instructions:</strong>
+                    <ul className="mb-0 mt-2">
+                      <li>Sélectionnez un fichier CSV avec les colonnes requises</li>
+                      <li>Le fichier doit contenir les en-têtes exactes</li>
+                      <li>Les dates doivent être au format YYYY-MM-DD</li>
+                      <li>Téléchargez le modèle ci-dessous si nécessaire</li>
+                    </ul>
+                  </Alert>
+
+                  <div className="mb-3">
+                    <Button 
+                      color="secondary" 
+                      outline 
+                      onClick={downloadCSVTemplate}
+                      className="mb-3"
+                    >
+                      <i className="fas fa-download mr-2"></i>
+                      Télécharger le modèle CSV
+                    </Button>
+                  </div>
+
+                  <div className="mb-3">
+                    <label htmlFor="csvFile" className="form-label">
+                      <strong>Sélectionner le fichier CSV:</strong>
+                    </label>
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      id="csvFile"
+                      accept=".csv"
+                      onChange={handleFileChange}
+                      className="form-control"
+                    />
+                  </div>
+
+                  {csvFile && (
+                    <Alert color="success">
+                      <i className="fas fa-check-circle mr-2"></i>
+                      Fichier sélectionné: <strong>{csvFile.name}</strong>
+                      <br />
+                      Taille: {(csvFile.size / 1024).toFixed(2)} KB
+                    </Alert>
+                  )}
+
+                  {importLoading && (
+                    <div className="text-center">
+                      <div className="mb-2">
+                        <i className="fas fa-spinner fa-spin fa-2x text-primary"></i>
+                      </div>
+                      <p>Import en cours...</p>
+                      <Progress animated value={100} color="primary" />
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div>
+                  <div className="text-center mb-4">
+                    <i className={`fas fa-2x mb-3 ${importResult.errorCount === 0 ? 'fa-check-circle text-success' : 'fa-exclamation-triangle text-warning'}`}></i>
+                    <h4>Résultat de l'import</h4>
+                  </div>
+
+                  <Row className="mb-3">
+                    <div className="col-md-4 text-center">
+                      <Badge color="primary" pill className="p-2">
+                        <strong>{importResult.totalRecords}</strong><br />
+                        Total
+                      </Badge>
+                    </div>
+                    <div className="col-md-4 text-center">
+                      <Badge color="success" pill className="p-2">
+                        <strong>{importResult.successCount}</strong><br />
+                        Réussis
+                      </Badge>
+                    </div>
+                    <div className="col-md-4 text-center">
+                      <Badge color="danger" pill className="p-2">
+                        <strong>{importResult.errorCount}</strong><br />
+                        Échecs
+                      </Badge>
+                    </div>
+                  </Row>
+
+                  {importResult.errorCount > 0 && (
+                    <div>
+                      <h5 className="text-danger">
+                        <i className="fas fa-exclamation-circle mr-2"></i>
+                        Erreurs rencontrées:
+                      </h5>
+                      <ListGroup className="max-height-200" style={{ maxHeight: '200px', overflowY: 'auto' }}>
+                        {importResult.errors.map((error, index) => (
+                          <ListGroupItem key={index} color="danger" className="py-1 px-2">
+                            <small>{error}</small>
+                          </ListGroupItem>
+                        ))}
+                      </ListGroup>
+                    </div>
+                  )}
+
+                  {importResult.successCount > 0 && (
+                    <Alert color="success" className="mt-3">
+                      <i className="fas fa-check mr-2"></i>
+                      {importResult.successCount} employé(s) importé(s) avec succès !
+                    </Alert>
+                  )}
+                </div>
+              )}
+            </ModalBody>
+            <ModalFooter>
+              {!showImportResult ? (
+                <>
+                  <Button color="secondary" onClick={closeImportModal}>
+                    Annuler
+                  </Button>
+                  <Button 
+                    color="primary" 
+                    onClick={handleImportCSV}
+                    disabled={!csvFile || importLoading}
+                  >
+                    {importLoading ? (
+                      <>
+                        <i className="fas fa-spinner fa-spin mr-2"></i>
+                        Import en cours...
+                      </>
+                    ) : (
+                      <>
+                        <i className="fas fa-upload mr-2"></i>
+                        Importer
+                      </>
+                    )}
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button color="secondary" onClick={resetImport}>
+                    Nouvel Import
+                  </Button>
+                  <Button color="primary" onClick={closeImportModal}>
+                    Fermer
+                  </Button>
+                </>
+              )}
+            </ModalFooter>
+          </Modal>
 
           <AddEmployeeModal show={modalShow} onHide={() => setModalShow(false)} />
           <EditEmployeeModal show={editModalShow} empl={editemp} onHide={() => setEditModalShow(false)} />

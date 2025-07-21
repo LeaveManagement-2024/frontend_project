@@ -80,9 +80,9 @@ const EditEmployeeModal = (props) => {
   const fetchFilierEmployee = async (id) => {
     try {
       const filiereEmData = await getDepartmentByEmployee(id);
-     setFiliereId(filiereEmData.departementName);
+     setFiliereId(filiereEmData.idDepartement);
     } catch (error) {
-      console.error('Erreur lors de la récupération des filier de lemployee', error);
+      console.error('Erreur lors de la récupération des departement de lemployee', error);
     }
   };
 
@@ -154,7 +154,7 @@ const EditEmployeeModal = (props) => {
       formData.append('hireDate', hireDate);
       formData.append('workLocation', workLocation);
       formData.append('postId', postId);
-      formData.append('filiereId', filiereId);
+      formData.append('departmentId', filiereId);
       formData.append('profileId', 1);
 
       if(image !== null){
@@ -446,14 +446,14 @@ const EditEmployeeModal = (props) => {
                             
                             id="filiereId"
                             value={filiereId}
-                            placeholder="الشعبة"
+                            placeholder="Departement"
                             type="select"
                             
                             onChange={handleChange}
                           >
                             <option value="">Departement</option>
                             {filieres.map((filiere) => (
-                          <option key={filiere.idFiliere} value={filiere.idFiliere}>
+                          <option key={filiere.idDepartement} value={filiere.idDepartement}>
                             {filiere.departementName}
                           </option>
                         ))}</Input>

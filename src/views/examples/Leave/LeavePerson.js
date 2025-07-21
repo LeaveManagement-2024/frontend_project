@@ -193,14 +193,16 @@ const PersonalLeave = () => {
               <Card className="modern-personal-card">
                 <CardHeader className="modern-personal-header">
                   <div className="header-content">
-                    <div className="header-left">
-                      <div className="header-icon">🏖️</div>
+                    <div className="header">
+                     
                       <div className="header-text">
                         <h3 className="header-title">Mes Congés</h3>
                         <p className="header-subtitle">Gérez vos demandes de congés</p>
                       </div>
                     </div>
-                    <div className="header-actions">
+                    
+                  </div>
+                  <div className="header-actions">
                       <div className="modern-dropdown-wrapper">
                         <DropdownButton
                           id="dropdown-item-button"
@@ -235,13 +237,7 @@ const PersonalLeave = () => {
                           >
                             👔 En attente chef de département
                           </Dropdown.Item>
-                          <Dropdown.Item
-                            as="button"
-                            className="modern-dropdown-item"
-                            onClick={() => setFilterOption("responsible")}
-                          >
-                            🏢 En attente responsable du service
-                          </Dropdown.Item>
+                         
                           <Dropdown.Item
                             as="button"
                             className="modern-dropdown-item"
@@ -256,7 +252,6 @@ const PersonalLeave = () => {
                         Demander un congé
                       </Button>
                     </div>
-                  </div>
                 </CardHeader>
 
                 <div className="modern-table-container">
@@ -466,13 +461,14 @@ const PersonalLeave = () => {
                 <CardHeader className="modern-approval-header">
                   <div className="header-content">
                     <div className="header-left">
-                      <div className="header-icon">⚖️</div>
+                     
                       <div className="header-text">
                         <h3 className="header-title">Congés à Approuver</h3>
                         <p className="header-subtitle">Validez les demandes de congés</p>
                       </div>
                     </div>
-                    <div className="header-actions">
+                    
+                  </div><div className="header-actions">
                       <div className="modern-dropdown-wrapper">
                         <DropdownButton
                           id="dropdown-item-button-2"
@@ -496,7 +492,6 @@ const PersonalLeave = () => {
                         </DropdownButton>
                       </div>
                     </div>
-                  </div>
                 </CardHeader>
 
                 <div className="modern-table-container approval">

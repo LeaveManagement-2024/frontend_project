@@ -22,7 +22,7 @@ const getAllEmployees = async () => {
 };
 const getFilirerByEmployee = async (id) => {
   try {
-    const response = await axios.get(`${BASE_URL}/getFiliere/${id}`);
+    const response = await axios.get(`${BASE_URL}/getDepartment/${id}`);
     return response.data;
   } catch (error) {
     console.error('Error fetching employee filiere:', error);
@@ -161,6 +161,41 @@ const getDepartmentByEmployee = async (id) => {
     throw error;
   }
 };
+export const importEmployeesFromCSV = async (file) => {
+  try {
+    const formData = new FormData()
+    formData.append('file', file)
+
+    const response = await fetch(`http://localhost:8093/employee/import-csv`, {
+      method: 'POST',
+      body: formData,
+      // Ne pas définir Content-Type, le navigateur le fera automatiquement pour FormData
+    })
+
+    if (!response.ok) {
+      // Si la réponse n'est pas OK, essayons d'abord de lire le texte
+      const errorText = await response.text()
+      let errorMessage = `Erreur HTTP: ${response.status}`
+      
+      try {
+        // Essayer de parser comme JSON
+        const errorData = JSON.parse(errorText)
+        errorMessage = errorData.message || errorMessage
+      } catch {
+        // Si ce n'est pas du JSON, utiliser le texte brut
+        errorMessage = errorText || errorMessage
+      }
+      
+      throw new Error(errorMessage)
+    }
+
+    const result = await response.json()
+    return result
+  } catch (error) {
+    console.error('Erreur lors de l\'import CSV:', error)
+    throw error
+  }
+}
 
 
 export {

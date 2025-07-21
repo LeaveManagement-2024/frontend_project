@@ -21,7 +21,7 @@ const AddLeaveModal = ({ onHide, onSuccess, ...props }) => {
   const [loading, setLoading] = useState(true)
   const [filiere, setFiliere] = useState([])
   // Form fields
-  const [annualLeaveId, setAnnualLeaveId] = useState("1")
+  const [annualLeaveId, setAnnualLeaveId] = useState("")
   const [startDate, setStartDate] = useState("")
   const [endDate, setEndDate] = useState("")
   const [leaveTypeId, setLeaveTypeId] = useState("")
@@ -354,6 +354,42 @@ const AddLeaveModal = ({ onHide, onSuccess, ...props }) => {
                         </FormGroup>
                       </Col>
                       
+                    </Row>
+                  </div>
+                   <div className="form-section">
+                    <div className="section-header">
+                      <div className="section-icon">📋</div>
+                      <h5 className="section-title">AnuualLeaves</h5>
+                    </div>
+                    <Row>
+                      <Col lg="12">
+                        <FormGroup className="modern-form-group">
+                          <label className="modern-label">
+                            <span className="label-text"> anuualLeaves </span>
+                            <span className="required-indicator">*</span>
+                          </label>
+                          <div className="input-wrapper">
+                            <Input
+                              id="leaveTypeId"
+                              type="select"
+                              value={annualLeaveId}
+                              onChange={(e) => setAnnualLeaveId(e.target.value)}
+                              className={`modern-select ${errors.annualLeaveId ? "error" : ""}`}
+                            >
+                              <option value="">Leave Annual</option>
+                              {annualLeaves.map((al) => (
+                                <option key={al.annualLeaveId} value={al.annualLeaveId}>
+                                  {al.label}
+                                </option>
+                              ))}
+                            </Input>
+                            <div className="input-icon">
+                              <i className="fas fa-list"></i>
+                            </div>
+                          </div>
+                          {errors.annualLeaveId && <div className="error-message">{errors.annualLeaveId}</div>}
+                        </FormGroup>
+                      </Col>
                     </Row>
                   </div>
                   

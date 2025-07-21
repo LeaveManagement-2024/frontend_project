@@ -82,11 +82,10 @@
 }
 
 .stat-item {
-  display: flex;
   flex-direction: column;
-  align-items: center;
+  
   background: rgba(255, 255, 255, 0.15);
-  padding: 0.75rem 1rem;
+
   border-radius: 12px;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);

@@ -19,7 +19,7 @@ import Register from "views/examples/Authe/Register.js";
 import Login from "views/examples/Authe/Login.js";
 import Leave from "views/examples/Leave/Leave";
 import Employees from "views/examples/Employess/Employees";
-
+import SaisieFormation from "views/examples/formation/GestionFormations";
 
 import Parametre from "views/examples/parametre/parametre";
 import AnnualLeave from "views/examples/annualLeave/annualLeave";
@@ -65,6 +65,13 @@ var routes = [
     layout: "/admin",
   },
   {
+    path: "/SaisieFormation",
+    name: "SaisieFormation",
+    icon: "fa-solid fa-gears text-primary",
+    component: <SaisieFormation />,
+    layout: "/admin",
+  },
+  {
     path: "/employees",
     name: "Employés",
     icon: "fa-solid fa-user-tie text-primary" ,
@@ -94,6 +101,7 @@ var routes = [
     layout: "/auth",
     
   },
+  
  
 ];
 

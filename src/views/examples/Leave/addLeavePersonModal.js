@@ -66,11 +66,12 @@ const AddLeavePersonModal = (props) => {
   const fetchFiliere = async () => {
     try {
       const data = await getFilirerByEmployee(userId);
-      setFiliere(data);
-      setResponsible(data?.service?.respService?.idE);
-      setLmanagerId(data?.service?.departement?.respDepartement?.idE);
+      setFiliere(data);    
+      setLmanagerId(data?.respDepartement?.idE);
     } catch (error) {
       console.error('Erreur lors de la récupération de la filière:', error);
+      console.error('Assurez-vous que l\'ID de l\'employé est correct:', userId);
+      console.error('manager:', lmanagerId);
     }
   };
 
@@ -105,18 +106,13 @@ const AddLeavePersonModal = (props) => {
       case 'employeeId':
         setEmployeeId(value);
         break;
-      case 'responsible':
-        setResponsible(value);
-        break;
       case 'leaveTypeId':
         setLeaveTypeId(value);
         break;
       case 'replacementId':
         setReplacementId(value);
         break;
-      case 'lmanagerId':
-        setLmanagerId(value);
-        break;
+      
       default:
         break;
     }
@@ -169,8 +165,7 @@ const AddLeavePersonModal = (props) => {
           annualLeaveId,
           leaveTypeId,
           replacementId,
-          lmanagerId: filiere?.service?.departement?.respDepartement?.idE,
-          responsible: filiere?.service?.respService?.idE,
+          lmanagerId: filiere?.respDepartement?.idE,
         };
 
         console.log(leaveData);
@@ -233,7 +228,7 @@ const AddLeavePersonModal = (props) => {
                         <option value="">Choisir un remplaçant</option>
                         {employees.length > 0 && employees.map((emp) => (
                           <option key={emp.idE} value={emp.idE}>
-                            {emp.lastNameAr} {emp.firstNameAr}
+                            {emp.lastName} {emp.firstName}
                           </option>
                         ))}
                       </Input>

@@ -138,13 +138,15 @@ const Leave = () => {
                 <CardHeader className="modern-card-header">
                   <div className="header-content">
                     <div className="header-left">
-                      <div className="header-icon">🏖️</div>
+                      
                       <div className="header-text">
                         <h3 className="header-title">Gestion des Congés</h3>
                         <p className="header-subtitle">Gérez et suivez tous les congés de l'équipe</p>
                       </div>
                     </div>
-                    <div className="header-actions">
+                    
+                  </div>
+                  <div className="header-actions">
                       <div className="modern-dropdown-wrapper">
                         <DropdownButton
                           id="dropdown-item-button"
@@ -200,7 +202,6 @@ const Leave = () => {
                         Nouveau congé
                       </Button>
                     </div>
-                  </div>
                 </CardHeader>
 
                 <div className="modern-table-container">

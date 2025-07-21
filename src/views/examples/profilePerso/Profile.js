@@ -309,7 +309,7 @@ const Profile = () => {
                           </label>
                           <Input
                             style={inputStyle}
-                            defaultValue={employee.addressAr}
+                            defaultValue={employee.address}
                             id="input-address"
                             placeholder="Adresse"
                             type="text"

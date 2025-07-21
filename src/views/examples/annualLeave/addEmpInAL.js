@@ -32,7 +32,7 @@ const AddEmpInAL = (props) => {
 
   const validateForm = () => {
     const newErrors = {};
-    if (!nbr) newErrors.gradeNameAr = 'Veuillez entrer le nombre de jours de congé.';
+    if (!nbr) newErrors.nbr = 'Veuillez entrer le nombre de jours de congé.';
     
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -71,7 +71,7 @@ const AddEmpInAL = (props) => {
                 <Row>
                   <Col lg="12">
                     <FormGroup className="text-right">
-                      <label className="form-control-label" htmlFor="gradeNameAr">
+                      <label className="form-control-label" htmlFor="nbr">
                         Nombre de jours de congé
                       </label>
                       <Input
@@ -81,7 +81,7 @@ const AddEmpInAL = (props) => {
                         onChange={handleChange}
                         type="number"
                       />
-                      {errors.gradeNameAr && (
+                      {errors.nbr && (
                         <div className="text-danger">{errors.nbr}</div>
                       )}
                     </FormGroup>
