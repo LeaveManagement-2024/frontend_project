@@ -34,9 +34,10 @@ import {
   getEmployeeFormationStats 
 } from "./formationApi"
 import { getAllEmployees } from "../Employess/employeeApi"
+
 const FormationsManagement = () => {
   const [formations, setFormations] = useState([])
-  const [employees, setEmployees] = useState([])
+  const [employees, setEmployees] = useState([]) // Ensure it's always an array
   const [selectedEmployeeId, setSelectedEmployeeId] = useState('')
   const [modalShow, setModalShow] = useState(false)
   const [editMode, setEditMode] = useState(false)
@@ -92,8 +93,11 @@ const FormationsManagement = () => {
     setLoading(true)
     try {
       const data = await getAllFormations()
-      setFormations(data)
+      // Ensure data is an array
+      setFormations(Array.isArray(data) ? data : [])
     } catch (error) {
+      console.error('Erreur lors de la récupération des formations:', error)
+      setFormations([]) // Set to empty array on error
       showMessage('Erreur lors de la récupération des formations', 'danger')
     } finally {
       setLoading(false)
@@ -104,8 +108,11 @@ const FormationsManagement = () => {
     setLoading(true)
     try {
       const data = await getFormationsByEmployee(employeeId)
-      setFormations(data)
+      // Ensure data is an array
+      setFormations(Array.isArray(data) ? data : [])
     } catch (error) {
+      console.error('Erreur lors de la récupération des formations:', error)
+      setFormations([]) // Set to empty array on error
       showMessage('Erreur lors de la récupération des formations', 'danger')
     } finally {
       setLoading(false)
@@ -115,9 +122,31 @@ const FormationsManagement = () => {
   const fetchAllEmployees = async () => {
     try {
       const data = await getAllEmployees()
-      setEmployees(data)
+      console.log('Employees data received:', data) // Debug log
+      
+      // Handle different possible response formats
+      let employeesArray = [];
+      
+      if (Array.isArray(data)) {
+        employeesArray = data;
+      } else if (data && Array.isArray(data.employees)) {
+        // In case the API returns { employees: [...] }
+        employeesArray = data.employees;
+      } else if (data && Array.isArray(data.data)) {
+        // In case the API returns { data: [...] }
+        employeesArray = data.data;
+      } else if (data && typeof data === 'object') {
+        // If it's an object, try to convert it to an array
+        employeesArray = Object.values(data).filter(item => 
+          item && typeof item === 'object' && (item.idE || item.id)
+        );
+      }
+      
+      setEmployees(employeesArray)
     } catch (error) {
       console.error('Erreur lors de la récupération des employés:', error)
+      setEmployees([]) // Always set to array even on error
+      showMessage('Erreur lors de la récupération des employés', 'warning')
     }
   }
 
@@ -204,6 +233,7 @@ const FormationsManagement = () => {
         fetchAllFormations()
       }
     } catch (error) {
+      console.error('Erreur lors de la sauvegarde:', error)
       showMessage('Erreur lors de la sauvegarde', 'danger')
     } finally {
       setLoading(false)
@@ -243,6 +273,7 @@ const FormationsManagement = () => {
           fetchAllFormations()
         }
       } catch (error) {
+        console.error('Erreur lors de la suppression:', error)
         showMessage('Erreur lors de la suppression', 'danger')
       }
     }
@@ -297,7 +328,7 @@ const FormationsManagement = () => {
                 
                 {/* Filtre par employé */}
                 <Row className="mt-3">
-                  <Col md="4">
+                  <Col md="">
                     <FormGroup>
                       <Label for="employeeFilter">Filtrer par employé:</Label>
                       <Input
@@ -308,11 +339,15 @@ const FormationsManagement = () => {
                         onChange={(e) => setSelectedEmployeeId(e.target.value)}
                       >
                         <option value="">Tous les employés</option>
-                        {employees.map(emp => (
-                          <option key={emp.idE} value={emp.idE}>
-                            {emp.firstName} {emp.lastName}
-                          </option>
-                        ))}
+                        {Array.isArray(employees) && employees.length > 0 ? (
+                          employees.map(emp => (
+                            <option key={emp.idE || emp.id} value={emp.idE || emp.id}>
+                              {emp.firstName} {emp.lastName}
+                            </option>
+                          ))
+                        ) : (
+                          <option disabled>Aucun employé disponible</option>
+                        )}
                       </Input>
                     </FormGroup>
                   </Col>
@@ -346,7 +381,7 @@ const FormationsManagement = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {formations.length > 0 ? (
+                      {Array.isArray(formations) && formations.length > 0 ? (
                         formations.map((formation) => (
                           <tr key={formation.idFormation}>
                             <td>
@@ -476,11 +511,15 @@ const FormationsManagement = () => {
                       required
                     >
                       <option value="">Sélectionner un employé</option>
-                      {employees.map(emp => (
-                        <option key={emp.idE} value={emp.idE}>
-                          {emp.firstName} {emp.lastName} (ID: {emp.idE})
-                        </option>
-                      ))}
+                      {Array.isArray(employees) && employees.length > 0 ? (
+                        employees.map(emp => (
+                          <option key={emp.idE || emp.id} value={emp.idE || emp.id}>
+                            {emp.firstName} {emp.lastName} (ID: {emp.idE || emp.id})
+                          </option>
+                        ))
+                      ) : (
+                        <option disabled>Aucun employé disponible</option>
+                      )}
                     </Input>
                   </FormGroup>
                 </Col>

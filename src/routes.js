@@ -65,8 +65,8 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/SaisieFormation",
-    name: "SaisieFormation",
+    path: "/Formations",
+    name: "Formations",
     icon: "fa-solid fa-gears text-primary",
     component: <SaisieFormation />,
     layout: "/admin",

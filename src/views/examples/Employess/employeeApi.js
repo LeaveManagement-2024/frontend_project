@@ -11,15 +11,76 @@ const loginEmployee = async (logInDTO) => {
     throw error;
   }
 };
+
 const getAllEmployees = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/getAll`);
-    return response.data;
+    
+    // Debug logging
+    console.log('getAllEmployees - Response status:', response.status);
+    console.log('getAllEmployees - Response data type:', typeof response.data);
+    console.log('getAllEmployees - Is response.data an array?', Array.isArray(response.data));
+    
+    // The response.data should be an array, but let's handle circular references
+    if (Array.isArray(response.data)) {
+      console.log('getAllEmployees - Successfully received array with', response.data.length, 'employees');
+      
+      // Clean the data to remove circular references and unnecessary nested data
+      const cleanedEmployees = response.data.map(employee => {
+        // Create a clean employee object without deep nested circular references
+        const cleanEmployee = {
+          idE: employee.idE,
+          firstName: employee.firstName,
+          lastName: employee.lastName,
+          email: employee.email,
+          phone: employee.phone,
+          ppr: employee.ppr,
+          cin: employee.cin,
+          address: employee.address,
+          hireDate: employee.hireDate,
+          workLocation: employee.workLocation,
+          image: employee.image,
+          // Include post info but not the full nested objects
+          post: employee.post ? {
+            idPost: employee.post.idPost,
+            postName: employee.post.postName
+          } : null,
+          // Include profile info if needed
+          profile: employee.profile ? {
+            id: employee.profile.id,
+            name: employee.profile.name
+          } : null
+          // Note: We're NOT including formations here to avoid circular references
+          // If you need formations, create a separate API call for employee details
+        };
+        
+        return cleanEmployee;
+      });
+      
+      console.log('getAllEmployees - Cleaned employees:', cleanedEmployees.length, 'items');
+      if (cleanedEmployees.length > 0) {
+        console.log('getAllEmployees - Sample cleaned employee:', cleanedEmployees[0]);
+      }
+      
+      return cleanedEmployees;
+    } else {
+      console.warn('getAllEmployees - Unexpected response format. Expected array but got:', typeof response.data);
+      return [];
+    }
   } catch (error) {
     console.error('Error fetching all employees:', error);
-    throw error;
+    console.error('Error details:', {
+      message: error.message,
+      status: error.response?.status,
+      statusText: error.response?.statusText,
+      url: error.config?.url
+    });
+    
+    // Return empty array instead of throwing to prevent app crashes
+    return [];
   }
 };
+
 const getFilirerByEmployee = async (id) => {
   try {
     const response = await axios.get(`${BASE_URL}/getDepartment/${id}`);
@@ -49,6 +110,7 @@ const deleteEmployee = async (id) => {
     throw error;
   }
 };
+
 const getAllLeavesByEmployee = async (id) => {
   try {
     const response = await axios.get(`${BASE_URL}/AllLeaveE/${id}`);
@@ -88,6 +150,7 @@ const getLeavesToConfirmByManager = async (id) => {
     throw error;
   }
 };
+
 const getLeavesToConfirmByResponsible = async (id) => {
   try {
     const response = await axios.get(`${BASE_URL}/UnconfermedLeaveByResponsibleE/${id}`);
@@ -97,6 +160,7 @@ const getLeavesToConfirmByResponsible = async (id) => {
     throw error;
   }
 };
+
 const getAnnualLeavesLines = async (id) => {
   try {
     const response = await axios.get(`${BASE_URL}/getAnnualLeavesLines/${id}`);
@@ -106,6 +170,7 @@ const getAnnualLeavesLines = async (id) => {
     throw error;
   }
 };
+
 const getLeavesToConfirmByRemplacement = async (id) => {
   try {
     const response = await axios.get(`${BASE_URL}/UnconfermedLeaveByRemplacmentE/${id}`);
@@ -115,6 +180,7 @@ const getLeavesToConfirmByRemplacement = async (id) => {
     throw error;
   }
 };
+
 const getListesLeavesToConfirm = async (id) => {
   try {
     const response = await axios.get(`${BASE_URL}/getLeavesToConfirm/${id}`);
@@ -124,6 +190,7 @@ const getListesLeavesToConfirm = async (id) => {
     throw error;
   }
 };
+
 const getListesConfirmedLeaves = async (id) => {
   try {
     const response = await axios.get(`${BASE_URL}/getConfirmedLeaves/${id}`);
@@ -133,21 +200,23 @@ const getListesConfirmedLeaves = async (id) => {
     throw error;
   }
 };
-const postLeavesToConfirmE = async (ide,idl) => {
+
+const postLeavesToConfirmE = async (ide, idl) => {
   try {
     const response = await axios.post(`${BASE_URL}/LeavesToConfirmE/${ide}/${idl}`);
     return response.data;
   } catch (error) {
-    console.error(`Error  :`, error);
+    console.error(`Error:`, error);
     throw error;
   }
 };
-const postLeavesToUnconfirmE = async (ide,idl) => {
+
+const postLeavesToUnconfirmE = async (ide, idl) => {
   try {
     const response = await axios.post(`${BASE_URL}/LeavesToUnconfirmE/${ide}/${idl}`);
     return response.data;
   } catch (error) {
-    console.error(`Error  :`, error);
+    console.error(`Error:`, error);
     throw error;
   }
 };
@@ -161,7 +230,8 @@ const getDepartmentByEmployee = async (id) => {
     throw error;
   }
 };
-export const importEmployeesFromCSV = async (file) => {
+
+const importEmployeesFromCSV = async (file) => {
   try {
     const formData = new FormData()
     formData.append('file', file)
@@ -197,7 +267,6 @@ export const importEmployeesFromCSV = async (file) => {
   }
 }
 
-
 export {
   loginEmployee,
   getAllEmployees,
@@ -215,5 +284,6 @@ export {
   getListesConfirmedLeaves,
   postLeavesToConfirmE,
   postLeavesToUnconfirmE,
-  getDepartmentByEmployee
+  getDepartmentByEmployee,
+  importEmployeesFromCSV,
 };

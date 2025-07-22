@@ -160,7 +160,7 @@ const AddServiceModal = (props) => {
                         onChange={handleChange}
                       >
                         <option value="">Choisissez le responsable</option>
-                        {employes.map((emp) => (
+                        {(employes||[]).map((emp) => (
                           <option key={emp.idE} value={emp.idE}>
                             {emp.lastNameFr || emp.lastNameAr} {emp.firstNameFr || emp.firstNameAr}
                           </option>
