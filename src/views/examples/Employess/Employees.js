@@ -81,6 +81,7 @@ const Employees = () => {
     }
   }
 
+  // ✅ CORRECTED: Fonction handleGetEmployeeById améliorée
   const handleGetEmployeeById = async (idE) => {
     if (!idE) {
       console.error("Erreur : l'ID de l'employé est indéfini.")
@@ -89,25 +90,43 @@ const Employees = () => {
     try {
       const data = await getEmployeeById(idE)
       setEmployee(data)
+      
+      // Afficher les détails dans une alerte plus jolie
+      const details = `📋 DÉTAILS DE L'EMPLOYÉ\n\n` +
+        `👤 Nom: ${data.firstName} ${data.lastName}\n` +
+        `📧 Email: ${data.email}\n` +
+        `📞 Téléphone: ${data.phone || 'N/A'}\n` +
+        `🏠 Adresse: ${data.address || 'N/A'}\n` +
+        `🆔 CIN: ${data.cin || 'N/A'}\n` +
+        `📅 Date d'embauche: ${data.hireDate || 'N/A'}\n` +
+        `🏢 Lieu de travail: ${data.workLocation || 'N/A'}`
+      
+      alert(details)
+      
     } catch (error) {
       console.error("Erreur lors de la récupération de l'employé:", error)
       setMessage("Erreur lors de la récupération de l'employé")
     }
   }
 
+  // ✅ CORRECTED: handleDeleteEmployee amélioré avec meilleure UX
   const handleDeleteEmployee = async (idE) => {
-    if (!window.confirm("Êtes-vous sûr de vouloir supprimer cet employé ?")) {
+    // Trouver l'employé pour afficher son nom dans la confirmation
+    const employeeToDelete = employees.find(emp => emp.idE === idE)
+    const employeeName = employeeToDelete ? `${employeeToDelete.firstName} ${employeeToDelete.lastName}` : 'cet employé'
+    
+    if (!window.confirm(`⚠️ CONFIRMATION DE SUPPRESSION\n\nÊtes-vous sûr de vouloir supprimer ${employeeName} ?\n\nCette action est irréversible et supprimera définitivement toutes les données de cet employé.`)) {
       return
     }
     
     try {
       await deleteEmployee(idE)
-      setMessage("L'employé a été supprimé avec succès")
+      setMessage(`✅ L'employé ${employeeName} a été supprimé avec succès`)
       // ✅ FIX 2: Recharger la liste après suppression
       await fetchAllEmployees()
     } catch (error) {
       console.error("Erreur lors de la suppression de l'employé:", error)
-      setMessage("Erreur lors de la suppression de l'employé")
+      setMessage("❌ Erreur lors de la suppression de l'employé")
     }
   }
 
@@ -252,18 +271,13 @@ Fatima,El Amrani,fatima.elamrani@company.com,password456,0623456789,PPR002,CIN00
                       </Button>
                     </div>
                     </div>
-                    
-                    {/* ✅ FIX 6: Réorganiser les boutons dans la même div */}
-                    
-                      
-                    </div>
-                  
+                  </div>
                 </CardHeader>
 
                 {/* ✅ FIX 7: Affichage des messages d'erreur/succès */}
                 {message && (
                   <Alert 
-                    color={message.includes("succès") ? "success" : "danger"} 
+                    color={message.includes("succès") || message.includes("✅") ? "success" : "danger"} 
                     className="mx-3 mt-3"
                     toggle={() => setMessage("")}
                   >
@@ -297,7 +311,18 @@ Fatima,El Amrani,fatima.elamrani@company.com,password456,0623456789,PPR002,CIN00
                         </tr>
                       ) : currentItems.length > 0 ? (
                         currentItems.map((emp, index) => (
-                          <tr key={emp.idE} className="modern-table-row" style={{ animationDelay: `${index * 0.05}s` }}>
+                          <tr 
+                            key={emp.idE} 
+                            className="modern-table-row" 
+                            style={{ 
+                              animationDelay: `${index * 0.05}s`,
+                              cursor: 'default' // ✅ FIX: Empêcher le cursor pointer sur la ligne
+                            }}
+                            onClick={(e) => {
+                              // ✅ FIX: Empêcher la propagation des clics sur la ligne
+                              e.stopPropagation();
+                            }}
+                          >
                             <td className="employee-info-cell">
                               <div className="employee-profile">
                                 <div className="avatar-container">
@@ -341,43 +366,96 @@ Fatima,El Amrani,fatima.elamrani@company.com,password456,0623456789,PPR002,CIN00
                                 </span>
                               </div>
                             </td>
-                            <td>
-                              <UncontrolledDropdown>
-                                <DropdownToggle
-                                  className="modern-action-button"
-                                  href="#pablo"
-                                  role="button"
-                                  size="md"
-                                  color=""
-                                  onClick={(e) => e.preventDefault()}
+                            {/* ✅ SECTION ACTIONS CORRIGÉE - Solution alternative avec boutons directs */}
+                            <td 
+                              onClick={(e) => {
+                                // ✅ FIX: Empêcher absolument la propagation sur cette cellule
+                                e.stopPropagation();
+                                e.preventDefault();
+                              }}
+                              style={{ 
+                                position: 'relative',
+                                zIndex: 10 // ✅ FIX: S'assurer que cette cellule est au-dessus
+                              }}
+                            >
+                              <div 
+                                className="action-buttons-container"
+                                style={{ 
+                                  display: 'flex', 
+                                  gap: '8px',
+                                  justifyContent: 'center',
+                                  alignItems: 'center'
+                                }}
+                                onClick={(e) => {
+                                  // ✅ FIX: Double protection contre la propagation
+                                  e.stopPropagation();
+                                  e.preventDefault();
+                                }}
+                              >
+                                {/* Bouton Afficher */}
+                                <Button
+                                  size="sm"
+                                  color="info"
+                                  outline
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    e.nativeEvent.stopImmediatePropagation(); // ✅ FIX: Stop immédiat
+                                    handleGetEmployeeById(emp.idE);
+                                  }}
+                                  title="Afficher les détails"
+                                  style={{ 
+                                    padding: '6px 10px',
+                                    zIndex: 20,
+                                    position: 'relative'
+                                  }}
                                 >
-                                  <i className="fas fa-ellipsis-v" />
-                                </DropdownToggle>
-                                <DropdownMenu className="modern-dropdown-menu" right>
-                                  <DropdownItem
-                                    className="modern-dropdown-action"
-                                    href="#pablo"
-                                    onClick={() => handleGetEmployeeById(emp.idE)}
-                                  >
-                                    <i className="fas fa-eye"></i> Afficher
-                                  </DropdownItem>
-                                  <DropdownItem
-                                    className="modern-dropdown-action"
-                                    onClick={() => {
-                                      setEditModalShow(true)
-                                      setEditemp(emp)
-                                    }}
-                                  >
-                                    <i className="fas fa-edit"></i> Modifier
-                                  </DropdownItem>
-                                  <DropdownItem
-                                    className="modern-dropdown-action delete"
-                                    onClick={() => handleDeleteEmployee(emp.idE)}
-                                  >
-                                    <i className="fas fa-trash"></i> Supprimer
-                                  </DropdownItem>
-                                </DropdownMenu>
-                              </UncontrolledDropdown>
+                                  <i className="fas fa-eye"></i>
+                                </Button>
+
+                                {/* Bouton Modifier */}
+                                <Button
+                                  size="sm"
+                                  color="warning"
+                                  outline
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    e.nativeEvent.stopImmediatePropagation(); // ✅ FIX: Stop immédiat
+                                    setEditModalShow(true);
+                                    setEditemp(emp);
+                                  }}
+                                  title="Modifier l'employé"
+                                  style={{ 
+                                    padding: '6px 10px',
+                                    zIndex: 20,
+                                    position: 'relative'
+                                  }}
+                                >
+                                  <i className="fas fa-edit"></i>
+                                </Button>
+
+                                {/* Bouton Supprimer */}
+                                <Button
+                                  size="sm"
+                                  color="danger"
+                                  outline
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    e.nativeEvent.stopImmediatePropagation(); // ✅ FIX: Stop immédiat
+                                    handleDeleteEmployee(emp.idE);
+                                  }}
+                                  title="Supprimer l'employé"
+                                  style={{ 
+                                    padding: '6px 10px',
+                                    zIndex: 20,
+                                    position: 'relative'
+                                  }}
+                                >
+                                  <i className="fas fa-trash"></i>
+                                </Button>
+                              </div>
                             </td>
                           </tr>
                         ))
