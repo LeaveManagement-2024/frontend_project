@@ -388,7 +388,7 @@ const FormationsManagement = () => {
                               <div>
                                 <strong>{formation.employee?.firstName} {formation.employee?.lastName}</strong>
                                 <br />
-                                <small className="text-muted">ID: {formation.employee?.idE}</small>
+                               
                               </div>
                             </td>
                             <td>
@@ -425,7 +425,7 @@ const FormationsManagement = () => {
                                   <br />
                                   <small className="text-success">
                                     <i className="fas fa-euro-sign mr-1"></i>
-                                    {formation.cout} €
+                                    {formation.cout} 
                                   </small>
                                 </>
                               )}
@@ -514,7 +514,7 @@ const FormationsManagement = () => {
                       {Array.isArray(employees) && employees.length > 0 ? (
                         employees.map(emp => (
                           <option key={emp.idE || emp.id} value={emp.idE || emp.id}>
-                            {emp.firstName} {emp.lastName} (ID: {emp.idE || emp.id})
+                            {emp.firstName} {emp.lastName} 
                           </option>
                         ))
                       ) : (

@@ -43,6 +43,7 @@ const Employees = () => {
   const [modalShow, setModalShow] = useState(false)
   const [editModalShow, setEditModalShow] = useState(false)
   const [editemp, setEditemp] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
   // États pour l'import CSV
   const [importModalShow, setImportModalShow] = useState(false)
@@ -52,16 +53,21 @@ const Employees = () => {
   const [showImportResult, setShowImportResult] = useState(false)
   const fileInputRef = useRef(null)
 
+  // ✅ FIX 1: Supprimer la dépendance circulaire dans useEffect
   useEffect(() => {
     fetchAllEmployees()
-  }, [employees])
+  }, []) // Dépendance vide pour éviter la boucle infinie
 
   const fetchAllEmployees = async () => {
+    setIsLoading(true)
     try {
       const data = await getAllEmployees()
       setEmployees(data)
     } catch (error) {
       console.error("Erreur lors de la récupération des employés:", error)
+      setMessage("Erreur lors du chargement des employés")
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -71,6 +77,7 @@ const Employees = () => {
       setMessage(response.message)
     } catch (error) {
       console.error("Erreur de connexion:", error)
+      setMessage("Erreur de connexion")
     }
   }
 
@@ -84,16 +91,23 @@ const Employees = () => {
       setEmployee(data)
     } catch (error) {
       console.error("Erreur lors de la récupération de l'employé:", error)
+      setMessage("Erreur lors de la récupération de l'employé")
     }
   }
 
   const handleDeleteEmployee = async (idE) => {
+    if (!window.confirm("Êtes-vous sûr de vouloir supprimer cet employé ?")) {
+      return
+    }
+    
     try {
       await deleteEmployee(idE)
       setMessage("L'employé a été supprimé avec succès")
-      fetchAllEmployees()
+      // ✅ FIX 2: Recharger la liste après suppression
+      await fetchAllEmployees()
     } catch (error) {
       console.error("Erreur lors de la suppression de l'employé:", error)
+      setMessage("Erreur lors de la suppression de l'employé")
     }
   }
 
@@ -171,12 +185,33 @@ Fatima,El Amrani,fatima.elamrani@company.com,password456,0623456789,PPR002,CIN00
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)
+    
+    // ✅ FIX 3: Nettoyer l'URL après téléchargement
+    URL.revokeObjectURL(url)
   }
 
+  // ✅ FIX 4: Gérer la pagination avec des données vides
+  const totalPages = Math.ceil(employees.length / itemsPerPage)
   const indexOfLastItem = currentPage * itemsPerPage
   const indexOfFirstItem = indexOfLastItem - itemsPerPage
   const currentItems = employees.slice(indexOfFirstItem, indexOfLastItem)
-  const paginate = (pageNumber) => setCurrentPage(pageNumber)
+  
+  const paginate = (pageNumber) => {
+    if (pageNumber >= 1 && pageNumber <= totalPages) {
+      setCurrentPage(pageNumber)
+    }
+  }
+
+  // ✅ FIX 5: Callback pour recharger après ajout/modification
+  const handleModalClose = () => {
+    setModalShow(false)
+    fetchAllEmployees() // Recharger la liste
+  }
+
+  const handleEditModalClose = () => {
+    setEditModalShow(false)
+    fetchAllEmployees() // Recharger la liste
+  }
 
   return (
     <>
@@ -194,33 +229,47 @@ Fatima,El Amrani,fatima.elamrani@company.com,password456,0623456789,PPR002,CIN00
                         <h3 className="header-title">Gestion des Employés</h3>
                         <p className="header-subtitle">Gérez votre équipe et les informations des employés</p>
                       </div>
-                    </div>
-                  </div> 
-                  <div className="header-actions">
-                    <div className="stats-summary">
-                      <div className="stat-item">
-                        <span className="stat-number">{employees.length}</span>
-                        <span className="stat-label">Employés</span>
+                      <div className="header-actions">
+                      <div className="stats-summary">
+                        <div className="stat-item">
+                          <span className="stat-number">{employees.length}</span>
+                          <span className="stat-label">Employés</span>
+                        </div>
                       </div>
+                      <div></div>
+                      <Button 
+                        className="modern-import-button mr-10" 
+                        color="info"
+                        onClick={() => setImportModalShow(true)}
+                        style={{ marginRight: '10px' }}
+                      >
+                        <i className="fas fa-file-upload"></i>
+                        Importer CSV
+                      </Button>
+                      <Button className="modern-add-button" onClick={() => setModalShow(true)}>
+                        <i className="fas fa-user-plus"></i>
+                        Nouvel employé
+                      </Button>
                     </div>
-                  </div>
-                  <div className="button-group">
+                    </div>
                     
-                    <Button className="modern-add-button" onClick={() => setModalShow(true)}>
-                      <i className="fas fa-user-plus"></i>
-                      Nouvel employé
-                    </Button>
-                  </div>
-                  <Button 
-                      className="modern-import-button" 
-                      color="info"
-                      onClick={() => setImportModalShow(true)}
-                      style={{ marginRight: '10px' }}
-                    >
-                      <i className="fas fa-file-upload"></i>
-                      Importer CSV
-                    </Button>
+                    {/* ✅ FIX 6: Réorganiser les boutons dans la même div */}
+                    
+                      
+                    </div>
+                  
                 </CardHeader>
+
+                {/* ✅ FIX 7: Affichage des messages d'erreur/succès */}
+                {message && (
+                  <Alert 
+                    color={message.includes("succès") ? "success" : "danger"} 
+                    className="mx-3 mt-3"
+                    toggle={() => setMessage("")}
+                  >
+                    {message}
+                  </Alert>
+                )}
 
                 <div className="modern-table-container">
                   <Table className="modern-employees-table" responsive>
@@ -235,7 +284,18 @@ Fatima,El Amrani,fatima.elamrani@company.com,password456,0623456789,PPR002,CIN00
                       </tr>
                     </thead>
                     <tbody className="modern-table-body">
-                      {currentItems.length > 0 ? (
+                      {isLoading ? (
+                        <tr>
+                          <td colSpan="6" className="loading-cell">
+                            <div className="loading-content">
+                              <div className="loading-spinner">
+                                <div className="spinner-ring"></div>
+                              </div>
+                              <span>Chargement des employés...</span>
+                            </div>
+                          </td>
+                        </tr>
+                      ) : currentItems.length > 0 ? (
                         currentItems.map((emp, index) => (
                           <tr key={emp.idE} className="modern-table-row" style={{ animationDelay: `${index * 0.05}s` }}>
                             <td className="employee-info-cell">
@@ -245,6 +305,9 @@ Fatima,El Amrani,fatima.elamrani@company.com,password456,0623456789,PPR002,CIN00
                                     className="employee-avatar"
                                     alt={`${emp.firstName} ${emp.lastName}`}
                                     src={emp.image || "https://www.w3schools.com/howto/img_avatar.png"}
+                                    onError={(e) => {
+                                      e.target.src = "https://www.w3schools.com/howto/img_avatar.png"
+                                    }}
                                   />
                                   <div className="avatar-status"></div>
                                 </div>
@@ -258,23 +321,23 @@ Fatima,El Amrani,fatima.elamrani@company.com,password456,0623456789,PPR002,CIN00
                             </td>
                             <td>
                               <div className="info-cell">
-                                <span className="info-badge">{emp.cin}</span>
+                                <span className="info-badge">{emp.cin || 'N/A'}</span>
                               </div>
                             </td>
                             <td>
                               <div className="info-cell">
-                                <span className="email-text">{emp.email}</span>
+                                <span className="email-text">{emp.email || 'N/A'}</span>
                               </div>
                             </td>
                             <td>
                               <div className="info-cell">
-                                <span className="phone-text">{emp.phone}</span>
+                                <span className="phone-text">{emp.phone || 'N/A'}</span>
                               </div>
                             </td>
                             <td>
                               <div className="info-cell">
                                 <span className="address-text" title={emp.address}>
-                                  {emp.address?.length > 30 ? `${emp.address.substring(0, 30)}...` : emp.address}
+                                  {emp.address?.length > 30 ? `${emp.address.substring(0, 30)}...` : emp.address || 'N/A'}
                                 </span>
                               </div>
                             </td>
@@ -320,12 +383,11 @@ Fatima,El Amrani,fatima.elamrani@company.com,password456,0623456789,PPR002,CIN00
                         ))
                       ) : (
                         <tr>
-                          <td colSpan="6" className="loading-cell">
-                            <div className="loading-content">
-                              <div className="loading-spinner">
-                                <div className="spinner-ring"></div>
-                              </div>
-                              <span>Chargement des employés...</span>
+                          <td colSpan="6" className="text-center py-4">
+                            <div className="no-data-message">
+                              <i className="fas fa-users fa-3x text-muted mb-3"></i>
+                              <h5 className="text-muted">Aucun employé trouvé</h5>
+                              <p className="text-muted">Commencez par ajouter des employés à votre équipe</p>
                             </div>
                           </td>
                         </tr>
@@ -334,57 +396,58 @@ Fatima,El Amrani,fatima.elamrani@company.com,password456,0623456789,PPR002,CIN00
                   </Table>
                 </div>
 
-                <CardFooter className="modern-card-footer">
-                  <div className="pagination-info">
-                    Affichage de {indexOfFirstItem + 1} à {Math.min(indexOfLastItem, employees.length)} sur{" "}
-                    {employees.length} employés
-                  </div>
-                  <nav aria-label="...">
-                    <Pagination className="modern-pagination">
-                      <PaginationItem className={currentPage === 1 ? "disabled" : ""}>
-                        <PaginationLink
-                          className="modern-pagination-link"
-                          href="#pablo"
-                          onClick={(e) => {
-                            e.preventDefault()
-                            paginate(currentPage - 1)
-                          }}
-                          tabIndex="-1"
-                        >
-                          <i className="fas fa-chevron-left" />
-                        </PaginationLink>
-                      </PaginationItem>
-                      {Array.from({ length: Math.ceil(employees.length / itemsPerPage) }, (_, i) => (
-                        <PaginationItem key={i + 1} className={currentPage === i + 1 ? "active" : ""}>
+                {/* ✅ FIX 8: Afficher la pagination seulement s'il y a des données */}
+                {employees.length > 0 && (
+                  <CardFooter className="modern-card-footer">
+                    <div className="pagination-info">
+                      Affichage de {indexOfFirstItem + 1} à {Math.min(indexOfLastItem, employees.length)} sur{" "}
+                      {employees.length} employés
+                    </div>
+                    <nav aria-label="...">
+                      <Pagination className="modern-pagination">
+                        <PaginationItem className={currentPage === 1 ? "disabled" : ""}>
                           <PaginationLink
                             className="modern-pagination-link"
                             href="#pablo"
                             onClick={(e) => {
                               e.preventDefault()
-                              paginate(i + 1)
+                              if (currentPage > 1) paginate(currentPage - 1)
                             }}
+                            tabIndex="-1"
                           >
-                            {i + 1}
+                            <i className="fas fa-chevron-left" />
                           </PaginationLink>
                         </PaginationItem>
-                      ))}
-                      <PaginationItem
-                        className={currentPage === Math.ceil(employees.length / itemsPerPage) ? "disabled" : ""}
-                      >
-                        <PaginationLink
-                          className="modern-pagination-link"
-                          href="#pablo"
-                          onClick={(e) => {
-                            e.preventDefault()
-                            paginate(currentPage + 1)
-                          }}
-                        >
-                          <i className="fas fa-chevron-right" />
-                        </PaginationLink>
-                      </PaginationItem>
-                    </Pagination>
-                  </nav>
-                </CardFooter>
+                        {Array.from({ length: totalPages }, (_, i) => (
+                          <PaginationItem key={i + 1} className={currentPage === i + 1 ? "active" : ""}>
+                            <PaginationLink
+                              className="modern-pagination-link"
+                              href="#pablo"
+                              onClick={(e) => {
+                                e.preventDefault()
+                                paginate(i + 1)
+                              }}
+                            >
+                              {i + 1}
+                            </PaginationLink>
+                          </PaginationItem>
+                        ))}
+                        <PaginationItem className={currentPage === totalPages ? "disabled" : ""}>
+                          <PaginationLink
+                            className="modern-pagination-link"
+                            href="#pablo"
+                            onClick={(e) => {
+                              e.preventDefault()
+                              if (currentPage < totalPages) paginate(currentPage + 1)
+                            }}
+                          >
+                            <i className="fas fa-chevron-right" />
+                          </PaginationLink>
+                        </PaginationItem>
+                      </Pagination>
+                    </nav>
+                  </CardFooter>
+                )}
               </Card>
             </div>
           </Row>
@@ -543,8 +606,18 @@ Fatima,El Amrani,fatima.elamrani@company.com,password456,0623456789,PPR002,CIN00
             </ModalFooter>
           </Modal>
 
-          <AddEmployeeModal show={modalShow} onHide={() => setModalShow(false)} />
-          <EditEmployeeModal show={editModalShow} empl={editemp} onHide={() => setEditModalShow(false)} />
+          {/* ✅ FIX 9: Passer les callbacks de fermeture aux modals */}
+          <AddEmployeeModal 
+            show={modalShow} 
+            onHide={handleModalClose}
+            onSuccess={fetchAllEmployees} // Callback pour recharger après ajout
+          />
+          <EditEmployeeModal 
+            show={editModalShow} 
+            empl={editemp} 
+            onHide={handleEditModalClose}
+            onSuccess={fetchAllEmployees} // Callback pour recharger après modification
+          />
         </Container>
       </div>
     </>

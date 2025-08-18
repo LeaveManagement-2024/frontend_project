@@ -27,7 +27,7 @@ const AddLeaveModal = ({ onHide, onSuccess, ...props }) => {
   const [leaveTypeId, setLeaveTypeId] = useState("")
   const [replacementId, setReplacementId] = useState("")
   const [lmanagerId, setLmanagerId] = useState("")
-  const [responsible, setResponsible] = useState("")
+
   const [employeeId, setEmployeeId] = useState("")
 
   const userId = Number.parseInt(localStorage.getItem("userId"))
@@ -54,7 +54,7 @@ const AddLeaveModal = ({ onHide, onSuccess, ...props }) => {
     setLeaveTypeId("")
     setReplacementId("")
     setLmanagerId("")
-    setResponsible("")
+
     setEmployeeId("")
     setErrors({})
   }
@@ -74,7 +74,7 @@ const AddLeaveModal = ({ onHide, onSuccess, ...props }) => {
 
     if (!leaveTypeId) tempErrors.leaveTypeId = "Veuillez sélectionner le type de congé"
     if (!replacementId) tempErrors.replacementId = "Veuillez sélectionner le remplaçant"
-    if (!responsible) tempErrors.responsible = "Veuillez sélectionner le responsable"
+
     if (!lmanagerId) tempErrors.lmanagerId = "Veuillez sélectionner le manager"
     if (!employeeId) tempErrors.employeeId = "Veuillez sélectionner l'employé"
     if (!annualLeaveId) tempErrors.annualLeaveId = "Veuillez sélectionner l'année administrative"
@@ -95,7 +95,7 @@ const AddLeaveModal = ({ onHide, onSuccess, ...props }) => {
         leaveTypeId,
         replacementId,
         lmanagerId,
-        responsible,
+ 
       }
       await axios.post("http://localhost:8093/leave/save", payload)
       resetForm()
@@ -110,7 +110,7 @@ const AddLeaveModal = ({ onHide, onSuccess, ...props }) => {
         leaveTypeId,
         replacementId,
         lmanagerId,
-        responsible,
+
       }
       console.error("Erreur lors de l'ajout du congé :", error)
       console.error("Erreur lors de l'ajout du congé :", payload)
